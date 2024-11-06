@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
    <title>Login & Signup Form</title>
-    <link rel="stylesheet" href="style2.css" />
+   <link rel="stylesheet" href="{{ asset('assets/css/style2.css') }}" />
+
   </head>
   <body>
     <!-- <h2 class="welcome-message">Selamat datang di Bimbel Hokya</h2> -->

@@ -34,16 +34,13 @@ class UserController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        // Simpan pengguna baru
+        // Simpan pengguna baru tanpa verifikasi email
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        // Trigger event Registered untuk mengirimkan email verifikasi
-        event(new Registered($user));
-
-        return redirect()->route('login')->with('status', 'Please check your email to verify your account.');
+        return redirect()->route('login')->with('status', 'Registration successful. You can now log in.');
     }
 }
