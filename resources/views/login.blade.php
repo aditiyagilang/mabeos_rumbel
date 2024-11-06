@@ -15,13 +15,12 @@
       <div class="form signup">
         <header>Signup</header>
         <form action="#">
-          <input type="text" placeholder="Full name" required />
-          <input type="text" placeholder="Email address" required />
+          <input type="text" placeholder="Username" required />
+          <input type="text" placeholder="Fullname" required />
+          <input type="password" placeholder="Email" required />
+          <input type="date" placeholder="Tanggal lahir" required />
+          <input type="text" placeholder="No Hp" required />
           <input type="password" placeholder="Password" required />
-          <div class="checkbox">
-            <input type="checkbox" id="signupCheck" />
-            <label for="signupCheck">I accept all terms & conditions</label>
-          </div>
           <input type="submit" value="Signup" />
         </form>
       </div>
@@ -31,22 +30,42 @@
         <form action="#">
           <input type="text" placeholder="Email address" required />
           <input type="password" placeholder="Password" required />
-          <a href="#">Forgot password?</a>
           <input type="submit" value="Login" />
         </form>
       </div>
 
       <script>
         const wrapper = document.querySelector(".wrapper"),
-          signupHeader = document.querySelector(".signup header"),
-          loginHeader = document.querySelector(".login header");
+        signupHeader = document.querySelector(".signup header"),
+        loginHeader = document.querySelector(".login header"),
+        signupButton = document.querySelector(".signup input[type='submit']"),
+        loginButton = document.querySelector(".login input[type='submit']");
 
         loginHeader.addEventListener("click", () => {
-          wrapper.classList.add("active");
+        wrapper.classList.add("active");
         });
+
         signupHeader.addEventListener("click", () => {
-          wrapper.classList.remove("active");
+        wrapper.classList.remove("active");
         });
+
+        // Menambahkan event listener untuk tombol
+        signupButton.addEventListener("mousedown", () => {
+        signupButton.classList.add("active-button");
+        });
+
+        signupButton.addEventListener("mouseup", () => {
+        signupButton.classList.remove("active-button");
+        });
+
+        loginButton.addEventListener("mousedown", () => {
+        loginButton.classList.add("active-button");
+        });
+
+        loginButton.addEventListener("mouseup", () => {
+        loginButton.classList.remove("active-button");
+        });
+
       </script>
     </section>
   </body>

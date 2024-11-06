@@ -5,207 +5,193 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins",
-    sans-serif;
+  font-family: "Poppins", sans-serif;
 }
+
 body {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #3a5e97, #61bae3);
-  }
-  .wrapper {
-    position: relative;
-    max-width: 470px;
-    width: 100%;
-    border-radius: 12px;
-    padding: 20px 30px 120px;
-    background: #4070f4;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    margin: 0 15px;
-  }
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #3a5e97, #35abe2);
+  padding: 20px; /* Tambahkan padding pada body untuk layar lebih kecil */
+}
+
+.wrapper {
+  position: relative;
+  max-width: 470px;
+  width: 100%;
+  border-radius: 12px;
+  padding: 20px 30px 120px;
+  background: #3fb6e2;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin: 0 15px;
+}
+
 .form.login {
   position: absolute;
   left: 50%;
   bottom: -86%;
-  transform: translateX(
-    -50%
-  );
-  width: calc(
-    100% +
-      220px
-  );
-  padding: 20px
-    140px;
+  transform: translateX(-50%);
+  width: calc(100% + 220px);
+  padding: 20px 140px;
   border-radius: 50%;
   height: 100%;
   background: #fff;
-  transition: all
-    0.6s
-    ease;
+  transition: all 0.6s ease;
 }
-.wrapper.active
-  .form.login {
+
+.wrapper.active .form.login {
   bottom: -15%;
   border-radius: 35%;
-  box-shadow: 0 -5px
-    10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.1);
 }
-.form
-  header {
+
+.form header {
   font-size: 30px;
   text-align: center;
   color: #fff;
   font-weight: 600;
   cursor: pointer;
 }
-.form.login
-  header {
+
+.form.login header {
   color: #333;
   opacity: 0.6;
 }
-.wrapper.active
-  .form.login
-  header {
+
+.wrapper.active .form.login header {
   opacity: 1;
 }
-.wrapper.active
-  .signup
-  header {
+
+.wrapper.active .signup header {
   opacity: 0.6;
 }
-.wrapper
-  form {
+
+.wrapper form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
   margin-top: 40px;
 }
-form
-  input {
-  height: 60px;
+
+form input {
+  height: 50px;
   outline: none;
   border: none;
-  padding: 0
-    15px;
+  padding: 0 15px;
   font-size: 16px;
   font-weight: 400;
   color: #333;
   border-radius: 8px;
   background: #fff;
 }
-.form.login
-  input {
-  border: 1px
-    solid
-    #aaa;
+
+.form.login input {
+  border: 1px solid #aaa;
 }
-.form.login
-  input:focus {
-  box-shadow: 0
-    1px 0
-    #ddd;
+
+.form.login input:focus {
+  box-shadow: 0 1px 0 #ddd;
 }
-form
-  .checkbox {
+
+form .checkbox {
   display: flex;
   align-items: center;
   gap: 10px;
 }
-.checkbox
-  input[type="checkbox"] {
+
+.checkbox input[type="checkbox"] {
   height: 16px;
   width: 16px;
   accent-color: #fff;
   cursor: pointer;
 }
-form
-  .checkbox
-  label {
+
+form .checkbox label {
   cursor: pointer;
   color: #fff;
 }
+
 form a {
   color: #333;
   text-decoration: none;
 }
-form
-  a:hover {
+
+form a:hover {
   text-decoration: underline;
 }
-form
-  input[type="submit"] {
+
+form input[type="submit"] {
   margin-top: 15px;
-  padding: none;
   font-size: 18px;
   font-weight: 500;
   cursor: pointer;
 }
-.form.login
-  input[type="submit"] {
-  background: #4070f4;
+
+.form.login input[type="submit"] {
+  background: #3fb6e2;
   color: #fff;
   border: none;
 }
+
+input[type="submit"].active-button {
+  background-color: #1671d3;
+  color: #fff;
+}
+
+/* Responsive adjustments */
 @media (max-width: 768px) {
-    .wrapper {
-      max-width: 90%;
-      padding: 20px 20px 100px;
-    }
-
-    .form.login {
-      width: calc(100% + 150px);
-      padding: 20px 60px;
-    }
+  .wrapper {
+    max-width: 100%;
+    padding: 15px 20px 80px; /* Sesuaikan padding */
   }
-
-  /* Phablet - max-width 576px */
-  @media (max-width: 576px) {
-    .wrapper {
-      max-width: 100%;
-      padding: 20px 15px 80px;
-      margin: 0 15px;
-    }
-
-    .form.login {
-      width: calc(100% + 100px);
-      padding: 20px 50px;
-    }
-
-    .form header {
-      font-size: 26px; /* Mengurangi ukuran teks header */
-    }
-
-    form input {
-      height: 55px; /* Mengurangi tinggi input */
-      font-size: 15px; /* Mengurangi ukuran font input */
-    }
+  .form.login {
+    width: calc(100% + 150px);
+    padding: 20px 60px;
   }
+}
 
-  /* Ponsel kecil - max-width 400px */
-  @media (max-width: 400px) {
-    .wrapper {
-      padding: 15px 10px 70px;
-      margin: 0 10px;
-    }
-
-    .form.login {
-      width: calc(100% + 80px);
-      padding: 15px 30px;
-    }
-
-    .form header {
-      font-size: 22px; /* Ukuran teks lebih kecil untuk ponsel kecil */
-    }
-
-    form input {
-      height: 50px;
-      font-size: 14px;
-    }
-
-    form input[type="submit"] {
-      font-size: 16px; /* Ukuran tombol submit lebih kecil */
-    }
+@media (max-width: 576px) {
+  .wrapper {
+    padding: 10px 15px 60px;
   }
+  .form.login {
+    width: calc(100% + 100px);
+    padding: 20px 40px;
+  }
+  .form header {
+    font-size: 24px;
+  }
+  form input {
+    height: 45px;
+    font-size: 15px;
+  }
+}
+
+/* Ponsel kecil - max-width 400px */
+@media (max-width: 400px) {
+  .wrapper {
+    padding: 10px 10px 50px;
+  }
+  .form.login {
+    width: calc(100% + 80px);
+    padding: 15px 20px;
+  }
+  .form header {
+    font-size: 22px;
+  }
+  form input {
+    height: 40px;
+    font-size: 14px;
+  }
+  .form.login input {
+    border: 1px solid #aaa;
+    width: 230px;
+    margin-left: 30px;
+  }
+  form input[type="submit"] {
+    font-size: 16px;
+  }
+}
