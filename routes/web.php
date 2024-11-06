@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('login');
 });
 
 Route::get('register', [UserController::class, 'create'])->name('register');
@@ -21,5 +21,5 @@ Route::post('/email/resend', [EmailVerificationController::class, 'resend'])
     Route::get('types/{hash}/edit', [TypeController::class, 'edit'])->name('types.edit');
     Route::put('types/{hash}', [TypeController::class, 'update'])->name('types.update');
     Route::delete('types/{hash}', [TypeController::class, 'destroy'])->name('types.destroy');
-    
+
 
