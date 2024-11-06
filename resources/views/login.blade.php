@@ -14,23 +14,35 @@
     <section class="wrapper">
       <div class="form signup">
         <header>Signup</header>
-        <form action="#">
-          <input type="text" placeholder="Username" required />
-          <input type="text" placeholder="Fullname" required />
-          <input type="password" placeholder="Email" required />
-          <input type="date" placeholder="Tanggal lahir" required />
-          <input type="text" placeholder="No Hp" required />
-          <input type="password" placeholder="Password" required />
-          <input type="submit" value="Signup" />
+        <div class="container" style="height:30px"></div>
+        <form action="{{ route('register') }}" method="POST">
+            @csrf
+            <input type="text" name="username" placeholder="Username" required />
+            <input type="text" name="name" placeholder="Fullname" required />
+            <input type="email" name="email" placeholder="Email" required />
+            <input type="date" name="birthdate" placeholder="Tanggal Lahir" required />
+            <input type="text" name="telp" placeholder="No Hp" required />
+            <input type="password" name="password" placeholder="Password" required />
+            <input type="password" name="password_confirmation" placeholder="Confirm Password" required />
+            <input type="submit" value="Signup" />
         </form>
+
       </div>
 
       <div class="form login">
         <header>Login</header>
-        <form action="#">
-          <input type="text" placeholder="Email address" required />
-          <input type="password" placeholder="Password" required />
-          <input type="submit" value="Login" />
+        <form action="{{ route('login') }}" method="POST">
+            @csrf
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="submit" value="Login">
+            @if ($errors->any())
+                <div>
+                    @foreach ($errors->all() as $error)
+                        <p>{{ $error }}</p>
+                    @endforeach
+                </div>
+            @endif
         </form>
       </div>
 

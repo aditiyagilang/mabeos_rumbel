@@ -1,13 +1,18 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('login');
 });
 
-Route::get('register', [UserController::class, 'create'])->name('register');
-Route::post('register', [UserController::class, 'store']);
+Route::get('/register', [UserController::class, 'create'])->name('register');
+Route::post('/register', [UserController::class, 'store'])->name('register.store');
+Route::get('/login', [UserController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [UserController::class, 'login']);
+Route::post('/logout', [UserController::class, 'logout'])->name('logout');
+
 Route::get('/email/verify', function () {
     return view('auth.verify-email');
 })->middleware('auth')->name('verification.notice');
