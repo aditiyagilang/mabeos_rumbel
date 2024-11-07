@@ -22,4 +22,21 @@ Route::post('/email/resend', [EmailVerificationController::class, 'resend'])
     Route::put('types/{hash}', [TypeController::class, 'update'])->name('types.update');
     Route::delete('types/{hash}', [TypeController::class, 'destroy'])->name('types.destroy');
 
-
+Route::get('/tabel-skor', function () {
+    return view('tabel-skor');
+});
+Route::get('/tabel-tipe', function () {
+    return view('tabel-tipe');
+});
+Route::get('/tabel-pertanyaan', function () {
+    return view('tabel-pertanyaan');
+});
+Route::get('/tabel-kuis', function () {
+    return view('tabel-kuis');
+});
+Route::get('/tabel-detail-kuis', function () {
+    return view('tabel-detail-kuis');
+});
+Route::get('/tes', function () {
+    return view('tes');
+});
