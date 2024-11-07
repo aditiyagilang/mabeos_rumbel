@@ -39,7 +39,9 @@ class UserController extends Controller
         if (Auth::attempt($credentials)) {
             // Jika autentikasi berhasil
             $request->session()->regenerate();
-            return redirect()->intended('dashboard')->with('status', 'Login successful!');
+            session(['users_id' => Auth::id()]);
+            return redirect()->route('types.index')->with('status', 'Login successful!');
+
         }
 
         // Jika gagal

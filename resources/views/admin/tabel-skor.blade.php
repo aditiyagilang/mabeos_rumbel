@@ -67,75 +67,7 @@
                 </div>
             </nav>
         </header>
-        <aside class="left-sidebar" data-sidebarbg="skin6">
-            <!-- Sidebar scroll-->
-            <div class="scroll-sidebar">
-                <!-- Sidebar navigation-->
-                <nav class="sidebar-nav">
-                    <ul id="sidebarnav">
-                        <!-- User Profile-->
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="index.html" aria-expanded="false"><i class="mdi me-2 mdi-gauge"></i><span
-                                    class="hide-menu">Dashboard</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="pages-profile.html" aria-expanded="false">
-                                <i class="mdi me-2 mdi-account-check"></i><span class="hide-menu">Profile</span></a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
-                                <i class="mdi me-2 mdi-table"></i>
-                                <span class="hide-menu">Tabel</span>
-                            </a>
-                            <ul aria-expanded="false" class="collapse first-level">
-                                <li class="sidebar-item">
-                                    <a href="/tabel-tipe" class="sidebar-link">
-                                        <i class="mdi mdi-table-large"></i>
-                                        <span class="hide-menu">Tabel Tipe</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="/tabel-kuis" class="sidebar-link">
-                                        <i class="mdi mdi-table-large"></i>
-                                        <span class="hide-menu">Tabel Kuis</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="/tabel-pertanyaan" class="sidebar-link">
-                                        <i class="mdi mdi-table-large"></i>
-                                        <span class="hide-menu">Tabel Pertanyaan</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="/tabel-skor" class="sidebar-link">
-                                        <i class="mdi mdi-table-large"></i>
-                                        <span class="hide-menu">Tabel Skor</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-
-                </nav>
-                <!-- End Sidebar navigation -->
-            </div>
-            <!-- End Sidebar scroll-->
-            <div class="sidebar-footer">
-                <div class="row">
-                    <div class="col-4 link-wrap">
-                        <a href="" class="link" data-toggle="tooltip" title="" data-original-title="Settings"><i
-                                class="ti-settings"></i></a>
-                    </div>
-                    <div class="col-4 link-wrap">
-                        <a href="" class="link" data-toggle="tooltip" title="" data-original-title="Email"><i
-                                class="mdi mdi-gmail"></i></a>
-                    </div>
-                    <div class="col-4 link-wrap">
-                        <a href="" class="link" data-toggle="tooltip" title="" data-original-title="Logout"><i
-                                class="mdi mdi-power"></i></a>
-                    </div>
-                </div>
-            </div>
-        </aside>
+        @include('admin.sidebar')
         <div class="page-wrapper">
             <div class="page-breadcrumb">
                 <div class="row align-items-center">
@@ -157,10 +89,10 @@
                     <div class="col-sm-12">
                         <div class="card">
                             <div class="card-body">
-                                <div class="d-flex justify-content-between align-items-center">
+                                <!-- <div class="d-flex justify-content-between align-items-center">
                                     <h4 class="card-title">Tabel Skor</h4>
                                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">Tambah</button>
-                                </div>
+                                </div> -->
                                 <div class="table-responsive mt-3">
                                     <table class="table table-bordered table-hover table-striped user-table">
                                         <thead class="table-dark">
@@ -174,32 +106,34 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Deshmukh</td>
-                                                <td>Prohaska</td>
-                                                <td>@Genelia</td>
-                                                <td>100</td>
-                                                <td>
-                                                    <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editUserModal">Ubah</button>
-                                                    <button class="btn btn-danger">Hapus</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>Deshmukh</td>
-                                                <td>Gaylord</td>
-                                                <td>@Ritesh</td>
-                                                <td>90</td>
-                                                <td>
-                                                    <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editUserModal">Ubah</button>
-                                                    <button class="btn btn-danger">Hapus</button>
-                                                </td>
-                                            </tr>
-                                            <!-- Tambahkan baris tambahan sesuai kebutuhan -->
+                                            @foreach ($scores as $index => $score)
+                                                <tr>
+                                                    <td>{{ $index + 1 }}</td>
+                                                    <td>{{ $score->user->name }}</td> <!-- Nama pengguna -->
+                                                    <td>{{ $score->quiz->quizs_name }}</td> <!-- Nama quiz -->
+                                                    <td>{{ $score->quiz->token }}</td> <!-- Token pengguna -->
+                                                    <td>{{ $score->score }}</td> <!-- Skor -->
+                                                    <td>
+                                                    <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editUserModal"
+                                                        data-id="{{ $score->scores_id }}"
+                                                        data-siswa="{{ $score->user->name }}"
+                                                        data-kuis="{{ $score->quiz->quizs_name }}"
+                                                        data-token="{{ $score->quiz->token }}"
+                                                        data-skor="{{ $score->score }}">
+                                                        Ubah
+                                                    </button>
+                                                        <form action="{{ route('scores.destroy', $score->scores_id) }}" method="POST" style="display:inline;">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-danger">Hapus</button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -253,16 +187,16 @@
                         <div class="modal-body">
                             <form id="editUserForm">
                                 <div class="mb-3">
-                                    <label for="editSiswaName" class="form-label">Nama Siswa</label>
-                                    <input type="text" class="form-control" id="editSiswaName" required>
+                                    <label for="editSiswaName" class="form-label" >Nama Siswa</label>
+                                    <input type="text" class="form-control" id="editSiswaName"disabled required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="editKuisName" class="form-label">Nama Kuis</label>
-                                    <input type="text" class="form-control" id="editKuisName" required>
+                                    <input type="text" class="form-control" id="editKuisName"disabled required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="editToken" class="form-label">Token</label>
-                                    <input type="text" class="form-control" id="editToken" required>
+                                    <input type="text" class="form-control" id="editToken" disabled required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="editSkor" class="form-label">Skor</label>
@@ -293,6 +227,59 @@
     <script src="{{ 'assets/js/sidebarmenu.js' }}"></script>
     <!--Custom JavaScript -->
     <script src="{{ 'assets/js/custom.js' }}"></script>
+    <script>
+    // Menangani event ketika tombol "Ubah" di klik
+    $('#editUserModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget); // Tombol yang diklik
+        var siswaName = button.data('siswa'); // Mengambil nama siswa
+        var kuisName = button.data('kuis'); // Mengambil nama kuis
+        var token = button.data('token'); // Mengambil token
+        var skor = button.data('skor'); // Mengambil skor
+        var scoreId = button.data('id'); // Mengambil ID skor
+
+        // Mengisi field di dalam modal dengan data yang diambil
+        var modal = $(this);
+        modal.find('#editSiswaName').val(siswaName);
+        modal.find('#editKuisName').val(kuisName);
+        modal.find('#editToken').val(token);
+        modal.find('#editSkor').val(skor);
+
+        // Menyimpan ID skor untuk referensi saat mengupdate
+        modal.find('#editUserForm').data('id', scoreId);
+    });
+
+    // Menangani klik tombol Simpan
+    $('.btn-primary').on('click', function() {
+        var modal = $('#editUserModal');
+        var scoreId = modal.find('#editUserForm').data('id');
+        var siswaName = modal.find('#editSiswaName').val();
+        var kuisName = modal.find('#editKuisName').val();
+        var token = modal.find('#editToken').val();
+        var skor = modal.find('#editSkor').val();
+
+        // Kirim data ke server untuk memperbarui skor
+        $.ajax({
+            url: '/scores/' + scoreId, // URL untuk update skor
+            type: 'PUT',
+            data: {
+                _token: '{{ csrf_token() }}',
+                siswa_name: siswaName,
+                kuis_name: kuisName,
+                token: token,
+                skor: skor
+            },
+            success: function(response) {
+                // Menutup modal setelah berhasil memperbarui data
+                modal.modal('hide');
+                location.reload(); // Refresh halaman untuk menampilkan data yang baru
+            },
+            error: function(error) {
+                alert('Terjadi kesalahan!');
+            }
+        });
+    });
+</script>
+
 </body>
 
 </html>
