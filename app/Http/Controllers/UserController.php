@@ -7,9 +7,56 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Auth;
+
 
 class UserController extends Controller
 {
+
+
+    public function showLoginForm()
+    {
+        return view('auth.login'); // Pastikan ada form login di view ini
+    }
+
+    /**
+     * Menangani proses login.
+     */
+    public function login(Request $request)
+    {
+        // Validasi input
+        $validator = Validator::make($request->all(), [
+            'username' => 'required|string|max:255',
+            'password' => 'required|string|min:8',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        // Cek kredensial menggunakan username dan password
+        $credentials = $request->only('username', 'password');
+        if (Auth::attempt($credentials)) {
+            // Jika autentikasi berhasil
+            $request->session()->regenerate();
+            return redirect()->intended('dashboard')->with('status', 'Login successful!');
+        }
+
+        // Jika gagal
+        return redirect()->back()->withErrors(['username' => 'These credentials do not match our records.'])->withInput();
+    }
+
+    /**
+     * Menangani proses logout.
+     */
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/login')->with('status', 'You have been logged out.');
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -25,25 +72,31 @@ class UserController extends Controller
     {
         // Validasi data
         $validator = Validator::make($request->all(), [
+            'username' => 'required|string|max:255|unique:users',
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
+            'birthdate' => 'required|date',
+            'telp' => 'required|string|max:14',
             'password' => 'required|string|min:8|confirmed',
         ]);
-
+    
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-
-        // Simpan pengguna baru
+    
+        // Simpan pengguna baru tanpa verifikasi email
         $user = User::create([
+            'username' => $request->username,
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'birthdate' => $request->birthdate,
+            'telp' => $request->telp,
+            'img_url' => 'assets/images_default.png',
+            'password' => bcrypt($request->password),
         ]);
-
-        // Trigger event Registered untuk mengirimkan email verifikasi
-        event(new Registered($user));
-
-        return redirect()->route('login')->with('status', 'Please check your email to verify your account.');
+        // dd();
+    
+        return redirect()->route('login')->with('status', 'Registration successful. You can now log in.');
     }
+    
 }
