@@ -11,15 +11,15 @@ $(function () {
         $(".app-search").toggle(200);
     });
 
-    // ============================================================== 
+    // ==============================================================
     // Resize all elements
-    // ============================================================== 
+    // ==============================================================
     $("body, .page-wrapper").trigger("resize");
     $(".page-wrapper").delay(20).show();
 
     //****************************
     /* This is for the mini-sidebar if width is less then 1170*/
-    //**************************** 
+    //****************************
     var setsidebartype = function () {
         var width = (window.innerWidth > 0) ? window.innerWidth : this.screen.width;
         if (width < 1170) {
@@ -67,7 +67,7 @@ document.getElementById('openModal').addEventListener('click', function () {
     const selectedCheckboxes = document.querySelectorAll('.checkbox-item:checked');
     const selectedList = document.getElementById('selectedQuestionsList');
     const noSelectionMessage = document.getElementById('noSelectionMessage');
-    
+
     // Clear previous list
     selectedList.innerHTML = '';
 
@@ -84,3 +84,22 @@ document.getElementById('openModal').addEventListener('click', function () {
         });
     }
 });
+function confirmDelete() {
+    if (confirm("Apakah Anda yakin ingin menghapus data ini?")) {
+        // Lanjutkan proses penghapusan data di sini
+        alert("Data berhasil dihapus.");
+        // Atau tambahkan logika penghapusan di sini
+    } else {
+        // Jika dibatalkan
+        alert("Penghapusan data dibatalkan.");
+    }
+}
+
+function previewPhoto(event) {
+    const reader = new FileReader();
+    reader.onload = function() {
+        const output = document.getElementById('profilePhoto');
+        output.src = reader.result;
+    };
+    reader.readAsDataURL(event.target.files[0]);
+}

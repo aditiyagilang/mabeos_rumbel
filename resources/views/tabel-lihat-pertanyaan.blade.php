@@ -15,7 +15,6 @@
     <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link href="{{ 'assets/css/style.min.css' }}" rel="stylesheet">
 </head>
 
@@ -148,26 +147,21 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <h4 class="card-title">Tabel Kuis</h4>
+                                    <h4 class="card-title">Tabel Detail Pertanyaan</h4>
                                     <div class="d-flex align-items-center">
                                         <input type="text" class="form-control me-2" placeholder="Cari..." id="searchInput">
                                             <button class="btn btn-outline-secondary" onclick="searchFunction()">
                                                 <i class="bi bi-search"></i> <!-- Bootstrap Icons -->
                                             </button>
-                                        <button class="btn btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#addUserModal">Tambah</button>
+                                        <a href="/tabel-detail-kuis" class="btn btn-primary">Tambah</a>
                                     </div>
                                 </div>
                                 <div class="table-responsive mt-3">
                                     <table class="table table-bordered table-hover table-striped user-table">
                                         <thead class="table-dark">
                                             <tr>
-                                                <th>ID Kuis</th>
-                                                <th>Nama Tipe</th>
-                                                <th>Nama Kuis</th>
-                                                <th>Waktu Mulai</th>
-                                                <th>Waktu Selesai</th>
-                                                <th>Token</th>
-                                                <th>Status</th>
+                                                <th>ID Pertanyaan</th>
+                                                <th>Pertanyaan</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -175,29 +169,17 @@
                                             <tr>
                                                 <td>1</td>
                                                 <td>Prohaska</td>
-                                                <td>@Genelia</td>
-                                                <td>08.00</td>
-                                                <td>10.00</td>
-                                                <td>hokya</td>
-                                                <td>selesai</td>
                                                 <td>
                                                     <button class="btn btn-info me-2 mt-2" data-bs-toggle="modal" data-bs-target="#editUserModal">Ubah</button>
                                                     <button class="btn btn-danger me-2 mt-2" id="deleteData" onclick="confirmDelete()">Hapus</button>
-                                                    <a href="/tabel-lihat-pertanyaan" class="btn btn-secondary">Detail</a>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>2</td>
                                                 <td>Deshmukh</td>
-                                                <td>@Ritesh</td>
-                                                <td>08.00</td>
-                                                <td>10.00</td>
-                                                <td>hokya</td>
-                                                <td>selesai</td>
                                                 <td>
                                                     <button class="btn btn-info me-2 mt-2" data-bs-toggle="modal" data-bs-target="#editUserModal">Ubah</button>
                                                     <button class="btn btn-danger me-2 mt-2" id="deleteData" onclick="confirmDelete()">Hapus</button>
-                                                    <a href="/tabel-lihat-pertanyaan" class="btn btn-secondary">Detail</a>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -207,78 +189,20 @@
                                 <!-- Pagination -->
                                 <nav aria-label="...">
                                     <ul class="pagination">
-                                      <li class="page-item disabled">
-                                        <a class="page-link">Previous</a>
-                                      </li>
-                                      <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                      <li class="page-item" aria-current="page">
-                                        <a class="page-link" href="#">2</a>
-                                      </li>
-                                      <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                      <li class="page-item">
-                                        <a class="page-link" href="#">Next</a>
-                                      </li>
+                                        <li class="page-item disabled">
+                                            <a class="page-link">Previous</a>
+                                        </li>
+                                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item" aria-current="page">
+                                            <a class="page-link" href="#">2</a>
+                                        </li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#">Next</a>
+                                        </li>
                                     </ul>
                                 </nav>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Modal Tambah -->
-            <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="addUserModalLabel">Tambah</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form id="addUserForm">
-                                <div class="mb-3">
-                                    <label for="siswaName" class="form-label">ID Kuis</label>
-                                    <input type="text" class="form-control" id="IdKuis" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="kuisName" class="form-label">Nama Tipe</label>
-                                    <input type="text" class="form-control" id="tipeName" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="token" class="form-label">Nama Kuis</label>
-                                    <input type="text" class="form-control" id="kuisName" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="skor" class="form-label">Waktu Mulai</label>
-                                    <input type="time" class="form-control" id="waktumulai" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="skor" class="form-label">Waktu Selesai</label>
-                                    <input type="time" class="form-control" id="waktuselesai" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="skor" class="form-label">Token</label>
-                                    <input type="text" class="form-control" id="token" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="status" class="form-label">Status</label>
-                                    <div class="dropdown">
-                                        <button class="btn btn-outline-secondary dropdown-toggle d-flex align-items-center w-100" type="button" id="statusDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <span>Pilih Status</span>
-                                            <i class="bi bi-chevron-down ms-2 ms-auto"></i> <!-- Ikon panah di sebelah teks -->
-                                        </button>
-                                        <ul class="dropdown-menu w-100" aria-labelledby="statusDropdown">
-                                            <li><a class="dropdown-item" href="#">Mulai</a></li>
-                                            <li><a class="dropdown-item" href="#">Berlangsung</a></li>
-                                            <li><a class="dropdown-item" href="#">Selesai</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                            <button type="button" class="btn btn-primary">Simpan</button>
                         </div>
                     </div>
                 </div>
@@ -295,42 +219,12 @@
                         <div class="modal-body">
                             <form id="editUserForm">
                                 <div class="mb-3">
-                                    <label for="siswaName" class="form-label">ID Kuis</label>
-                                    <input type="text" class="form-control" id="IdKuis" required>
+                                    <label for="IdPertanyaan" class="form-label">Id Pertanyaan</label>
+                                    <input type="text" class="form-control" id="IdPertanyaan" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="kuisName" class="form-label">Nama Tipe</label>
-                                    <input type="text" class="form-control" id="tipeName" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="token" class="form-label">Nama Kuis</label>
-                                    <input type="text" class="form-control" id="kuisName" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="skor" class="form-label">Waktu Mulai</label>
-                                    <input type="time" class="form-control" id="waktumulai" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="skor" class="form-label">Waktu Selesai</label>
-                                    <input type="time" class="form-control" id="waktuselesai" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="skor" class="form-label">Token</label>
-                                    <input type="text" class="form-control" id="token" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="status" class="form-label">Status</label>
-                                    <div class="dropdown">
-                                        <button class="btn btn-outline-secondary dropdown-toggle d-flex align-items-center w-100" type="button" id="statusDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <span>Pilih Status</span>
-                                            <i class="bi bi-chevron-down ms-2 ms-auto"></i> <!-- Ikon panah di sebelah teks -->
-                                        </button>
-                                        <ul class="dropdown-menu w-100" aria-labelledby="statusDropdown">
-                                            <li><a class="dropdown-item" href="#">Mulai</a></li>
-                                            <li><a class="dropdown-item" href="#">Berlangsung</a></li>
-                                            <li><a class="dropdown-item" href="#">Selesai</a></li>
-                                        </ul>
-                                    </div>
+                                    <label for="pertanyaan" class="form-label">Pertanyaan</label>
+                                    <input type="text" class="form-control" id="pertanyaan" required>
                                 </div>
                             </form>
                         </div>
@@ -341,7 +235,6 @@
                     </div>
                 </div>
             </div>
-
 
             <footer class="footer"> © 2021 Material Pro Admin by <a href="https://www.wrappixel.com/">wrappixel.com </a>
             </footer>

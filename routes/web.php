@@ -42,6 +42,21 @@ Route::get('/tabel-kuis', function () {
 Route::get('/tabel-detail-kuis', function () {
     return view('tabel-detail-kuis');
 });
+Route::get('/tabel-lihat-pertanyaan', function () {
+    return view('tabel-lihat-pertanyaan');
+});
+Route::get('/tabel-opsi-jawaban', function () {
+    return view('tabel-opsi-jawaban');
+});
+Route::get('/profile', function () {
+    return view('profile');
+});
 Route::get('/tes', function () {
     return view('tes');
+});
+Route::get('/dashboard', function () {
+    return view('dashboard');
+});
+Route::get('/tabel-user', function () {
+    return view('tabel-user');
 });

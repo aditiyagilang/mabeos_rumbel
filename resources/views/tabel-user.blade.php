@@ -148,7 +148,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <h4 class="card-title">Tabel Kuis</h4>
+                                    <h4 class="card-title">Tabel Pengguna</h4>
                                     <div class="d-flex align-items-center">
                                         <input type="text" class="form-control me-2" placeholder="Cari..." id="searchInput">
                                             <button class="btn btn-outline-secondary" onclick="searchFunction()">
@@ -161,13 +161,14 @@
                                     <table class="table table-bordered table-hover table-striped user-table">
                                         <thead class="table-dark">
                                             <tr>
-                                                <th>ID Kuis</th>
-                                                <th>Nama Tipe</th>
-                                                <th>Nama Kuis</th>
-                                                <th>Waktu Mulai</th>
-                                                <th>Waktu Selesai</th>
-                                                <th>Token</th>
-                                                <th>Status</th>
+                                                <th>Id Pengguna</th>
+                                                <th>Nama Lengkap</th>
+                                                <th>Username</th>
+                                                <th>Tanggal Lahir</th>
+                                                <th>Email</th>
+                                                <th>Password</th>
+                                                <th>No Hp</th>
+                                                <th>Foto</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -175,29 +176,35 @@
                                             <tr>
                                                 <td>1</td>
                                                 <td>Prohaska</td>
-                                                <td>@Genelia</td>
-                                                <td>08.00</td>
-                                                <td>10.00</td>
-                                                <td>hokya</td>
-                                                <td>selesai</td>
+                                                <td>Genelia</td>
+                                                <td>11-11-2001</td>
+                                                <td>@prohaska.gmail.com</td>
+                                                <td>12345</td>
+                                                <td>12345678910</td>
+                                                <td>
+                                                    <img src="../assets/images/users/1.jpg" alt="Foto Prohaska" width="50" height="50" class="rounded-circle">
+                                                </td>
                                                 <td>
                                                     <button class="btn btn-info me-2 mt-2" data-bs-toggle="modal" data-bs-target="#editUserModal">Ubah</button>
                                                     <button class="btn btn-danger me-2 mt-2" id="deleteData" onclick="confirmDelete()">Hapus</button>
-                                                    <a href="/tabel-lihat-pertanyaan" class="btn btn-secondary">Detail</a>
+                                                    <a href="/tabel-lihat-pertanyaan" class="btn btn-secondary mt-2">Detail</a>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>2</td>
                                                 <td>Deshmukh</td>
-                                                <td>@Ritesh</td>
-                                                <td>08.00</td>
-                                                <td>10.00</td>
-                                                <td>hokya</td>
-                                                <td>selesai</td>
+                                                <td>Ritesh</td>
+                                                <td>22-09-2002</td>
+                                                <td>@ritesh.gmail.com</td>
+                                                <td>54321</td>
+                                                <td>10987654321</td>
+                                                <td>
+                                                    <img src="../assets/images/users/1.jpg" alt="Foto Prohaska" width="50" height="50" class="rounded-circle">
+                                                </td>
                                                 <td>
                                                     <button class="btn btn-info me-2 mt-2" data-bs-toggle="modal" data-bs-target="#editUserModal">Ubah</button>
                                                     <button class="btn btn-danger me-2 mt-2" id="deleteData" onclick="confirmDelete()">Hapus</button>
-                                                    <a href="/tabel-lihat-pertanyaan" class="btn btn-secondary">Detail</a>
+                                                    <a href="/tabel-lihat-pertanyaan" class="btn btn-secondary mt-2">Detail</a>
                                                 </td>
                                             </tr>
                                         </tbody>

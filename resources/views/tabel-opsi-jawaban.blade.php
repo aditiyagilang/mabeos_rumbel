@@ -148,7 +148,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <h4 class="card-title">Tabel Kuis</h4>
+                                    <h4 class="card-title">Tabel Opsi Jawaban</h4>
                                     <div class="d-flex align-items-center">
                                         <input type="text" class="form-control me-2" placeholder="Cari..." id="searchInput">
                                             <button class="btn btn-outline-secondary" onclick="searchFunction()">
@@ -161,65 +161,35 @@
                                     <table class="table table-bordered table-hover table-striped user-table">
                                         <thead class="table-dark">
                                             <tr>
-                                                <th>ID Kuis</th>
-                                                <th>Nama Tipe</th>
-                                                <th>Nama Kuis</th>
-                                                <th>Waktu Mulai</th>
-                                                <th>Waktu Selesai</th>
-                                                <th>Token</th>
-                                                <th>Status</th>
+                                                <th>No</th>
+                                                <th>ID Jawaban</th>
+                                                <th>Jawaban</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
                                                 <td>1</td>
+                                                <td>1</td>
                                                 <td>Prohaska</td>
-                                                <td>@Genelia</td>
-                                                <td>08.00</td>
-                                                <td>10.00</td>
-                                                <td>hokya</td>
-                                                <td>selesai</td>
                                                 <td>
                                                     <button class="btn btn-info me-2 mt-2" data-bs-toggle="modal" data-bs-target="#editUserModal">Ubah</button>
                                                     <button class="btn btn-danger me-2 mt-2" id="deleteData" onclick="confirmDelete()">Hapus</button>
-                                                    <a href="/tabel-lihat-pertanyaan" class="btn btn-secondary">Detail</a>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>2</td>
-                                                <td>Deshmukh</td>
-                                                <td>@Ritesh</td>
-                                                <td>08.00</td>
-                                                <td>10.00</td>
-                                                <td>hokya</td>
-                                                <td>selesai</td>
+                                                <td>2</td>
+                                                <td>Gaylord</td>
                                                 <td>
                                                     <button class="btn btn-info me-2 mt-2" data-bs-toggle="modal" data-bs-target="#editUserModal">Ubah</button>
                                                     <button class="btn btn-danger me-2 mt-2" id="deleteData" onclick="confirmDelete()">Hapus</button>
-                                                    <a href="/tabel-lihat-pertanyaan" class="btn btn-secondary">Detail</a>
                                                 </td>
                                             </tr>
+                                            <!-- Tambahkan baris tambahan sesuai kebutuhan -->
                                         </tbody>
                                     </table>
                                 </div>
-
-                                <!-- Pagination -->
-                                <nav aria-label="...">
-                                    <ul class="pagination">
-                                      <li class="page-item disabled">
-                                        <a class="page-link">Previous</a>
-                                      </li>
-                                      <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                      <li class="page-item" aria-current="page">
-                                        <a class="page-link" href="#">2</a>
-                                      </li>
-                                      <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                      <li class="page-item">
-                                        <a class="page-link" href="#">Next</a>
-                                      </li>
-                                    </ul>
-                                </nav>
                             </div>
                         </div>
                     </div>
@@ -237,42 +207,12 @@
                         <div class="modal-body">
                             <form id="addUserForm">
                                 <div class="mb-3">
-                                    <label for="siswaName" class="form-label">ID Kuis</label>
-                                    <input type="text" class="form-control" id="IdKuis" required>
+                                    <label for="IdJawaban" class="form-label">Id Jawaban</label>
+                                    <input type="text" class="form-control" id="IdJawaban" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="kuisName" class="form-label">Nama Tipe</label>
-                                    <input type="text" class="form-control" id="tipeName" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="token" class="form-label">Nama Kuis</label>
-                                    <input type="text" class="form-control" id="kuisName" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="skor" class="form-label">Waktu Mulai</label>
-                                    <input type="time" class="form-control" id="waktumulai" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="skor" class="form-label">Waktu Selesai</label>
-                                    <input type="time" class="form-control" id="waktuselesai" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="skor" class="form-label">Token</label>
-                                    <input type="text" class="form-control" id="token" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="status" class="form-label">Status</label>
-                                    <div class="dropdown">
-                                        <button class="btn btn-outline-secondary dropdown-toggle d-flex align-items-center w-100" type="button" id="statusDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <span>Pilih Status</span>
-                                            <i class="bi bi-chevron-down ms-2 ms-auto"></i> <!-- Ikon panah di sebelah teks -->
-                                        </button>
-                                        <ul class="dropdown-menu w-100" aria-labelledby="statusDropdown">
-                                            <li><a class="dropdown-item" href="#">Mulai</a></li>
-                                            <li><a class="dropdown-item" href="#">Berlangsung</a></li>
-                                            <li><a class="dropdown-item" href="#">Selesai</a></li>
-                                        </ul>
-                                    </div>
+                                    <label for="jawaban" class="form-label">Jawaban</label>
+                                    <input type="text" class="form-control" id="jawaban" required>
                                 </div>
                             </form>
                         </div>
@@ -295,42 +235,12 @@
                         <div class="modal-body">
                             <form id="editUserForm">
                                 <div class="mb-3">
-                                    <label for="siswaName" class="form-label">ID Kuis</label>
-                                    <input type="text" class="form-control" id="IdKuis" required>
+                                    <label for="IdJawaban" class="form-label">Id Jawaban</label>
+                                    <input type="text" class="form-control" id="IdJawaban" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="kuisName" class="form-label">Nama Tipe</label>
-                                    <input type="text" class="form-control" id="tipeName" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="token" class="form-label">Nama Kuis</label>
-                                    <input type="text" class="form-control" id="kuisName" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="skor" class="form-label">Waktu Mulai</label>
-                                    <input type="time" class="form-control" id="waktumulai" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="skor" class="form-label">Waktu Selesai</label>
-                                    <input type="time" class="form-control" id="waktuselesai" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="skor" class="form-label">Token</label>
-                                    <input type="text" class="form-control" id="token" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="status" class="form-label">Status</label>
-                                    <div class="dropdown">
-                                        <button class="btn btn-outline-secondary dropdown-toggle d-flex align-items-center w-100" type="button" id="statusDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <span>Pilih Status</span>
-                                            <i class="bi bi-chevron-down ms-2 ms-auto"></i> <!-- Ikon panah di sebelah teks -->
-                                        </button>
-                                        <ul class="dropdown-menu w-100" aria-labelledby="statusDropdown">
-                                            <li><a class="dropdown-item" href="#">Mulai</a></li>
-                                            <li><a class="dropdown-item" href="#">Berlangsung</a></li>
-                                            <li><a class="dropdown-item" href="#">Selesai</a></li>
-                                        </ul>
-                                    </div>
+                                    <label for="jawaban" class="form-label">Jawaban</label>
+                                    <input type="text" class="form-control" id="jawaban" required>
                                 </div>
                             </form>
                         </div>
@@ -341,7 +251,6 @@
                     </div>
                 </div>
             </div>
-
 
             <footer class="footer"> © 2021 Material Pro Admin by <a href="https://www.wrappixel.com/">wrappixel.com </a>
             </footer>

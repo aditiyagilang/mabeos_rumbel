@@ -15,6 +15,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link href="{{ 'assets/css/style.min.css' }}" rel="stylesheet">
 </head>
 
@@ -30,7 +31,7 @@
         <header class="topbar" data-navbarbg="skin6">
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                 <div class="navbar-header" data-logobg="skin6">
-                    <a class="navbar-brand ms-4" href="index.html">
+                    <a class="navbar-brand ms-4" href="/dashboard">
                         <b class="logo-icon">
                             <img src="../assets/images/logo-light-icon.png" alt="homepage" class="dark-logo" />
                         </b>
@@ -58,7 +59,7 @@
                     </ul>
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="/profile" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img src="../assets/images/users/1.jpg" alt="user" class="profile-pic me-2">Markarn Doe
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown"></ul>
@@ -68,17 +69,14 @@
             </nav>
         </header>
         <aside class="left-sidebar" data-sidebarbg="skin6">
-            <!-- Sidebar scroll-->
             <div class="scroll-sidebar">
-                <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
-                        <!-- User Profile-->
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="index.html" aria-expanded="false"><i class="mdi me-2 mdi-gauge"></i><span
+                                href="/dashboard" aria-expanded="false"><i class="mdi me-2 mdi-gauge"></i><span
                                     class="hide-menu">Dashboard</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="pages-profile.html" aria-expanded="false">
+                                href="/profile" aria-expanded="false">
                                 <i class="mdi me-2 mdi-account-check"></i><span class="hide-menu">Profile</span></a>
                         </li>
                         <li class="sidebar-item">
@@ -111,29 +109,21 @@
                                         <span class="hide-menu">Tabel Skor</span>
                                     </a>
                                 </li>
+                                <li class="sidebar-item">
+                                    <a href="/tabel-user" class="sidebar-link">
+                                        <i class="mdi mdi-table-large"></i>
+                                        <span class="hide-menu">Tabel Pengguna</span>
+                                    </a>
+                                </li>
                             </ul>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/login" aria-expanded="false">
+                                    <i class="mdi me-2 mdi-logout"></i><span class="hide-menu">Logout</span>
+                                </a>
+                            </li>
                         </li>
                     </ul>
-
                 </nav>
-                <!-- End Sidebar navigation -->
-            </div>
-            <!-- End Sidebar scroll-->
-            <div class="sidebar-footer">
-                <div class="row">
-                    <div class="col-4 link-wrap">
-                        <a href="" class="link" data-toggle="tooltip" title="" data-original-title="Settings"><i
-                                class="ti-settings"></i></a>
-                    </div>
-                    <div class="col-4 link-wrap">
-                        <a href="" class="link" data-toggle="tooltip" title="" data-original-title="Email"><i
-                                class="mdi mdi-gmail"></i></a>
-                    </div>
-                    <div class="col-4 link-wrap">
-                        <a href="" class="link" data-toggle="tooltip" title="" data-original-title="Logout"><i
-                                class="mdi mdi-power"></i></a>
-                    </div>
-                </div>
             </div>
         </aside>
         <div class="page-wrapper">
@@ -144,7 +134,7 @@
                         <div class="d-flex align-items-center">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Table</li>
                                 </ol>
                             </nav>
@@ -159,7 +149,13 @@
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <h4 class="card-title">Tabel Kuis</h4>
-                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">Tambah</button>
+                                    <div class="d-flex align-items-center">
+                                        <input type="text" class="form-control me-2" placeholder="Cari..." id="searchInput">
+                                            <button class="btn btn-outline-secondary" onclick="searchFunction()">
+                                                <i class="bi bi-search"></i> <!-- Bootstrap Icons -->
+                                            </button>
+                                        <button class="btn btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#addUserModal">Tambah</button>
+                                    </div>
                                 </div>
                                 <div class="table-responsive mt-3">
                                     <table class="table table-bordered table-hover table-striped user-table">
@@ -179,9 +175,9 @@
                                                 <td>Prohaska</td>
                                                 <td>@Genelia</td>
                                                 <td>
-                                                    <button class="btn btn-info me-2" data-bs-toggle="modal" data-bs-target="#editUserModal">Ubah</button>
-                                                    <button class="btn btn-danger me-2">Hapus</button>
-                                                    <a href="tabel-detail-pertanyaan.html" class="btn btn-secondary">Detail</a>
+                                                    <button class="btn btn-info me-2 mt-2" data-bs-toggle="modal" data-bs-target="#editUserModal">Ubah</button>
+                                                    <button class="btn btn-danger me-2 mt-2" id="deleteData" onclick="confirmDelete()">Hapus</button>
+                                                    <a href="/tabel-opsi-jawaban" class="btn btn-secondary">Opsi Jawaban</a>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -190,9 +186,9 @@
                                                 <td>Deshmukh</td>
                                                 <td>@Ritesh</td>
                                                 <td>
-                                                    <button class="btn btn-info me-2" data-bs-toggle="modal" data-bs-target="#editUserModal">Ubah</button>
-                                                    <button class="btn btn-danger me-2">Hapus</button>
-                                                    <a href="tabel-detail-pertanyaan.html" class="btn btn-secondary">Detail</a>
+                                                    <button class="btn btn-info me-2 mt-2" data-bs-toggle="modal" data-bs-target="#editUserModal">Ubah</button>
+                                                    <button class="btn btn-danger me-2 mt-2" id="deleteData" onclick="confirmDelete()">Hapus</button>
+                                                    <a href="/tabel-opsi-jawaban" class="btn btn-secondary">Opsi Jawaban</a>
                                                 </td>
                                             </tr>
                                             <!-- Tambahkan baris tambahan sesuai kebutuhan -->
