@@ -68,64 +68,7 @@
                 </div>
             </nav>
         </header>
-        <aside class="left-sidebar" data-sidebarbg="skin6">
-            <div class="scroll-sidebar">
-                <nav class="sidebar-nav">
-                    <ul id="sidebarnav">
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="/dashboard" aria-expanded="false"><i class="mdi me-2 mdi-gauge"></i><span
-                                    class="hide-menu">Dashboard</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="/profile" aria-expanded="false">
-                                <i class="mdi me-2 mdi-account-check"></i><span class="hide-menu">Profile</span></a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
-                                <i class="mdi me-2 mdi-table"></i>
-                                <span class="hide-menu">Tabel</span>
-                            </a>
-                            <ul aria-expanded="false" class="collapse first-level">
-                                <li class="sidebar-item">
-                                    <a href="/tabel-tipe" class="sidebar-link">
-                                        <i class="mdi mdi-table-large"></i>
-                                        <span class="hide-menu">Tabel Tipe</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="/tabel-kuis" class="sidebar-link">
-                                        <i class="mdi mdi-table-large"></i>
-                                        <span class="hide-menu">Tabel Kuis</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="/tabel-pertanyaan" class="sidebar-link">
-                                        <i class="mdi mdi-table-large"></i>
-                                        <span class="hide-menu">Tabel Pertanyaan</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="/tabel-skor" class="sidebar-link">
-                                        <i class="mdi mdi-table-large"></i>
-                                        <span class="hide-menu">Tabel Skor</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="/tabel-user" class="sidebar-link">
-                                        <i class="mdi mdi-table-large"></i>
-                                        <span class="hide-menu">Tabel Pengguna</span>
-                                    </a>
-                                </li>
-                            </ul>
-                            <li class="sidebar-item">
-                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/login" aria-expanded="false">
-                                    <i class="mdi me-2 mdi-logout"></i><span class="hide-menu">Logout</span>
-                                </a>
-                            </li>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </aside>
+        @include('admin.sidebar')
         <div class="page-wrapper">
             <div class="page-breadcrumb">
                 <div class="row align-items-center">
@@ -148,12 +91,12 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <h4 class="card-title">Tabel Skor</h4>
+                                    <h4 class="card-title">Tabel Kuis</h4>
                                     <div class="d-flex align-items-center">
                                         <input type="text" class="form-control me-2" placeholder="Cari..." id="searchInput">
-                                        <button class="btn btn-outline-secondary" onclick="searchFunction()">
-                                            <i class="bi bi-search"></i> <!-- Bootstrap Icons -->
-                                        </button>
+                                            <button class="btn btn-outline-secondary" onclick="searchFunction()">
+                                                <i class="bi bi-search"></i> <!-- Bootstrap Icons -->
+                                            </button>
                                         <button class="btn btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#addUserModal">Tambah</button>
                                     </div>
                                 </div>
@@ -162,52 +105,68 @@
                                         <thead class="table-dark">
                                             <tr>
                                                 <th>No</th>
-                                                <th>Nama Siswa</th>
-                                                <th>Nama Quiz</th>
-                                                <th>Token</th>
-                                                <th>Skor</th>
+                                                <th>ID Pertanyaan</th>
+                                                <th>Jenis Soal</th>
+                                                <th>Pertanyaan</th>
+                                                <th>Jawaban</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Deshmukh</td>
-                                                <td>Prohaska</td>
-                                                <td>@Genelia</td>
-                                                <td>100</td>
-                                                <td>
-                                                    <button class="btn btn-info me-2 mt-2" data-bs-toggle="modal" data-bs-target="#editUserModal">Ubah</button>
-                                                    <button class="btn btn-danger me-2 mt-2" id="deleteData" onclick="confirmDelete()">Hapus</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>Deshmukh</td>
-                                                <td>Gaylord</td>
-                                                <td>@Ritesh</td>
-                                                <td>90</td>
-                                                <td>
-                                                    <button class="btn btn-info me-2 mt-2" data-bs-toggle="modal" data-bs-target="#editUserModal">Ubah</button>
-                                                    <button class="btn btn-danger me-2 mt-2" id="deleteData" onclick="confirmDelete()">Hapus</button>
-                                                </td>
-                                            </tr>
-                                            <!-- Tambahkan baris tambahan sesuai kebutuhan -->
+                                            @foreach($questions as $index => $question)
+                                                <tr>
+                                                    <td>{{ $index + 1 }}</td>
+                                                    <td>{{ $question->questions_id }}</td>
+                                                    <td>{{ $question->type }}</td>
+                                                    <td>{{ $question->questions }}</td>
+                                                    <td>{{ $question->answers }}</td>
+                                                    <td>
+                                                    <!-- Tombol untuk membuka modal Edit Question -->
+                                                    <button type="button" class="btn btn-primary"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#editQuestionModal"
+                                                        data-id="{{ $question->questions_id }}"
+                                                        data-pertanyaan="{{ $question->questions }}"
+                                                        data-jawaban="{{ $question->answers }}"
+                                                        data-type="{{ $question->type }}"
+                                                        data-hash="{{ Crypt::encryptString($question->questions_id) }}">
+                                                        Edit
+                                                    </button>
+
+
+
+
+                                                        <!-- Hapus -->
+                                                        <form action="{{ route('questions.destroy', $question->questions_id) }}" method="POST" style="display:inline;">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-danger me-2">Hapus</button>
+                                                        </form>
+
+                                                        <!-- Detail -->
+                                                        <a href="{{ route('questions.show', $question->questions_id) }}" class="btn btn-secondary">Detail</a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
+
+
                                 <!-- Pagination -->
                                 <nav aria-label="...">
                                     <ul class="pagination">
-                                        <li class="page-item disabled">
-                                            <a class="page-link">Previous</a>
-                                        </li>
-                                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">Next</a>
-                                        </li>
+                                      <li class="page-item disabled">
+                                        <a class="page-link">Previous</a>
+                                      </li>
+                                      <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                      <li class="page-item" aria-current="page">
+                                        <a class="page-link" href="#">2</a>
+                                      </li>
+                                      <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                      <li class="page-item">
+                                        <a class="page-link" href="#">Next</a>
+                                      </li>
                                     </ul>
                                 </nav>
                             </div>
@@ -221,72 +180,88 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="addUserModalLabel">Tambah User</h5>
+                            <h5 class="modal-title" id="addUserModalLabel">Tambah Pertanyaan</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form id="addUserForm">
+                            <form id="addUserForm" action="{{ route('questions.store') }}" method="POST">
+                                @csrf
                                 <div class="mb-3">
-                                    <label for="siswaName" class="form-label">Nama Siswa</label>
-                                    <input type="text" class="form-control" id="siswaName" required>
+                                    <label for="type" class="form-label">Tipe Pertanyaan</label>
+                                    <select class="form-control" id="type" name="type" required>
+                                        <option value="" disabled selected>Pilih Tipe</option>
+                                        <option value="choose">Choose</option>
+                                        <option value="multiple choose">Multiple Choose</option>
+                                        <option value="essay">Essay</option>
+                                    </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="kuisName" class="form-label">Nama Kuis</label>
-                                    <input type="text" class="form-control" id="kuisName" required>
+                                    <label for="pertanyaan" class="form-label">Pertanyaan</label>
+                                    <input type="text" class="form-control" id="pertanyaan" name="questions" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="token" class="form-label">Token</label>
-                                    <input type="text" class="form-control" id="token" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="skor" class="form-label">Skor</label>
-                                    <input type="text" class="form-control" id="skor" required>
+                                    <label for="jawaban" class="form-label">Jawaban</label>
+                                    <input type="text" class="form-control" id="jawaban" name="answers" required>
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                            <button type="button" class="btn btn-primary">Simpan</button>
+                            <button type="submit" class="btn btn-primary" form="addUserForm">Simpan</button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Modal Edit -->
-            <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+
+            <!-- Modal untuk Edit Question -->
+            <div class="modal fade" id="editQuestionModal" tabindex="-1" aria-labelledby="editQuestionModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="editUserModalLabel">Ubah</h5>
+                            <h5 class="modal-title" id="editQuestionModalLabel">Edit Question</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form id="editUserForm">
+                            <!-- Form Edit Question -->
+                            <form id="editQuestionForm" action="{{ route('questions.update', '1') }}" method="POST">
+                                @csrf
+                                @method('PUT')
                                 <div class="mb-3">
-                                    <label for="editSiswaName" class="form-label">Nama Siswa</label>
-                                    <input type="text" class="form-control" id="editSiswaName" required>
+                                    <label for="editQuestionId" class="form-label">Question ID</label>
+                                    <input type="text" class="form-control" id="editQuestionId" name="question_id" readonly>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="editKuisName" class="form-label">Nama Kuis</label>
-                                    <input type="text" class="form-control" id="editKuisName" required>
+                                    <label for="editQuestion" class="form-label">Question</label>
+                                    <input type="text" class="form-control" id="editQuestion" name="questions" required> <!-- Sesuaikan dengan nama validasi -->
                                 </div>
                                 <div class="mb-3">
-                                    <label for="editToken" class="form-label">Token</label>
-                                    <input type="text" class="form-control" id="editToken" required>
+                                    <label for="editAnswer" class="form-label">Answer</label>
+                                    <input type="text" class="form-control" id="editAnswer" name="answers" required> <!-- Sesuaikan dengan nama validasi -->
                                 </div>
                                 <div class="mb-3">
-                                    <label for="editSkor" class="form-label">Skor</label>
-                                    <input type="text" class="form-control" id="editSkor" required>
+                                    <label for="editQuestionType" class="form-label">Question Type</label>
+                                    <select class="form-select" id="editQuestionType" name="question_type" required>
+                                        <option value="choose">Choose</option>
+                                        <option value="multiple choose">Multiple Choose</option>
+                                        <option value="essay">Essay</option>
+                                    </select>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save Changes</button>
                                 </div>
                             </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                            <button type="button" class="btn btn-primary">Simpan</button>
+
                         </div>
                     </div>
                 </div>
             </div>
+
+
+
+
+
 
 
             <footer class="footer"> © 2021 Material Pro Admin by <a href="https://www.wrappixel.com/">wrappixel.com </a>
@@ -303,6 +278,42 @@
     <script src="{{ 'assets/js/sidebarmenu.js' }}"></script>
     <!--Custom JavaScript -->
     <script src="{{ 'assets/js/custom.js' }}"></script>
+    <script>
+    const editModal = document.getElementById('editQuestionModal');
+    editModal.addEventListener('show.bs.modal', function(event) {
+        var button = event.relatedTarget; // Tombol yang diklik
+        var questionId = button.getAttribute('data-id'); // ID soal
+        var questionText = button.getAttribute('data-pertanyaan'); // Pertanyaan
+        var answer = button.getAttribute('data-jawaban'); // Jawaban
+        var questionType = button.getAttribute('data-type'); // Tipe soal
+        var hash = button.getAttribute('data-hash'); // Ambil hash dari data-hash yang sudah dienkripsi
+
+        // Isi form dengan data
+        var form = document.getElementById('editQuestionForm');
+        form.action = '/questions/' + hash; // Update action form dengan URL yang benar
+        document.getElementById('editQuestionId').value = questionId; // Isi input ID soal
+        document.getElementById('editQuestion').value = questionText; // Isi input pertanyaan
+        document.getElementById('editAnswer').value = answer; // Isi input jawaban
+
+        // Set value dropdown 'editQuestionType' berdasarkan tipe soal yang dipilih
+        var selectType = document.getElementById('editQuestionType');
+
+        // Gunakan if selected untuk memilih nilai dropdown berdasarkan tipe soal
+        if (questionType === 'choose') {
+            selectType.value = 'choose'; // Set value 'choose'
+        } else if (questionType === 'multiple choose') {
+            selectType.value = 'multiple choose'; // Set value 'multiple choose'
+        } else if (questionType === 'essay') {
+            selectType.value = 'essay'; // Set value 'essay'
+        } else {
+            selectType.value = ''; // Set default jika tidak ada tipe yang cocok
+        }
+    });
+</script>
+
+
+
+
 </body>
 
 </html>

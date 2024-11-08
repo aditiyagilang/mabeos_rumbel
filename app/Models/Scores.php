@@ -23,6 +23,6 @@ class Scores extends Model
     // Relasi ke model User
     public function user()
     {
-        return $this->belongsTo(User::class, 'users_id', 'user_id');
+        return $this->belongsTo(User::class, 'users_id', 'users_id');
     }
 }

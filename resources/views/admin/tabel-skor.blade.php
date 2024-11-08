@@ -68,64 +68,7 @@
                 </div>
             </nav>
         </header>
-        <aside class="left-sidebar" data-sidebarbg="skin6">
-            <div class="scroll-sidebar">
-                <nav class="sidebar-nav">
-                    <ul id="sidebarnav">
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="/dashboard" aria-expanded="false"><i class="mdi me-2 mdi-gauge"></i><span
-                                    class="hide-menu">Dashboard</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="/profile" aria-expanded="false">
-                                <i class="mdi me-2 mdi-account-check"></i><span class="hide-menu">Profile</span></a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
-                                <i class="mdi me-2 mdi-table"></i>
-                                <span class="hide-menu">Tabel</span>
-                            </a>
-                            <ul aria-expanded="false" class="collapse first-level">
-                                <li class="sidebar-item">
-                                    <a href="/tabel-tipe" class="sidebar-link">
-                                        <i class="mdi mdi-table-large"></i>
-                                        <span class="hide-menu">Tabel Tipe</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="/tabel-kuis" class="sidebar-link">
-                                        <i class="mdi mdi-table-large"></i>
-                                        <span class="hide-menu">Tabel Kuis</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="/tabel-pertanyaan" class="sidebar-link">
-                                        <i class="mdi mdi-table-large"></i>
-                                        <span class="hide-menu">Tabel Pertanyaan</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="/tabel-skor" class="sidebar-link">
-                                        <i class="mdi mdi-table-large"></i>
-                                        <span class="hide-menu">Tabel Skor</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="/tabel-user" class="sidebar-link">
-                                        <i class="mdi mdi-table-large"></i>
-                                        <span class="hide-menu">Tabel Pengguna</span>
-                                    </a>
-                                </li>
-                            </ul>
-                            <li class="sidebar-item">
-                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/login" aria-expanded="false">
-                                    <i class="mdi me-2 mdi-logout"></i><span class="hide-menu">Logout</span>
-                                </a>
-                            </li>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </aside>
+        @include('admin.sidebar')
         <div class="page-wrapper">
             <div class="page-breadcrumb">
                 <div class="row align-items-center">
@@ -147,71 +90,51 @@
                     <div class="col-sm-12">
                         <div class="card">
                             <div class="card-body">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h4 class="card-title">Tabel Kuis</h4>
-                                    <div class="d-flex align-items-center">
-                                        <input type="text" class="form-control me-2" placeholder="Cari..." id="searchInput">
-                                            <button class="btn btn-outline-secondary" onclick="searchFunction()">
-                                                <i class="bi bi-search"></i> <!-- Bootstrap Icons -->
-                                            </button>
-                                        <button class="btn btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#addUserModal">Tambah</button>
-                                    </div>
-                                </div>
+                                <!-- <div class="d-flex justify-content-between align-items-center">
+                                    <h4 class="card-title">Tabel Skor</h4>
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">Tambah</button>
+                                </div> -->
                                 <div class="table-responsive mt-3">
                                     <table class="table table-bordered table-hover table-striped user-table">
                                         <thead class="table-dark">
                                             <tr>
                                                 <th>No</th>
-                                                <th>ID Pertanyaan</th>
-                                                <th>Pertanyaan</th>
-                                                <th>Jawaban</th>
+                                                <th>Nama Siswa</th>
+                                                <th>Nama Quiz</th>
+                                                <th>Token</th>
+                                                <th>Skor</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>1</td>
-                                                <td>Prohaska</td>
-                                                <td>@Genelia</td>
-                                                <td>
-                                                    <button class="btn btn-info me-2 mt-2" data-bs-toggle="modal" data-bs-target="#editUserModal">Ubah</button>
-                                                    <button class="btn btn-danger me-2 mt-2" id="deleteData" onclick="confirmDelete()">Hapus</button>
-                                                    <a href="/tabel-opsi-jawaban" class="btn btn-secondary">Opsi Jawaban</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>2</td>
-                                                <td>Deshmukh</td>
-                                                <td>@Ritesh</td>
-                                                <td>
-                                                    <button class="btn btn-info me-2 mt-2" data-bs-toggle="modal" data-bs-target="#editUserModal">Ubah</button>
-                                                    <button class="btn btn-danger me-2 mt-2" id="deleteData" onclick="confirmDelete()">Hapus</button>
-                                                    <a href="/tabel-opsi-jawaban" class="btn btn-secondary">Opsi Jawaban</a>
-                                                </td>
-                                            </tr>
-                                            <!-- Tambahkan baris tambahan sesuai kebutuhan -->
+                                            @foreach ($scores as $index => $score)
+                                                <tr>
+                                                    <td>{{ $index + 1 }}</td>
+                                                    <td>{{ $score->user->name }}</td> <!-- Nama pengguna -->
+                                                    <td>{{ $score->quiz->quizs_name }}</td> <!-- Nama quiz -->
+                                                    <td>{{ $score->quiz->token }}</td> <!-- Token pengguna -->
+                                                    <td>{{ $score->score }}</td> <!-- Skor -->
+                                                    <td>
+                                                    <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editUserModal"
+                                                        data-id="{{ $score->scores_id }}"
+                                                        data-siswa="{{ $score->user->name }}"
+                                                        data-kuis="{{ $score->quiz->quizs_name }}"
+                                                        data-token="{{ $score->quiz->token }}"
+                                                        data-skor="{{ $score->score }}">
+                                                        Ubah
+                                                    </button>
+                                                        <form action="{{ route('scores.destroy', $score->scores_id) }}" method="POST" style="display:inline;">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-danger">Hapus</button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
 
-                                <!-- Pagination -->
-                                <nav aria-label="...">
-                                    <ul class="pagination">
-                                      <li class="page-item disabled">
-                                        <a class="page-link">Previous</a>
-                                      </li>
-                                      <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                      <li class="page-item" aria-current="page">
-                                        <a class="page-link" href="#">2</a>
-                                      </li>
-                                      <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                      <li class="page-item">
-                                        <a class="page-link" href="#">Next</a>
-                                      </li>
-                                    </ul>
-                                </nav>
                             </div>
                         </div>
                     </div>
@@ -223,22 +146,26 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="addUserModalLabel">Tambah</h5>
+                            <h5 class="modal-title" id="addUserModalLabel">Tambah User</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <form id="addUserForm">
                                 <div class="mb-3">
-                                    <label for="IdPertanyaan" class="form-label">Id Pertanyaan</label>
-                                    <input type="text" class="form-control" id="IdPertanyaan" required>
+                                    <label for="siswaName" class="form-label">Nama Siswa</label>
+                                    <input type="text" class="form-control" id="siswaName" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="pertanyaan" class="form-label">Pertanyaan</label>
-                                    <input type="text" class="form-control" id="pertanyaan" required>
+                                    <label for="kuisName" class="form-label">Nama Kuis</label>
+                                    <input type="text" class="form-control" id="kuisName" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="jawaban" class="form-label">Jawaban</label>
-                                    <input type="text" class="form-control" id="jawaban" required>
+                                    <label for="token" class="form-label">Token</label>
+                                    <input type="text" class="form-control" id="token" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="skor" class="form-label">Skor</label>
+                                    <input type="text" class="form-control" id="skor" required>
                                 </div>
                             </form>
                         </div>
@@ -261,16 +188,20 @@
                         <div class="modal-body">
                             <form id="editUserForm">
                                 <div class="mb-3">
-                                    <label for="IdPertanyaan" class="form-label">Id Pertanyaan</label>
-                                    <input type="text" class="form-control" id="IdPertanyaan" required>
+                                    <label for="editSiswaName" class="form-label" >Nama Siswa</label>
+                                    <input type="text" class="form-control" id="editSiswaName"disabled required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="pertanyaan" class="form-label">Pertanyaan</label>
-                                    <input type="text" class="form-control" id="pertanyaan" required>
+                                    <label for="editKuisName" class="form-label">Nama Kuis</label>
+                                    <input type="text" class="form-control" id="editKuisName"disabled required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="jawaban" class="form-label">Jawaban</label>
-                                    <input type="text" class="form-control" id="jawaban" required>
+                                    <label for="editToken" class="form-label">Token</label>
+                                    <input type="text" class="form-control" id="editToken" disabled required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="editSkor" class="form-label">Skor</label>
+                                    <input type="text" class="form-control" id="editSkor" required>
                                 </div>
                             </form>
                         </div>
@@ -297,6 +228,59 @@
     <script src="{{ 'assets/js/sidebarmenu.js' }}"></script>
     <!--Custom JavaScript -->
     <script src="{{ 'assets/js/custom.js' }}"></script>
+    <script>
+    // Menangani event ketika tombol "Ubah" di klik
+    $('#editUserModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget); // Tombol yang diklik
+        var siswaName = button.data('siswa'); // Mengambil nama siswa
+        var kuisName = button.data('kuis'); // Mengambil nama kuis
+        var token = button.data('token'); // Mengambil token
+        var skor = button.data('skor'); // Mengambil skor
+        var scoreId = button.data('id'); // Mengambil ID skor
+
+        // Mengisi field di dalam modal dengan data yang diambil
+        var modal = $(this);
+        modal.find('#editSiswaName').val(siswaName);
+        modal.find('#editKuisName').val(kuisName);
+        modal.find('#editToken').val(token);
+        modal.find('#editSkor').val(skor);
+
+        // Menyimpan ID skor untuk referensi saat mengupdate
+        modal.find('#editUserForm').data('id', scoreId);
+    });
+
+    // Menangani klik tombol Simpan
+    $('.btn-primary').on('click', function() {
+        var modal = $('#editUserModal');
+        var scoreId = modal.find('#editUserForm').data('id');
+        var siswaName = modal.find('#editSiswaName').val();
+        var kuisName = modal.find('#editKuisName').val();
+        var token = modal.find('#editToken').val();
+        var skor = modal.find('#editSkor').val();
+
+        // Kirim data ke server untuk memperbarui skor
+        $.ajax({
+            url: '/scores/' + scoreId, // URL untuk update skor
+            type: 'PUT',
+            data: {
+                _token: '{{ csrf_token() }}',
+                siswa_name: siswaName,
+                kuis_name: kuisName,
+                token: token,
+                skor: skor
+            },
+            success: function(response) {
+                // Menutup modal setelah berhasil memperbarui data
+                modal.modal('hide');
+                location.reload(); // Refresh halaman untuk menampilkan data yang baru
+            },
+            error: function(error) {
+                alert('Terjadi kesalahan!');
+            }
+        });
+    });
+</script>
+
 </body>
 
 </html>

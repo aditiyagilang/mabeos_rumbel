@@ -68,64 +68,7 @@
                 </div>
             </nav>
         </header>
-        <aside class="left-sidebar" data-sidebarbg="skin6">
-            <div class="scroll-sidebar">
-                <nav class="sidebar-nav">
-                    <ul id="sidebarnav">
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="/dashboard" aria-expanded="false"><i class="mdi me-2 mdi-gauge"></i><span
-                                    class="hide-menu">Dashboard</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="/profile" aria-expanded="false">
-                                <i class="mdi me-2 mdi-account-check"></i><span class="hide-menu">Profile</span></a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
-                                <i class="mdi me-2 mdi-table"></i>
-                                <span class="hide-menu">Tabel</span>
-                            </a>
-                            <ul aria-expanded="false" class="collapse first-level">
-                                <li class="sidebar-item">
-                                    <a href="/tabel-tipe" class="sidebar-link">
-                                        <i class="mdi mdi-table-large"></i>
-                                        <span class="hide-menu">Tabel Tipe</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="/tabel-kuis" class="sidebar-link">
-                                        <i class="mdi mdi-table-large"></i>
-                                        <span class="hide-menu">Tabel Kuis</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="/tabel-pertanyaan" class="sidebar-link">
-                                        <i class="mdi mdi-table-large"></i>
-                                        <span class="hide-menu">Tabel Pertanyaan</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="/tabel-skor" class="sidebar-link">
-                                        <i class="mdi mdi-table-large"></i>
-                                        <span class="hide-menu">Tabel Skor</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="/tabel-user" class="sidebar-link">
-                                        <i class="mdi mdi-table-large"></i>
-                                        <span class="hide-menu">Tabel Pengguna</span>
-                                    </a>
-                                </li>
-                            </ul>
-                            <li class="sidebar-item">
-                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/login" aria-expanded="false">
-                                    <i class="mdi me-2 mdi-logout"></i><span class="hide-menu">Logout</span>
-                                </a>
-                            </li>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </aside>
+        @include('admin.sidebar')
         <div class="page-wrapper">
             <div class="page-breadcrumb">
                 <div class="row align-items-center">
