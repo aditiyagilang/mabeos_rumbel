@@ -16,7 +16,6 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             [
                 'users_id' => 1,
-                'address' => 'Jl. Example 123',
                 'name' => 'John Doe',
                 'username' => 'johndoe',
                 'birthdate' => '1990-01-01 00:00:00',

@@ -2,7 +2,6 @@
 <html dir="ltr" lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,17 +11,11 @@
         content="Material Pro Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
     <meta name="robots" content="noindex,nofollow">
     <title>Material Pro Lite Template by WrapPixel</title>
-    
-    <link href="{{ 'assets/css/style.min.css' }}" rel="stylesheet">
     <link rel="canonical" href="https://www.wrappixel.com/templates/materialpro-lite/" />
     <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-  
-    <!-- <link href="{{ asset('assets/css/style.min.css') }}" rel="stylesheet"> -->
-
-    <!-- <link href="{{ 'assets/css/style.css' }}" rel="stylesheet"> -->
+    <link href="{{ 'assets/css/style.min.css' }}" rel="stylesheet">
 </head>
 
 <body>
@@ -64,31 +57,42 @@
                                             <button class="btn btn-outline-secondary" onclick="searchFunction()">
                                                 <i class="bi bi-search"></i> <!-- Bootstrap Icons -->
                                             </button>
-                                        <button class="btn btn-primary" id="openModal" data-bs-toggle="modal" data-bs-target="#addUserModal">Tambah</button>
+                                            <form action="{{ route('details.questions') }}" method="GET" style="display:inline;">
+                                                <input type="hidden" name="qid" value="{{ Crypt::encryptString($quizId) }}">
+                                                <button type="submit" class="btn btn-primary">Tambah</button>
+                                            </form>
+
+                                      
                                     </div>
                                 </div>
                                 <div class="table-responsive mt-3">
                                     <table class="table table-bordered table-hover table-striped user-table">
                                         <thead class="table-dark">
                                             <tr>
-                                                <th><input type="checkbox" id="selectAll"> Pilih Semua</th>
                                                 <th>ID Pertanyaan</th>
                                                 <th>Pertanyaan</th>
+                                                <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        <tbody>
-                                        @foreach ($questions as $question)
-                                        <tr>
-                                        <td><input type="checkbox" class="checkbox-item" data-id="{{ $question->questions_id }}"></td>
-                                            <td>{{ $question->questions_id }}</td>
-                                           
-                                            <td>{{ $question->questions }}</td> <!-- Gantilah sesuai nama kolom pertanyaan di database -->
-                                        </tr>
-                                        @endforeach
+                                            @foreach($detailQuizs as $detail)
+                                                <tr>
+                                                    <td>{{ $detail->question->questions_id }}</td>
+                                                    <td>{{ $detail->question->questions }}</td>
+                                                    <td>
+                                                     
+                                                        <form action="{{ route('questions.destroy', ['id' => $detail->question->questions_id]) }}" method="POST" style="display:inline;">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-danger me-2 mt-2" onclick="return confirm('Apakah Anda yakin ingin menghapus?')">Hapus</button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
+
 
                                 <!-- Pagination -->
                                 <nav aria-label="...">
@@ -112,30 +116,30 @@
                 </div>
             </div>
 
-            <!-- Modal -->
-            <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
+            <!-- Modal Edit -->
+            <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="addUserModalLabel">ID Pertanyaan yang Dipilih</h5>
+                            <h5 class="modal-title" id="editUserModalLabel">Ubah</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form action="{{ route('simpan.pertanyaan') }}" method="POST" id="questionForm">
-                            @csrf
-                            <!-- Menambahkan `quiz_id` sebagai input hidden -->
-                            <input type="hidden" name="quiz_id" value="{{ $quizId }}">
-
-                            <div id="selectedQuestionsList" class="modal-body">
-                                <!-- ID Pertanyaan yang dipilih akan muncul di sini -->
-                                <p id="noSelectionMessage" class="text-muted" style="display: none;">Tidak ada pertanyaan yang dipilih.</p>
-                                <ul id="selectedQuestionIdsList"></ul> <!-- Daftar ID pertanyaan terpilih -->
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                                <button type="submit" class="btn btn-primary" id="addQuestions">Tambah</button>
-                            </div>
-                        </form>
-
+                        <div class="modal-body">
+                            <form id="editUserForm">
+                                <div class="mb-3">
+                                    <label for="IdPertanyaan" class="form-label">Id Pertanyaan</label>
+                                    <input type="text" class="form-control" id="IdPertanyaan" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="pertanyaan" class="form-label">Pertanyaan</label>
+                                    <input type="text" class="form-control" id="pertanyaan" required>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                            <button type="button" class="btn btn-primary">Simpan</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -154,60 +158,6 @@
     <script src="{{ 'assets/js/sidebarmenu.js' }}"></script>
     <!--Custom JavaScript -->
     <script src="{{ 'assets/js/custom.js' }}"></script>
-    <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const selectedQuestionsList = document.getElementById('selectedQuestionIdsList');
-    const noSelectionMessage = document.getElementById('noSelectionMessage');
-    const form = document.getElementById('questionForm');
-
-    // Menambahkan event listener pada setiap checkbox pertanyaan
-    document.querySelectorAll('.checkbox-item').forEach(checkbox => {
-        checkbox.addEventListener('change', function() {
-            updateSelectedQuestionsList();
-        });
-    });
-
-    function updateSelectedQuestionsList() {
-        selectedQuestionsList.innerHTML = '';
-        selectedQuestionIds = Array.from(document.querySelectorAll('.checkbox-item:checked'))
-            .map(checkbox => checkbox.getAttribute('data-id'));
-
-        // Menghapus semua input 'questions[]' sebelumnya dari form
-        form.querySelectorAll('input[name="questions[]"]').forEach(input => input.remove());
-
-        if (selectedQuestionIds.length > 0) {
-            noSelectionMessage.style.display = 'none';
-            selectedQuestionIds.forEach(id => {
-                // Buat elemen input tersembunyi
-                const input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = 'questions[]'; // Pastikan nama adalah 'questions[]'
-                input.value = id;
-                form.appendChild(input);
-
-                // Tambahkan ID pertanyaan ke daftar di modal
-                const li = document.createElement('li');
-                li.textContent = `ID Pertanyaan: ${id}`;
-                selectedQuestionsList.appendChild(li);
-            });
-        } else {
-            noSelectionMessage.style.display = 'block';
-        }
-    }
-
-    // Checkbox "Pilih Semua"
-    const selectAllCheckbox = document.getElementById('selectAll');
-    if (selectAllCheckbox) {
-        selectAllCheckbox.addEventListener('change', function() {
-            document.querySelectorAll('.checkbox-item').forEach(checkbox => checkbox.checked = this.checked);
-            updateSelectedQuestionsList();
-        });
-    }
-});
-
-</script>
-
-
 </body>
 
 </html>

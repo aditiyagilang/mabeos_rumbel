@@ -2,7 +2,6 @@
 <html dir="ltr" lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,17 +11,12 @@
         content="Material Pro Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
     <meta name="robots" content="noindex,nofollow">
     <title>Material Pro Lite Template by WrapPixel</title>
-    
-    <link href="{{ 'assets/css/style.min.css' }}" rel="stylesheet">
     <link rel="canonical" href="https://www.wrappixel.com/templates/materialpro-lite/" />
     <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-  
-    <!-- <link href="{{ asset('assets/css/style.min.css') }}" rel="stylesheet"> -->
-
-    <!-- <link href="{{ 'assets/css/style.css' }}" rel="stylesheet"> -->
+    <link href="{{ 'assets/css/style.min.css' }}" rel="stylesheet">
 </head>
 
 <body>
@@ -77,15 +71,16 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        <tbody>
-                                        @foreach ($questions as $question)
-                                        <tr>
-                                        <td><input type="checkbox" class="checkbox-item" data-id="{{ $question->questions_id }}"></td>
-                                            <td>{{ $question->questions_id }}</td>
-                                           
-                                            <td>{{ $question->questions }}</td> <!-- Gantilah sesuai nama kolom pertanyaan di database -->
-                                        </tr>
-                                        @endforeach
+                                            <tr>
+                                                <td><input type="checkbox" class="checkbox-item" data-id="1"></td>
+                                                <td>1</td>
+                                                <td>Prohaska</td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="checkbox" class="checkbox-item" data-id="2"></td>
+                                                <td>2</td>
+                                                <td>Deshmukh</td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -120,22 +115,16 @@
                             <h5 class="modal-title" id="addUserModalLabel">ID Pertanyaan yang Dipilih</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form action="{{ route('simpan.pertanyaan') }}" method="POST" id="questionForm">
-                            @csrf
-                            <!-- Menambahkan `quiz_id` sebagai input hidden -->
-                            <input type="hidden" name="quiz_id" value="{{ $quizId }}">
-
-                            <div id="selectedQuestionsList" class="modal-body">
+                        <div class="modal-body">
+                            <ul id="selectedQuestionsList">
                                 <!-- ID Pertanyaan yang dipilih akan muncul di sini -->
-                                <p id="noSelectionMessage" class="text-muted" style="display: none;">Tidak ada pertanyaan yang dipilih.</p>
-                                <ul id="selectedQuestionIdsList"></ul> <!-- Daftar ID pertanyaan terpilih -->
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                                <button type="submit" class="btn btn-primary" id="addQuestions">Tambah</button>
-                            </div>
-                        </form>
-
+                            </ul>
+                            <p id="noSelectionMessage" class="text-muted" style="display: none;">Tidak ada pertanyaan yang dipilih.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                            <button type="button" class="btn btn-primary" id="addQuestions">Tambah</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -154,60 +143,6 @@
     <script src="{{ 'assets/js/sidebarmenu.js' }}"></script>
     <!--Custom JavaScript -->
     <script src="{{ 'assets/js/custom.js' }}"></script>
-    <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const selectedQuestionsList = document.getElementById('selectedQuestionIdsList');
-    const noSelectionMessage = document.getElementById('noSelectionMessage');
-    const form = document.getElementById('questionForm');
-
-    // Menambahkan event listener pada setiap checkbox pertanyaan
-    document.querySelectorAll('.checkbox-item').forEach(checkbox => {
-        checkbox.addEventListener('change', function() {
-            updateSelectedQuestionsList();
-        });
-    });
-
-    function updateSelectedQuestionsList() {
-        selectedQuestionsList.innerHTML = '';
-        selectedQuestionIds = Array.from(document.querySelectorAll('.checkbox-item:checked'))
-            .map(checkbox => checkbox.getAttribute('data-id'));
-
-        // Menghapus semua input 'questions[]' sebelumnya dari form
-        form.querySelectorAll('input[name="questions[]"]').forEach(input => input.remove());
-
-        if (selectedQuestionIds.length > 0) {
-            noSelectionMessage.style.display = 'none';
-            selectedQuestionIds.forEach(id => {
-                // Buat elemen input tersembunyi
-                const input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = 'questions[]'; // Pastikan nama adalah 'questions[]'
-                input.value = id;
-                form.appendChild(input);
-
-                // Tambahkan ID pertanyaan ke daftar di modal
-                const li = document.createElement('li');
-                li.textContent = `ID Pertanyaan: ${id}`;
-                selectedQuestionsList.appendChild(li);
-            });
-        } else {
-            noSelectionMessage.style.display = 'block';
-        }
-    }
-
-    // Checkbox "Pilih Semua"
-    const selectAllCheckbox = document.getElementById('selectAll');
-    if (selectAllCheckbox) {
-        selectAllCheckbox.addEventListener('change', function() {
-            document.querySelectorAll('.checkbox-item').forEach(checkbox => checkbox.checked = this.checked);
-            updateSelectedQuestionsList();
-        });
-    }
-});
-
-</script>
-
-
 </body>
 
 </html>

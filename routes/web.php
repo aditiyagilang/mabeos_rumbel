@@ -6,9 +6,12 @@ use App\Http\Controllers\TypeController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\ScoreController;
+use App\Http\Controllers\DetailQuizController;
+use App\Http\Controllers\ChooseController;
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
-    return view('login');
+    return view('auth.login');
 });
 
 Route::get('/register', [UserController::class, 'create'])->name('register');
@@ -16,6 +19,10 @@ Route::post('/register', [UserController::class, 'store'])->name('register.store
 Route::get('/login', [UserController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [UserController::class, 'login']);
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
+
+
+Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+
 
 
 Route::get('types', [TypeController::class, 'index'])->name('types.index');
@@ -53,6 +60,33 @@ Route::get('scores/{id}/edit', [ScoreController::class, 'edit'])->name('scores.e
 Route::put('scores/{id}', [ScoreController::class, 'update'])->name('scores.update');
 Route::delete('scores/{id}', [ScoreController::class, 'destroy'])->name('scores.destroy');
 
+// Route untuk DetailQuizController
+Route::get('detail', [DetailQuizController::class, 'index'])->name('details.index');
+Route::get('details', [DetailQuizController::class, 'questions'])->name('details.questions');
+Route::get('details/create', [DetailQuizController::class, 'create'])->name('details.create');
+Route::post('details', [DetailQuizController::class, 'store'])->name('details.store');
+Route::get('details/{id}', [DetailQuizController::class, 'show'])->name('details.show');
+Route::get('details/{id}/edit', [DetailQuizController::class, 'edit'])->name('details.edit');
+Route::put('details/{id}', [DetailQuizController::class, 'update'])->name('details.update');
+Route::delete('details/{id}', [DetailQuizController::class, 'destroy'])->name('details.destroy');
+Route::post('/save-questions', [DetailQuizController::class, 'simpanPertanyaan'])->name('simpan.pertanyaan');
+
+
+
+Route::get('choose', [ChooseController::class, 'index'])->name('choose.index');
+Route::get('choose/create', [ChooseController::class, 'create'])->name('choose.create');
+Route::post('choose', [ChooseController::class, 'store'])->name('choose.store');
+Route::get('choose/{id}', [ChooseController::class, 'show'])->name('choose.show');
+Route::get('choose/{id}/edit', [ChooseController::class, 'edit'])->name('choose.edit');
+Route::put('choose/{id}', [ChooseController::class, 'update'])->name('choose.update');
+Route::delete('choose/{id}', [ChooseController::class, 'destroy'])->name('choose.destroy');
+
+
+Route::get('/profile', [UserController::class, 'getCurrentUser'])->name('user.profile');
+Route::post('/update-profile', [UserController::class, 'updateProfile'])->name('user.updateProfile');
+Route::post('/update-photo', [UserController::class, 'updatePhoto'])->name('user.updatePhoto');
+Route::post('/update-password', [UserController::class, 'updatePassword'])->name('user.updatePassword');
+
 
 
 Route::get('/tabel-skor', function () {
@@ -74,15 +108,13 @@ Route::get('/tabel-lihat-pertanyaan', function () {
 Route::get('/tabel-opsi-jawaban', function () {
     return view('tabel-opsi-jawaban');
 });
-Route::get('/profile', function () {
-    return view('profile');
-});
+
 Route::get('/tes', function () {
     return view('admin.tes');
 });
-Route::get('/dashboard', function () {
-    return view('dashboard');
-});
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// });
 Route::get('/tabel-user', function () {
     return view('tabel-user');
 });
