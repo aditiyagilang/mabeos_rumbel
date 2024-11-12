@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\DB;
 
 class DetailQuizController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index(Request $request)
 {
     // Ambil quiz_id terenkripsi dari request
