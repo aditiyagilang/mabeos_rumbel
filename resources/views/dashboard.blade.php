@@ -20,6 +20,9 @@
     <link href="{{ 'assets/css/c3.min.css' }}" rel="stylesheet">
     <link href="{{ 'assets/css/style.min.css' }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -184,24 +187,22 @@
                                     <div class="col-12">
                                         <div class="d-flex flex-wrap align-items-center">
                                             <div>
-                                                <h3 class="card-title">Sales Overview</h3>
-                                                <h6 class="card-subtitle">Ample Admin Vs Pixel Admin</h6>
+                                                <h3 class="card-title">Grafik Nilai</h3>
+                                                <h6 class="card-subtitle">Perbandingan Nilai Siswa Berdasarkan Kuis</h6>
                                             </div>
                                             <div class="ms-lg-auto mx-sm-auto mx-lg-0">
-                                                <ul class="list-inline d-flex">
-                                                    <li class="me-4">
-                                                        <h6 class="text-success"><i
-                                                                class="fa fa-circle font-10 me-2"></i>Ample</h6>
-                                                    </li>
-                                                    <li>
-                                                        <h6 class="text-info"><i
-                                                                class="fa fa-circle font-10 me-2"></i>Pixel</h6>
-                                                    </li>
-                                                </ul>
+                                                <!-- Filter untuk memilih kuis -->
+                                                <label for="quiz-filter" class="form-label me-2">Pilih Kuis:</label>
+                                                <select id="quiz-filter" class="form-select form-select-sm d-inline-block" style="width: auto;">
+                                                    <option value="Kuis 1">Kuis 1</option>
+                                                    <option value="Kuis 2">Kuis 2</option>
+                                                    <option value="Kuis 3">Kuis 3</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-12">
+                                        <!-- Area untuk grafik -->
                                         <div class="amp-pxl" style="height: 360px;">
                                             <div class="chartist-tooltip"></div>
                                         </div>
@@ -210,34 +211,64 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="col-lg-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <h3 class="card-title">Our Visitors</h3>
-                                <h6 class="card-subtitle">Different Devices Used to Visit</h6>
-                                <div id="visitor"
-                                    style="height: 290px; width: 100%; max-height: 290px; position: relative;"
-                                    class="c3">
-                                    <div class="c3-tooltip-container"
-                                        style="position: absolute; pointer-events: none; display: none;">
-                                    </div>
+                        <!-- Card untuk jumlah pengguna -->
+                        <div class="card mb-4">
+                            <div class="card-body d-flex align-items-center">
+                                <i class="fa fa-users fa-2x text-primary me-3"></i> <!-- Ikon pengguna -->
+                                <div>
+                                    <h5 class="card-title">Total Pengguna</h5>
+                                    <p class="card-text fs-4">150</p> <!-- Ganti angka dengan data dinamis jika diperlukan -->
                                 </div>
                             </div>
-                            <div>
-                                <hr class="mt-0 mb-0">
-                            </div>
-                            <div class="card-body text-center">
-                                <ul class="list-inline d-flex justify-content-center align-items-center mb-0">
-                                    <li class="me-4">
-                                        <h6 class="text-info"><i class="fa fa-circle font-10 me-2"></i>Mobile</h6>
+                        </div>
+
+                        <!-- Card untuk ongoing quizzes -->
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">Kuis Berlangsung</h3>
+                                <h6 class="card-subtitle">Berikut terdapat list kuis yang sedang berlangsung. klik button untuk melihat token kuis.</h6>
+
+                                <ul class="list-group list-group-flush borderless-list">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        Kuis 1
+                                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#tokenModal">Token</button>
                                     </li>
-                                    <li class="me-4">
-                                        <h6 class="text-primary"><i class="fa fa-circle font-10 me-2"></i>Desktop</h6>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        Kuis 2
+                                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#tokenModal">Token</button>
                                     </li>
-                                    <li class="me-4">
-                                        <h6 class="text-success"><i class="fa fa-circle font-10 me-2"></i>Tablet</h6>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        Kuis 3
+                                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#tokenModal">Token</button>
                                     </li>
                                 </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal untuk token -->
+                    <div class="modal fade" id="tokenModal" tabindex="-1" aria-labelledby="tokenModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="tokenModalLabel">Token Kuis</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Pencarian token -->
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" placeholder="Cari token..." id="searchInput">
+                                        <button class="btn btn-outline-secondary" onclick="searchFunction()">
+                                            <i class="bi bi-search"></i> <!-- Bootstrap Icons -->
+                                        </button>
+                                    </div>
+                                    <p>Token: <span id="tokenValue">ABCD1234</span></p> <!-- Ganti token dengan data dinamis jika diperlukan -->
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                </div>
                             </div>
                         </div>
                     </div>
