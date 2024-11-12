@@ -18,6 +18,7 @@ return new class extends Migration
             // Foreign key relationships
             $table->foreign('quizs_id')->references('quizs_id')->on('quizs')->onDelete('cascade');
             $table->foreign('question_id')->references('questions_id')->on('questions')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

@@ -41,13 +41,15 @@
                                 <i class="mdi mdi-table-large"></i><span class="hide-menu">Tabel Skor</span>
                             </a>
                         </li>
-                        <li class="sidebar-item">
-                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/login" aria-expanded="false">
-                                    <i class="mdi me-2 mdi-logout"></i><span class="hide-menu">Logout</span>
-                                </a>
-                        </li>
+                    
+
                     </ul>
                 </li>
+                <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('logout') }}" aria-expanded="false">
+                                <i class="mdi me-2 mdi-logout"></i><span class="hide-menu">Logout</span>
+                            </a>
+                        </li>
             </ul>
         </nav>
         <!-- End Sidebar navigation -->

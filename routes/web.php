@@ -18,10 +18,12 @@ Route::get('/register', [UserController::class, 'create'])->name('register');
 Route::post('/register', [UserController::class, 'store'])->name('register.store');
 Route::get('/login', [UserController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [UserController::class, 'login']);
-Route::post('/logout', [UserController::class, 'logout'])->name('logout');
+Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 
 
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+Route::get('get-quiz-scores/{quizId}', [DashboardController::class, 'getQuizScores'])->name('dashboard.getQuizScores');
+
 
 
 
