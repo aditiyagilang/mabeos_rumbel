@@ -51,14 +51,7 @@ class DashboardController extends Controller
             'scores' => $scores
         ]);
     }
-    // public function getQuizScores($quizId)
-    // {
-    //     $scores = Scores::where('quizs_id', $quizId)->pluck('score');
-    // dd($scores);
-    //     return response()->json([
-    //         'scores' => $scores
-    //     ]);
-    // }
+
     
 
 }
