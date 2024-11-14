@@ -110,11 +110,32 @@ Route::get('/tabel-opsi-jawaban', function () {
 });
 
 Route::get('/tes', function () {
-    return view('admin.tes');
+    return view('tes');
 });
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // });
 Route::get('/tabel-user', function () {
     return view('tabel-user');
+});
+Route::get('/Home_user', function () {
+    return view('Home_user');
+});
+Route::get('/riwayat-skor', function () {
+    return view('riwayat-skor');
+});
+Route::get('/profile-user', function () {
+    return view('profile-user');
+});
+Route::get('/kuis-cpns', function () {
+    return view('kuis-cpns');
+});
+Route::get('/kuis-kecerdasan', function () {
+    return view('kuis-kecerdasan');
+});
+Route::get('/kuis-kecermatan', function () {
+    return view('kuis-kecermatan');
+});
+Route::get('/kuis-kepribadian', function () {
+    return view('kuis-kepribadian');
 });

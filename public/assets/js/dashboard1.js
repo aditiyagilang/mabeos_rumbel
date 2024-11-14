@@ -4,14 +4,13 @@ $(function () {
     // Data untuk Grafik Nilai berdasarkan kuis
     const nilaiData = {
         'Kuis 1': [85, 78, 90, 88, 92],
-        'Kuis 2': [70, 80, 75, 85, 90],
-        'Kuis 3': [88, 85, 95, 80, 87]
+
     };
 
-    // Fungsi untuk membuat chart dengan data tertentu
-    function createChart(data) {
-        return new Chartist.Bar('.amp-pxl', {
-            labels: ['Siswa A', 'Siswa B', 'Siswa C', 'Siswa D', 'Siswa E'],
+    // Fungsi untuk membuat chart untuk Grafik Nilai Berdasarkan Kuis
+    function createBarChart(data) {
+        return new Chartist.Bar('.amp-pxl-bar', {
+            labels: ['Sisw A', 'Siswa B', 'Siswa C', 'Siswa D', 'Siswa E'],
             series: [data]
         }, {
             axisX: {
@@ -29,28 +28,93 @@ $(function () {
         });
     }
 
-    // Inisialisasi chart dengan data default (misal Kuis 1)
-    let currentChart = createChart(nilaiData['Kuis 1']);
+    // Inisialisasi chart dengan data default (misal Kuis 1) untuk grafik bar
+    let currentBarChart = createBarChart(nilaiData['Kuis 1']);
 
     // Tambahkan event listener untuk filter kuis
     $('#quiz-filter').on('change', function () {
         const selectedQuiz = $(this).val();
 
         // Perbarui data chart berdasarkan kuis yang dipilih
-        currentChart.update({
+        currentBarChart.update({
             labels: ['Siswa A', 'Siswa B', 'Siswa C', 'Siswa D', 'Siswa E'],
             series: [nilaiData[selectedQuiz]]
         });
     });
 
-    // Animasi pada grafik
-    currentChart.on('draw', function (data) {
+    // Animasi pada grafik bar
+    currentBarChart.on('draw', function (data) {
         if (data.type === 'bar') {
             data.element.animate({
                 y2: {
                     dur: 500,
                     from: data.y1,
                     to: data.y2,
+                    easing: Chartist.Svg.Easing.easeInOutElastic
+                },
+                opacity: {
+                    dur: 500,
+                    from: 0,
+                    to: 1,
+                    easing: Chartist.Svg.Easing.easeInOutElastic
+                }
+            });
+        }
+    });
+});
+
+$(function () {
+    "use strict";
+
+    // Data untuk Grafik Nilai berdasarkan kuis
+    const nilaiData = {
+        'Kuis 1': [85, 78, 90, 88, 92],
+
+    };
+
+    // Data untuk grafik perbandingan nilai tiap kuis
+    const labels = ['Kuis A', 'Kuis B', 'Kuis C', 'Kuis D', 'Kuis E'];
+
+    // Fungsi untuk membuat chart untuk Grafik Perbandingan Nilai
+    function createLineChart() {
+        console.log('Membuat grafik perbandingan...'); // Debug log
+        return new Chartist.Line('.amp-pxl-line', {
+            labels: labels,
+            series: [
+                nilaiData['Kuis 1'],
+                nilaiData['Kuis 2'],
+                nilaiData['Kuis 3']
+            ]
+        }, {
+            fullWidth: true,
+            showArea: true,
+            axisX: {
+                position: 'end',
+                showGrid: false
+            },
+            axisY: {
+                position: 'start',
+                labelInterpolationFnc: function (value) {
+                    return value + '%';
+                }
+            },
+            plugins: [
+                Chartist.plugins.tooltip()
+            ]
+        });
+    }
+
+    // Inisialisasi chart dengan data perbandingan nilai tiap kuis untuk grafik garis
+    let currentLineChart = createLineChart();
+
+    // Animasi pada grafik garis
+    currentLineChart.on('draw', function (data) {
+        if (data.type === 'line') {
+            data.element.animate({
+                d: {
+                    dur: 500,
+                    from: data.path.clone().scale(0).translate(0, 0).stringify(),
+                    to: data.path.stringify(),
                     easing: Chartist.Svg.Easing.easeInOutElastic
                 },
                 opacity: {

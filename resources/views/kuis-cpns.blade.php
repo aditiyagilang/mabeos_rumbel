@@ -21,7 +21,7 @@
         </div>
         <div class="formbold-form-wrapper">
             <div class="exam-info">
-                <h2 class="exam-title">Kuis Kecerdasan</h2>
+                <h2 class="exam-title">Kuis CPNS</h2>
                 <p class="exam-detail">Tanggal Mulai: 20 November 2024</p>
                 <p class="exam-detail">Tanggal Selesai: 21 November 2024</p>
                 <p class="exam-detail">Durasi: 60 Menit</p>
@@ -32,7 +32,7 @@
                     <!-- Nama -->
                     <div class="form-step active">
                         <label for="token" class="formbold-form-label">Token</label>
-                        <input type="text" name="token" id="token" placeholder="Jane" class="formbold-form-input"/>
+                        <input type="text" name="token" id="token" placeholder="xxx" class="formbold-form-input"/>
                     </div>
 
                     <!-- Soal 1 -->

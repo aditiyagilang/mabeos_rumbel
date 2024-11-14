@@ -46,6 +46,8 @@
         </form>
       </div>
 
+
+
       <script>
         const wrapper = document.querySelector(".wrapper"),
         signupHeader = document.querySelector(".signup header"),

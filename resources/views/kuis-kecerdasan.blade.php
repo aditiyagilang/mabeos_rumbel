@@ -32,7 +32,7 @@
                     <!-- Nama -->
                     <div class="form-step active">
                         <label for="token" class="formbold-form-label">Token</label>
-                        <input type="text" name="token" id="token" placeholder="Jane" class="formbold-form-input"/>
+                        <input type="text" name="token" id="token" placeholder="xxx" class="formbold-form-input"/>
                     </div>
 
                     <!-- Soal 1 -->
