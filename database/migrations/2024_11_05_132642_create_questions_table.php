@@ -16,6 +16,7 @@ return new class extends Migration
             $table->enum('type', ['choose', 'multiple choose', 'essay']);
             $table->text('questions');
             $table->text('answers');
+            $table->timestamps();
         });
     }
 

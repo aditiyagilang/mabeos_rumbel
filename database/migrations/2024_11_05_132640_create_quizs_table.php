@@ -22,6 +22,7 @@ return new class extends Migration
             
             // Foreign key relationship
             $table->foreign('types_id')->references('types_id')->on('types')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
