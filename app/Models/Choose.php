@@ -19,4 +19,6 @@ class Choose extends Model
     {
         return $this->belongsTo(Questions::class, 'questions_id', 'questions_id');
     }
+
+    
 }

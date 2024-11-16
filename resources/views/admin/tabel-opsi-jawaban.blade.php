@@ -51,16 +51,24 @@
                     <div class="col-sm-12">
                         <div class="card">
                             <div class="card-body">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h4 class="card-title">Tabel Opsi Jawaban</h4>
-                                    <div class="d-flex align-items-center">
-                                        <input type="text" class="form-control me-2" placeholder="Cari..." id="searchInput">
-                                            <button class="btn btn-outline-secondary" onclick="searchFunction()">
-                                                <i class="bi bi-search"></i> <!-- Bootstrap Icons -->
-                                            </button>
+                            <div class="d-flex justify-content-between align-items-center">
+                            <h4 class="card-title">Tabel Opsi Jawaban</h4>
+                                <div class="d-flex align-items-center">
+                                    <input type="text" class="form-control me-2" placeholder="Cari..." id="searchInput">
+                                    <button class="btn btn-outline-secondary" onclick="searchFunction()">
+                                        <i class="bi bi-search"></i> <!-- Bootstrap Icons -->
+                                    </button>
+
+                                    @if ($isFull)
+                                        <!-- Jika sudah ada 5 data, tampilkan tulisan "Penuh" -->
+                                        <span class="btn btn-secondary ms-2">Penuh</span>
+                                    @else
+                                        <!-- Jika belum ada 5 data, tampilkan tombol "Tambah" -->
                                         <button class="btn btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#addUserModal">Tambah</button>
-                                    </div>
+                                    @endif
                                 </div>
+                            </div>
+
                                 <div class="table-responsive mt-3">
                                 <table class="table table-bordered table-hover table-striped user-table">
                                 <thead class="table-dark">

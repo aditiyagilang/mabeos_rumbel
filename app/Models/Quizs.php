@@ -12,17 +12,19 @@ class Quizs extends Model
     protected $table = 'quizs';
     protected $primaryKey = 'quizs_id';
     public $timestamps = false;
-    protected $fillable = ['types_id', 'quizs_name', 'start_date', 'end_date', 'status', 'token'];
+    protected $fillable = ['types_id', 'quizs_name', 'start_date', 'end_date', 'status','duration', 'token'];
 
-    // Relasi ke model DetailQuizs
-    public function detailQuizs()
-    {
-        return $this->hasMany(DetailQuizs::class, 'quizs_id', 'quizs_id');
-    }
+   
+public function detailQuizs()
+{
+    return $this->hasMany(DetailQuizs::class, 'quizs_id', 'quizs_id');
+}
+
 
     // Relasi ke model Types
     public function type()
     {
         return $this->belongsTo(Types::class, 'types_id', 'types_id');
     }
+    
 }

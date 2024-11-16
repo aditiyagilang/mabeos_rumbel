@@ -34,22 +34,24 @@ class UserController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
     
-        // Ambil data user berdasarkan username
+
         $user = User::where('username', $request->username)->first();
     
         if (!$user || !bcrypt($request->password) == $user->password) {
-            dd("Lahhh");
-            // Jika username tidak ditemukan atau password tidak cocok
             return redirect()->back()->withErrors(['username' => 'These credentials do not match our records.'])->withInput();
         }
     
         // Jika autentikasi berhasil
         $request->session()->regenerate();
-        // dd("Lahhh111");
-        // Simpan users_id, img_url, dan name ke session
-        session(['users_id' => $user->users_id, 'img_url' => $user->img_url, 'user_name' => $user->username]);
+       
+        session(['users_id' => $user->users_id, 'img_url' => $user->img_url, 'user_name' => $user->username, 'level' => $user->level]);
+
+        if($user->level == 'Admin'){
     
-        return redirect()->route('types.index')->with('status', 'Login successful!');
+        return redirect()->route('dashboard.index')->with('status', 'Login successful!');
+        }else{
+            return redirect()->route('home.index')->with('status', 'Login successful!');
+        }
     }
     
     
@@ -85,7 +87,7 @@ class UserController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'birthdate' => 'required|date',
             'telp' => 'required|string|max:14',
-            'password' => 'required|string|min:8|confirmed',
+            'password' => 'required|string|confirmed',
         ]);
     
         if ($validator->fails()) {
@@ -100,6 +102,7 @@ class UserController extends Controller
             'birthdate' => $request->birthdate,
             'telp' => $request->telp,
             'img_url' => 'assets/images_default.png',
+            'level' => 'User',
             'password' => bcrypt($request->password),
         ]);
         // dd();

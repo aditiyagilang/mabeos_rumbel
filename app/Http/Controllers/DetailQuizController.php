@@ -29,7 +29,6 @@ class DetailQuizController extends Controller
     // Ambil data kuis yang sesuai
     $quiz = Quizs::findOrFail($quizId);
 
-    // Ambil semua detail quiz yang sesuai dengan quiz_id
     $detailQuizs = DetailQuizs::where('quizs_id', $quizId)
         ->with(['quiz', 'question']) // Load relasi quiz dan question
         ->get();
@@ -42,9 +41,7 @@ class DetailQuizController extends Controller
 public function questions(Request $request)
 {
     $encryptedQuizId = $request->query('qid');
-    // dd($quizId);
 
-    // Dekripsi quiz_id
     try {
         $quizId = Crypt::decryptString($encryptedQuizId);
         
@@ -58,19 +55,10 @@ public function questions(Request $request)
 
     $questionIdsInDetailQuiz = DB::table('detail_quizs')
     ->where('quizs_id', $quizId)
-    ->pluck('question_id'); // Ambil semua question_id yang terhubung dengan quiz_id
+    ->pluck('question_id'); 
 
-// Debugging: Periksa jika data ada
-// dd($questionIdsInDetailQuiz);
-
-// Langkah 2: Ambil semua pertanyaan yang `questions_id`-nya tidak ada di list question_id tersebut
 $questions = Questions::whereNotIn('questions_id', $questionIdsInDetailQuiz)
-    ->get(); // Ambil semua pertanyaan yang `questions_id`-nya tidak ada di list question_id
-
-// Debugging: Periksa jika hasil query sudah benar
-// dd($questions);
-    // dd($questions);
-    // Encrypt questions_id jika perlu
+    ->get(); 
     foreach ($questions as $question) {
         $question->hash = Crypt::encryptString($question->questions_id);
     }

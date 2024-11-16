@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Questions;
+use App\Models\Choose;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 
@@ -52,6 +53,13 @@ class QuestionController extends Controller
             'questions' => $validatedData['questions'],
             'answers' => $validatedData['answers'],
         ]);
+
+        if($validatedData['type'] == 'choose'){
+        $choose = Choose::create([
+            'answers' => $validatedData['answers'],
+            'questions_id' => $question->questions_id,
+        ]);
+        }
 
         return redirect()->route('questions.index')->with('success', 'Pertanyaan berhasil ditambahkan');
     }

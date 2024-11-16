@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('quizs_name', 225);
             $table->dateTime('start_date');
             $table->dateTime('end_date');
+            $table->duration('dutation');
             $table->enum('status', ['end', 'on going', 'start']);
             $table->char('token', 10)->unique();
             

@@ -20,24 +20,27 @@
             </div>
         </div>
         <div class="formbold-form-wrapper">
-            <div class="exam-info">
-                <h2 class="exam-title">Kuis Kecerdasan</h2>
-                <p class="exam-detail">Tanggal Mulai: 20 November 2024</p>
-                <p class="exam-detail">Tanggal Selesai: 21 November 2024</p>
-                <p class="exam-detail">Durasi: 60 Menit</p>
-                <p class="exam-detail">Jumlah Soal: 10</p>
-            </div>
             <div class="quiz-container">
                 <form id="quizForm" action="https://formbold.com/s/FORM_ID" method="POST">
-                    <!-- Nama -->
+
+                    <!-- Langkah 1: Token -->
                     <div class="form-step active">
                         <label for="token" class="formbold-form-label">Token</label>
                         <input type="text" name="token" id="token" placeholder="xxx" class="formbold-form-input"/>
                     </div>
 
+                    <!-- Langkah 2: Exam Info -->
                     <div class="form-step">
+                        <div class="exam-info">
+                            <h2 class="exam-title">Kuis Kepribadian</h2>
+                            <p class="exam-detail">Tanggal Mulai: 20 November 2024</p>
+                            <p class="exam-detail">Tanggal Selesai: 21 November 2024</p>
+                            <p class="exam-detail">Durasi: 60 Menit</p>
+                            <p class="exam-detail">Jumlah Soal: 10</p>
+                        </div>
                     </div>
 
+                    <!-- Langkah 3: Soal 1 -->
                     <!-- Soal 1 -->
                     <div class="form-step soal">
                         <label for="qusOne" class="formbold-form-label" id="question1">
@@ -143,7 +146,7 @@
             soalSteps.forEach((step, index) => {
                 const questionLabel = step.querySelector('label');
                 const originalText = questionLabel.textContent.trim();
-                questionLabel.innerHTML = ${index + 1}. ${originalText};
+                questionLabel.innerHTML = `${index + 1}. ${originalText}`;
             });
         }
 
@@ -156,7 +159,7 @@
             const box = document.createElement("div");
             box.className = "question-box";
             box.textContent = index + 1;
-            box.onclick = () => goToQuestion(index);
+            box.onclick = () => goToQuestion(index + 1); // Update index to account for exam info step
             questionIndicator.appendChild(box);
         });
 
@@ -164,7 +167,7 @@
             timeElapsed++;
             const minutes = String(Math.floor(timeElapsed / 60)).padStart(2, "0");
             const seconds = String(timeElapsed % 60).padStart(2, "0");
-            document.getElementById("timer").textContent = ${minutes}:${seconds};
+            document.getElementById("timer").textContent = `${minutes}:${seconds}`;
         }
 
         setInterval(updateTimer, 1000);
@@ -175,14 +178,12 @@
             });
 
             sidebarCard.style.display = step > 1 ? "block" : "none";
-            document.querySelector(".exam-info").style.display = step === 1 ? "block" : "none";
-
             document.getElementById("submitBtn").style.display = step === steps.length - 1 ? "block" : "none";
             document.getElementById("nextBtn").style.display = step === steps.length - 1 ? "none" : "block";
             document.getElementById("backBtn").style.display = step === 0 ? "none" : "block";
 
             document.querySelectorAll(".question-box").forEach((box, idx) => {
-                box.classList.toggle("active", idx === step - 1);
+                box.classList.toggle("active", idx === step - 2);
             });
         }
 
@@ -201,7 +202,7 @@
         }
 
         function goToQuestion(index) {
-            currentStep = index + 1;
+            currentStep = index;
             showStep(currentStep);
         }
 

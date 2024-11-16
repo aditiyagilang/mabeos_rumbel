@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Scores;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class ScoreController extends Controller
 {
@@ -18,6 +20,47 @@ class ScoreController extends Controller
         // Kirim data ke view
         return view('admin.tabel-skor', compact('scores'));
     }
+
+        public function indexUser()
+    {
+        // Ambil users_id dari session
+        $scores = Scores::where('users_id', session('users_id'))
+            ->with(['quiz', 'user'])
+            ->get();
+
+        // Pastikan created_at tidak null
+        foreach ($scores as $score) {
+            if (!$score->created_at) {
+                $score->created_at = now(); // Atau nilai default lainnya
+            }
+        }
+        // dd($scores);
+        return view('user.riwayat-skor', compact('scores'));
+    }
+    public function getScoresData()
+{
+    // Ambil data skor dari database sesuai kuis untuk user yang sedang login
+    // Mengambil user_id dari session
+    $userId = session('users_id'); // Pastikan user_id ada di session
+
+    // Mengambil data skor berdasarkan user_id
+    $scores = DB::table('scores')
+                ->join('quizs', 'scores.quizs_id', '=', 'quizs.quizs_id')
+                ->where('scores.users_id', $userId) // Menambahkan filter berdasarkan user_id
+                ->select('quizs.quizs_name as quiz_name', 'scores.score')
+                ->get();
+    
+    // Mengorganisir data dalam format yang sesuai
+    $nilaiData = [];
+    foreach ($scores as $score) {
+        $nilaiData[$score->quiz_name][] = $score->score;
+    }
+
+    return response()->json($nilaiData);
+}
+
+    
+    
 
     /**
      * Show the form for creating a new resource.

@@ -25,4 +25,6 @@ class Questions extends Model
     {
         return $this->hasMany(DetailQuizs::class, 'question_id', 'questions_id');
     }
+
+    
 }

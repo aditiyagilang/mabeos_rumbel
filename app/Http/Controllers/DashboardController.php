@@ -30,7 +30,7 @@ class DashboardController extends Controller
         $quizzesl =Quizs::where('status', 'on going')->get();
         $latestQuiz = $quizzesl->first();
         $scores = $latestQuiz ? Scores::where('quizs_id', $latestQuiz->quizs_id)->pluck('score') : collect([]);
-        // dd($scores);
+        // dd($latestQuiz);
         return view('admin.dashboard', [
             'startCount' => $startCount,
             'ongoingCount' => $ongoingCount,

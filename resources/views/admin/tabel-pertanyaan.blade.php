@@ -105,8 +105,9 @@
                                                         </form>
 
                                                         <!-- Detail -->
+                                                         @if($question->type != 'essay')
                                                         <a href="{{ route('choose.index', ['questions_id' => Crypt::encryptString($question->questions_id)]) }}" class="btn btn-secondary">Detail</a>
-
+                                                        @endif
                                                     </td>
                                                 </tr>
                                             @endforeach

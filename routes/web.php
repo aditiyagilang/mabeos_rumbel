@@ -9,6 +9,8 @@ use App\Http\Controllers\ScoreController;
 use App\Http\Controllers\DetailQuizController;
 use App\Http\Controllers\ChooseController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AnswerController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -19,6 +21,10 @@ Route::post('/register', [UserController::class, 'store'])->name('register.store
 Route::get('/login', [UserController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [UserController::class, 'login']);
 Route::get('/logout', [UserController::class, 'logout'])->name('logout');
+
+
+Route::get('home', [HomeController::class, 'index'])->name('home.index');
+
 
 
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
@@ -55,6 +61,7 @@ Route::delete('questions/{id}', [QuestionController::class, 'destroy'])->name('q
 
 
 Route::get('scores', [ScoreController::class, 'index'])->name('scores.index');
+Route::get('/riwayat-skor', [ScoreController::class, 'indexUser'])->name('scores.indexUser');
 Route::get('scores/create', [ScoreController::class, 'create'])->name('scores.create');
 Route::post('scores', [ScoreController::class, 'store'])->name('scores.store');
 Route::get('scores/{id}', [ScoreController::class, 'show'])->name('scores.show');
@@ -91,6 +98,31 @@ Route::post('/update-password', [UserController::class, 'updatePassword'])->name
 
 
 
+Route::post('/authtoken', [AnswerController::class, 'authtoken'])->name('validate.token');
+// Route::post('/authtoken', [AnswerController::class, 'authtoken'])->name('validate.token');
+Route::post('/start-quiz', [AnswerController::class, 'startQuiz'])->name('answer.startQuiz');
+// Route untuk update jawaban
+// Route::post('/update-answer', [AnswerController::class, 'updateAnswer'])->name('submit.quiz');
+// Route::post('/answers', [AnswerController::class, 'updateAnswers'])->name('quiz.updateAnswers');
+Route::post('/updateAnswers', [AnswerController::class, 'updateAnswers'])->name('quiz.updateAnswers');
+
+
+Route::post('/finish-quiz', [AnswerController::class, 'finishQuiz'])->name('quiz.finish');
+Route::post('/update-score', [AnswerController::class, 'updateScore'])->name('update.score');
+
+Route::post('/update-scorePlus', [AnswerController::class, 'updateScorePlus'])->name('update.scorePlus');
+Route::post('/incrementAnswers', [AnswerController::class, 'incrementAnswers'])->name('update.incrementAnswers');
+
+// routes/web.php
+Route::get('/get-scores', [ScoreController::class, 'getScoresData']);
+
+
+Route::get('/pemberitahuan', function () {
+    return view('user.pemberitahuan');
+})->name('user.pemberitahuan');
+
+
+
 Route::get('/tabel-skor', function () {
     return view('admin.tabel-skor');
 });
@@ -121,23 +153,18 @@ Route::get('/tabel-user', function () {
     return view('tabel-user');
 });
 Route::get('/Home_user', function () {
-    return view('Home_user');
+    return view('user.Home_user');
 });
-Route::get('/riwayat-skor', function () {
-    return view('riwayat-skor');
-});
+// Route::get('/riwayat-skor', function () {
+//     return view('user.riwayat-skor');
+// });
 Route::get('/profile-user', function () {
     return view('profile-user');
 });
 Route::get('/kuis-cpns', function () {
-    return view('kuis-cpns');
+    return view('user.kuis-cpns');
 });
 Route::get('/kuis-kecerdasan', function () {
-    return view('kuis-kecerdasan');
+    return view('user.kuis-kecerdasan');
 });
-Route::get('/kuis-kecermatan', function () {
-    return view('kuis-kecermatan');
-});
-Route::get('/kuis-kepribadian', function () {
-    return view('kuis-kepribadian');
-});
+

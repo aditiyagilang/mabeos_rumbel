@@ -26,7 +26,12 @@
     <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
         data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
         @include('admin.navbar')
-        @include('admin.sidebar')
+
+        @if (session('level') === 'Admin')
+            @include('admin.sidebar')
+        @else (session('level') === 'User')
+            @include('user.sidebar')
+        @endif
         <div class="page-wrapper">
             <div class="page-breadcrumb">
                 <div class="row align-items-center">

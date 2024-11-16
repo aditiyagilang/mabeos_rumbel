@@ -13,30 +13,34 @@ class ChooseController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-    {
-        // Mendekripsi 'questions_id' yang diterima dari URL
-        $questionId = $request->input('questions_id');
-        
-        if ($questionId) {
-            // Mendekripsi 'questions_id'
-            $questionId = Crypt::decryptString($questionId);
+{
+    // Mendekripsi 'questions_id' yang diterima dari URL
+    $questionId = $request->input('questions_id');
     
-            // Mengambil data dari tabel 'choose' berdasarkan 'questions_id'
-            $chooses = Choose::where('questions_id', $questionId)->get();
-        } else {
-            // Jika tidak ada 'questions_id', ambil semua data 'choose'
-            $chooses = Choose::all();
-        }
-    
-        // Menyamar ID untuk setiap choose
-        foreach ($chooses as $choose) {
-            $choose->encrypted_id = Crypt::encryptString($choose->choose_id);
-        }
-    
-        // Menampilkan view dengan data yang telah difilter atau seluruh data
-        return view('admin.tabel-opsi-jawaban', compact('chooses', 'questionId'));
+    if ($questionId) {
+        // Mendekripsi 'questions_id'
+        $questionId = Crypt::decryptString($questionId);
+
+        // Mengambil data dari tabel 'choose' berdasarkan 'questions_id'
+        $chooses = Choose::where('questions_id', $questionId)->get();
+
+        // Cek apakah sudah ada 5 data pada 'questions_id'
+        $isFull = Choose::where('questions_id', $questionId)->count() >= 5;
+    } else {
+        // Jika tidak ada 'questions_id', ambil semua data 'choose'
+        $chooses = Choose::all();
+        $isFull = false;  // Tidak perlu cek jika tidak ada 'questions_id'
     }
-    
+
+    // Menyamar ID untuk setiap choose
+    foreach ($chooses as $choose) {
+        $choose->encrypted_id = Crypt::encryptString($choose->choose_id);
+    }
+
+    // Menampilkan view dengan data yang telah difilter atau seluruh data
+    return view('admin.tabel-opsi-jawaban', compact('chooses', 'questionId', 'isFull'));
+}
+
 
     /**
      * Show the form for creating a new resource.

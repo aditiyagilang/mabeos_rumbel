@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('img_url', 225);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->enum('level', ['User', 'Admin']);
             $table->rememberToken();
             $table->timestamps();
         });
