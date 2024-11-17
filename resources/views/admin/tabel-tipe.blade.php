@@ -72,9 +72,9 @@
                                                     <td>{{ $type->types_id }}</td>
                                                     <td>{{ $type->types_name }}</td>
                                                     <td>
-                                                    <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editTypeModal"
+                                                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editTypeModal"
                                                         data-id="{{ $type->types_id }}" data-name="{{ $type->types_name }}">
-                                                        Edit
+                                                        Ubah
                                                     </button>
                                                                 <form action="{{ route('types.destroy', $type->hash) }}" method="POST">
                                                                     @csrf

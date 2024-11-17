@@ -2763,7 +2763,7 @@ fieldset:disabled .btn {
 }
 .btn-primary {
   color: #fff;
-  background-color: #7460ee;
+  background-color: #c9aaff;
   border-color: #7460ee;
 }
 .btn-primary:hover {
@@ -2804,8 +2804,8 @@ fieldset:disabled .btn {
 }
 .btn-secondary {
   color: #fff;
-  background-color: #6c757d;
-  border-color: #6c757d;
+  background-color: #868a88;
+  border-color: #868a88;
 }
 .btn-secondary:hover {
   color: #fff;
@@ -2844,7 +2844,7 @@ fieldset:disabled .btn {
   border-color: #6c757d;
 }
 .btn-success {
-  color: #000;
+  color: #fff;
   background-color: #26c6da;
   border-color: #26c6da;
 }
@@ -2885,8 +2885,8 @@ fieldset:disabled .btn {
   border-color: #26c6da;
 }
 .btn-info {
-  color: #000;
-  background-color: #1e88e5;
+  color: #fff;
+  background-color: #8bdbff;
   border-color: #1e88e5;
 }
 .btn-info:hover {
@@ -2927,7 +2927,7 @@ fieldset:disabled .btn {
 }
 .btn-warning {
   color: #000;
-  background-color: #ffb22b;
+  background-color: #facc7d;
   border-color: #ffb22b;
 }
 .btn-warning:hover {
@@ -2967,8 +2967,8 @@ fieldset:disabled .btn {
   border-color: #ffb22b;
 }
 .btn-danger {
-  color: #000;
-  background-color: #fc4b6c;
+  color: #fff;
+  background-color: #ff879d;
   border-color: #fc4b6c;
 }
 .btn-danger:hover {
@@ -4193,6 +4193,7 @@ fieldset:disabled .btn {
   -ms-flex-align: center;
   align-items: center;
   width: 100%;
+  background: #88c1ff;
 }
 .navbar-toggler {
   padding: 0.25rem 0.75rem;
@@ -4418,6 +4419,7 @@ fieldset:disabled .btn {
 }
 .navbar-dark .navbar-brand {
   color: #fff;
+  background: #88c1ff;
 }
 .navbar-dark .navbar-brand:focus,
 .navbar-dark .navbar-brand:hover {
@@ -4815,7 +4817,7 @@ fieldset:disabled .btn {
 .page-item.active .page-link {
   z-index: 3;
   color: #fff;
-  background-color: #1e88e5;
+  background-color: #88c1ff;
   border-color: #1e88e5;
 }
 .page-item.disabled .page-link {
@@ -10246,7 +10248,7 @@ html[dir="ltr"] body .p-l-0 {
   .topbar
   .top-navbar
   .navbar-header[data-logobg="skin6"] {
-  background: rgba(0, 0, 0, 0.05);
+  background: #88c1ff;
 }
 #main-wrapper[data-layout="horizontal"] .left-sidebar[data-sidebarbg="skin6"],
 #main-wrapper[data-layout="vertical"] .left-sidebar[data-sidebarbg="skin6"] {
@@ -10304,7 +10306,7 @@ html[dir="ltr"] body .p-l-0 {
   ul
   .sidebar-item
   .sidebar-link.active {
-  background: #26c6da;
+  background: #88c1ff;
   color: #fff;
   font-weight: 400;
   -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -10926,7 +10928,7 @@ a {
 }
 .table thead th {
   color: #000;
-  background-color: #3fb6e2;
+  background-color: #88c1ff;
   font-weight: 700;
 }
 .table td,

@@ -61,14 +61,14 @@
 
                                 @if ($isFull)
                                     <!-- Jika sudah ada 5 data, tampilkan tulisan "Penuh" -->
-                                    <span class="btn btn-secondary ms-2">Penuh</span>
+                                    <span class="btn btn-warning ms-2">Penuh</span>
                                 @else
                                     <!-- Jika belum ada 5 data, tampilkan tombol "Tambah" -->
                                     <button class="btn btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#addUserModal">Tambah</button>
                                 @endif
                             </div>
 </div>
-                                                    
+
 
                             <div class="table-responsive mt-3">
                                 <table class="table table-bordered table-hover table-striped user-table">
@@ -88,7 +88,7 @@
                                                 <td class="answer">{{ $choose->answers }}</td>
                                                 <td>
                                                     <!-- Aksi Edit -->
-                                                    <a href="{{ route('choose.edit', ['id' => Crypt::encryptString($choose->choose_id)]) }}" class="btn btn-info me-2 mt-2" data-bs-toggle="modal" data-bs-target="#editUserModal">Ubah</a>
+                                                    <a href="{{ route('choose.edit', ['id' => Crypt::encryptString($choose->choose_id)]) }}" class="btn btn-success me-2 mt-2" data-bs-toggle="modal" data-bs-target="#editUserModal">Ubah</a>
 
                                                     <!-- Aksi Hapus -->
                                                     <form action="{{ route('choose.destroy', ['id' => Crypt::encryptString($choose->choose_id)]) }}" method="POST" style="display:inline;">
@@ -177,11 +177,11 @@
         let searchInput = document.getElementById('searchInput').value.toLowerCase();
         // Ambil semua baris tabel
         let tableRows = document.querySelectorAll('#choosesTableBody tr');
-        
+
         tableRows.forEach(row => {
             // Ambil teks dari kolom Jawaban
             let answerText = row.querySelector('.answer').textContent.toLowerCase();
-            
+
             // Periksa apakah input pencarian ditemukan di kolom Jawaban
             if (answerText.includes(searchInput)) {
                 row.style.display = ''; // Tampilkan baris

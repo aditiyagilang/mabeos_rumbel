@@ -81,14 +81,14 @@
                                                     <td>{{ $quiz->token }}</td>
                                                     <td>{{ $quiz->status }}</td>
                                                     <td>
-                                                    <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editUserModal"
+                                                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editUserModal"
                                                         data-id="{{ $quiz->quizs_id }}"
                                                         data-name="{{ $quiz->quizs_name }}"
                                                         data-type-id="{{ $quiz->types_id }}"
                                                         data-start-date="{{ $quiz->start_date }}"
                                                         data-end-date="{{ $quiz->end_date }}"
                                                         data-token="{{ $quiz->token }}"
-                                                        data-status="{{ $quiz->status }}">Edit</button>
+                                                        data-status="{{ $quiz->status }}">Ubah</button>
 
 
 
@@ -99,7 +99,7 @@
                                                         </form>
                                                         <form action="{{ route('details.index') }}" method="GET" style="display:inline;">
                                                             <input type="hidden" name="qid" value="{{ Crypt::encryptString($quiz->quizs_id) }}">
-                                                            <button type="submit" class="btn btn-secondary">Detail</button>
+                                                            <button type="submit" class="btn btn-warning">Detail</button>
                                                         </form>
                                                     @else
                                                         <span>Tidak ada aksi untuk Kuis Kecermatan</span>

@@ -84,7 +84,7 @@
                                                 <td class="question-answer">{{ $question->answers }}</td>
                                                 <td>
                                                     <!-- Edit Button -->
-                                                    <button type="button" class="btn btn-primary"
+                                                    <button type="button" class="btn btn-success"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#editQuestionModal"
                                                         data-id="{{ $question->questions_id }}"
@@ -92,7 +92,7 @@
                                                         data-jawaban="{{ $question->answers }}"
                                                         data-type="{{ $question->type }}"
                                                         data-hash="{{ Crypt::encryptString($question->questions_id) }}">
-                                                        Edit
+                                                        Ubah
                                                     </button>
 
                                                     <!-- Delete Form -->
@@ -104,7 +104,7 @@
 
                                                     <!-- Detail Button (only for non-essay questions) -->
                                                     @if($question->type != 'essay')
-                                                        <a href="{{ route('choose.index', ['questions_id' => Crypt::encryptString($question->questions_id)]) }}" class="btn btn-secondary">Detail</a>
+                                                        <a href="{{ route('choose.index', ['questions_id' => Crypt::encryptString($question->questions_id)]) }}" class="btn btn-warning">Detail</a>
                                                     @endif
                                                 </td>
                                             </tr>
@@ -244,14 +244,14 @@
         let searchInput = document.getElementById('searchInput').value.toLowerCase();
         // Ambil semua baris tabel
         let tableRows = document.querySelectorAll('#questionsTableBody tr');
-        
+
         tableRows.forEach(row => {
             // Ambil teks dari kolom ID Pertanyaan, Jenis Soal, Pertanyaan, dan Jawaban
             let questionId = row.querySelector('.question-id').textContent.toLowerCase();
             let questionType = row.querySelector('.question-type').textContent.toLowerCase();
             let questionText = row.querySelector('.question-text').textContent.toLowerCase();
             let questionAnswer = row.querySelector('.question-answer').textContent.toLowerCase();
-            
+
             // Periksa apakah input pencarian ditemukan di salah satu kolom
             if (questionId.includes(searchInput) || questionType.includes(searchInput) || questionText.includes(searchInput) || questionAnswer.includes(searchInput)) {
                 row.style.display = ''; // Tampilkan baris
