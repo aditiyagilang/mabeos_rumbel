@@ -51,38 +51,39 @@
                     <div class="col-sm-12">
                         <div class="card">
                             <div class="card-body">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h4 class="card-title">Tabel Kuis</h4>
-                                    <div class="d-flex align-items-center">
-                                        <input type="text" class="form-control me-2" placeholder="Cari..." id="searchInput">
-                                            <button class="btn btn-outline-secondary" onclick="searchFunction()">
-                                                <i class="bi bi-search"></i> <!-- Bootstrap Icons -->
-                                            </button>
-                                        <button class="btn btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#addUserModal">Tambah</button>
-                                    </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h4 class="card-title">Tabel Kuis</h4>
+                                <div class="d-flex align-items-center">
+                                    <input type="text" class="form-control me-2" placeholder="Cari Pertanyaan, Jenis Soal, atau Jawaban..." id="searchInput" onkeyup="searchFunction()">
+                                    <button class="btn btn-outline-secondary" onclick="searchFunction()">
+                                        <i class="bi bi-search"></i> <!-- Bootstrap Icons -->
+                                    </button>
+                                    <button class="btn btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#addUserModal">Tambah</button>
                                 </div>
-                                <div class="table-responsive mt-3">
-                                    <table class="table table-bordered table-hover table-striped user-table">
-                                        <thead class="table-dark">
+                            </div>
+
+                            <div class="table-responsive mt-3">
+                                <table class="table table-bordered table-hover table-striped user-table">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th>No</th>
+                                            <th>ID Pertanyaan</th>
+                                            <th>Jenis Soal</th>
+                                            <th>Pertanyaan</th>
+                                            <th>Jawaban</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="questionsTableBody">
+                                        @foreach($questions as $index => $question)
                                             <tr>
-                                                <th>No</th>
-                                                <th>ID Pertanyaan</th>
-                                                <th>Jenis Soal</th>
-                                                <th>Pertanyaan</th>
-                                                <th>Jawaban</th>
-                                                <th>Aksi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach($questions as $index => $question)
-                                                <tr>
-                                                    <td>{{ $index + 1 }}</td>
-                                                    <td>{{ $question->questions_id }}</td>
-                                                    <td>{{ $question->type }}</td>
-                                                    <td>{{ $question->questions }}</td>
-                                                    <td>{{ $question->answers }}</td>
-                                                    <td>
-                                                    <!-- Tombol untuk membuka modal Edit Question -->
+                                                <td>{{ $index + 1 }}</td>
+                                                <td class="question-id">{{ $question->questions_id }}</td>
+                                                <td class="question-type">{{ $question->type }}</td>
+                                                <td class="question-text">{{ $question->questions }}</td>
+                                                <td class="question-answer">{{ $question->answers }}</td>
+                                                <td>
+                                                    <!-- Edit Button -->
                                                     <button type="button" class="btn btn-primary"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#editQuestionModal"
@@ -94,27 +95,23 @@
                                                         Edit
                                                     </button>
 
+                                                    <!-- Delete Form -->
+                                                    <form action="{{ route('questions.destroy', $question->questions_id) }}" method="POST" style="display:inline;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger me-2">Hapus</button>
+                                                    </form>
 
-
-
-                                                        <!-- Hapus -->
-                                                        <form action="{{ route('questions.destroy', $question->questions_id) }}" method="POST" style="display:inline;">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit" class="btn btn-danger me-2">Hapus</button>
-                                                        </form>
-
-                                                        <!-- Detail -->
-                                                         @if($question->type != 'essay')
+                                                    <!-- Detail Button (only for non-essay questions) -->
+                                                    @if($question->type != 'essay')
                                                         <a href="{{ route('choose.index', ['questions_id' => Crypt::encryptString($question->questions_id)]) }}" class="btn btn-secondary">Detail</a>
-                                                        @endif
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
 
                                 <!-- Pagination -->
                                 <nav aria-label="...">
@@ -241,6 +238,29 @@
     <script src="{{ 'assets/js/sidebarmenu.js' }}"></script>
     <!--Custom JavaScript -->
     <script src="{{ 'assets/js/custom.js' }}"></script>
+    <script>
+    function searchFunction() {
+        // Ambil nilai dari input pencarian
+        let searchInput = document.getElementById('searchInput').value.toLowerCase();
+        // Ambil semua baris tabel
+        let tableRows = document.querySelectorAll('#questionsTableBody tr');
+        
+        tableRows.forEach(row => {
+            // Ambil teks dari kolom ID Pertanyaan, Jenis Soal, Pertanyaan, dan Jawaban
+            let questionId = row.querySelector('.question-id').textContent.toLowerCase();
+            let questionType = row.querySelector('.question-type').textContent.toLowerCase();
+            let questionText = row.querySelector('.question-text').textContent.toLowerCase();
+            let questionAnswer = row.querySelector('.question-answer').textContent.toLowerCase();
+            
+            // Periksa apakah input pencarian ditemukan di salah satu kolom
+            if (questionId.includes(searchInput) || questionType.includes(searchInput) || questionText.includes(searchInput) || questionAnswer.includes(searchInput)) {
+                row.style.display = ''; // Tampilkan baris
+            } else {
+                row.style.display = 'none'; // Sembunyikan baris
+            }
+        });
+    }
+</script>
     <script>
     const editModal = document.getElementById('editQuestionModal');
     editModal.addEventListener('show.bs.modal', function(event) {

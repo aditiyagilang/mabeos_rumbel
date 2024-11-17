@@ -53,56 +53,55 @@
                             <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center">
                             <h4 class="card-title">Tabel Opsi Jawaban</h4>
-                                <div class="d-flex align-items-center">
-                                    <input type="text" class="form-control me-2" placeholder="Cari..." id="searchInput">
-                                    <button class="btn btn-outline-secondary" onclick="searchFunction()">
-                                        <i class="bi bi-search"></i> <!-- Bootstrap Icons -->
-                                    </button>
+                            <div class="d-flex align-items-center">
+                                <input type="text" class="form-control me-2" placeholder="Cari Jawaban..." id="searchInput" onkeyup="searchFunction()">
+                                <button class="btn btn-outline-secondary" onclick="searchFunction()">
+                                    <i class="bi bi-search"></i> <!-- Bootstrap Icons -->
+                                </button>
 
-                                    @if ($isFull)
-                                        <!-- Jika sudah ada 5 data, tampilkan tulisan "Penuh" -->
-                                        <span class="btn btn-secondary ms-2">Penuh</span>
-                                    @else
-                                        <!-- Jika belum ada 5 data, tampilkan tombol "Tambah" -->
-                                        <button class="btn btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#addUserModal">Tambah</button>
-                                    @endif
-                                </div>
+                                @if ($isFull)
+                                    <!-- Jika sudah ada 5 data, tampilkan tulisan "Penuh" -->
+                                    <span class="btn btn-secondary ms-2">Penuh</span>
+                                @else
+                                    <!-- Jika belum ada 5 data, tampilkan tombol "Tambah" -->
+                                    <button class="btn btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#addUserModal">Tambah</button>
+                                @endif
                             </div>
+</div>
+                                                    
 
-                                <div class="table-responsive mt-3">
+                            <div class="table-responsive mt-3">
                                 <table class="table table-bordered table-hover table-striped user-table">
-                                <thead class="table-dark">
-                                    <tr>
-                                        <th>No</th>
-                                        <th>ID Jawaban</th>
-                                        <th>Jawaban</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($chooses as $index => $choose)
+                                    <thead class="table-dark">
                                         <tr>
-                                            <td>{{ $index + 1 }}</td>
-                                            <td>{{ $choose->choose_id }}</td>
-                                            <td>{{ $choose->answers }}</td>
-                                            <td>
-                                                <!-- Aksi Edit -->
-                                                <a href="{{ route('choose.edit', ['id' => Crypt::encryptString($choose->choose_id)]) }}" class="btn btn-info me-2 mt-2" data-bs-toggle="modal" data-bs-target="#editUserModal">Ubah</a>
-
-                                                <!-- Aksi Hapus -->
-                                                <form action="{{ route('choose.destroy', ['id' => Crypt::encryptString($choose->choose_id)]) }}" method="POST" style="display:inline;">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger me-2 mt-2" onclick="return confirm('Apakah Anda yakin ingin menghapus jawaban ini?')">Hapus</button>
-                                                </form>
-
-                                            </td>
+                                            <th>No</th>
+                                            <th>ID Jawaban</th>
+                                            <th>Jawaban</th>
+                                            <th>Aksi</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody id="choosesTableBody">
+                                        @foreach ($chooses as $index => $choose)
+                                            <tr>
+                                                <td>{{ $index + 1 }}</td>
+                                                <td>{{ $choose->choose_id }}</td>
+                                                <td class="answer">{{ $choose->answers }}</td>
+                                                <td>
+                                                    <!-- Aksi Edit -->
+                                                    <a href="{{ route('choose.edit', ['id' => Crypt::encryptString($choose->choose_id)]) }}" class="btn btn-info me-2 mt-2" data-bs-toggle="modal" data-bs-target="#editUserModal">Ubah</a>
 
-                                </div>
+                                                    <!-- Aksi Hapus -->
+                                                    <form action="{{ route('choose.destroy', ['id' => Crypt::encryptString($choose->choose_id)]) }}" method="POST" style="display:inline;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger me-2 mt-2" onclick="return confirm('Apakah Anda yakin ingin menghapus jawaban ini?')">Hapus</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -172,6 +171,26 @@
             </footer>
         </div>
     </div>
+    <script>
+    function searchFunction() {
+        // Ambil nilai dari input pencarian
+        let searchInput = document.getElementById('searchInput').value.toLowerCase();
+        // Ambil semua baris tabel
+        let tableRows = document.querySelectorAll('#choosesTableBody tr');
+        
+        tableRows.forEach(row => {
+            // Ambil teks dari kolom Jawaban
+            let answerText = row.querySelector('.answer').textContent.toLowerCase();
+            
+            // Periksa apakah input pencarian ditemukan di kolom Jawaban
+            if (answerText.includes(searchInput)) {
+                row.style.display = ''; // Tampilkan baris
+            } else {
+                row.style.display = 'none'; // Sembunyikan baris
+            }
+        });
+    }
+</script>
     <script src="{{ 'assets/js/jquery.min.js' }}"></script>
     <!-- Bootstrap tether Core JavaScript -->
     <script src="{{ 'assets/js/bootstrap.bundle.min.js' }}"></script>

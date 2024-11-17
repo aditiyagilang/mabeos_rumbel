@@ -25,4 +25,5 @@ class Scores extends Model
     {
         return $this->belongsTo(User::class, 'users_id', 'users_id');
     }
+    
 }

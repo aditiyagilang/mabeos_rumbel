@@ -70,24 +70,43 @@
                                 </div>
                         
                                 <div class="table-responsive mt-3">
-                                    <table class="table table-bordered table-hover table-striped user-table">
-                                        <thead class="table-dark">
+                                <table class="table table-bordered table-hover table-striped user-table">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th>Nama</th>
+                                            <th>Username</th>
+                                            <th>Email</th>
+                                            <th>Telepon</th>
+                                     
+                                            <th>Tanggal Lahir</th>
+                                            <th>Nilai</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="userTableBody">
+                                        @foreach ($scores as $scores)
                                             <tr>
-                                                <th><input type="checkbox" id="selectAll"> Pilih Semua</th>
-                                                <th>ID Pertanyaan</th>
-                                                <th>Pertanyaan</th>
+                                                <td>{{ $scores->name }}</td>
+                                                <td>{{ $scores->username }}</td>
+                                                <td>{{ $scores->email }}</td>
+                                                <td>{{ $scores->telp }}</td>
+                                             
+                                                <td>{{ $scores->birthdate }}</td>
+                                                <td>{{ $scores->score }}</td>
+                                                <td>   
+                                                    <form action="{{ route('index.answer') }}" method="POST" style="display:inline;">
+                                                        @csrf
+                                                        <input type="hidden" name="quiz_id" value="{{ Crypt::encryptString($quizId) }}">
+                                                        <input type="hidden" name="users_id" value="{{ Crypt::encryptString($scores->users_id) }}">
+                                                        <button type="submit" class="btn btn-secondary">Lihat</button>
+                                                    </form>
+                                                </td>
+                                                
                                             </tr>
-                                        </thead>
-                                        <tbody id="questionTableBody">
-                                            @foreach ($questions as $question)
-                                                <tr>
-                                                    <td><input type="checkbox" class="checkbox-item" data-id="{{ $question->questions_id }}"></td>
-                                                    <td class="question-id">{{ $question->questions_id }}</td>
-                                                    <td class="question-text">{{ $question->questions }}</td> <!-- Gantilah sesuai nama kolom pertanyaan di database -->
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+
                                 </div>
                           
 

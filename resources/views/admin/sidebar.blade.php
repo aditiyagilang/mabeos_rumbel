@@ -17,28 +17,33 @@
                 </li>
                 <li class="sidebar-item {{ Request::is('tabel*') ? 'active' : '' }}">
                     <a class="sidebar-link has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
-                        <i class="mdi me-2 mdi-table"></i><span class="hide-menu">Tabel</span>
+                        <i class="mdi me-2 mdi-table"></i><span class="hide-menu">Data Master</span>
                     </a>
                     <ul aria-expanded="false" class="collapse first-level">
-                    <li class="sidebar-item {{ Request::is('types') ? 'active' : '' }}">
+                    <!-- <li class="sidebar-item {{ Request::is('types') ? 'active' : '' }}">
                         <a href="{{ route('types.index') }}" class="sidebar-link">
                             <i class="mdi mdi-table-large"></i><span class="hide-menu">Tabel Tipe</span>
                         </a>
-                    </li>
+                    </li> -->
 
                         <li class="sidebar-item {{ Request::is('quizzes') ? 'active' : '' }}">
                             <a href="{{ route('quizzes.index') }}" class="sidebar-link">
-                                <i class="mdi mdi-table-large"></i><span class="hide-menu">Tabel Kuis</span>
+                                <i class="mdi mdi-table-large"></i><span class="hide-menu">Data Kuis</span>
                             </a>
                         </li>
                         <li class="sidebar-item {{ Request::is('questions') ? 'active' : '' }}">
                             <a href="{{ route('questions.index') }}" class="sidebar-link">
-                                <i class="mdi mdi-table-large"></i><span class="hide-menu">Tabel Pertanyaan</span>
+                                <i class="mdi mdi-table-large"></i><span class="hide-menu">Data Pertanyaan</span>
                             </a>
                         </li>
                         <li class="sidebar-item {{ Request::is('scores') ? 'active' : '' }}">
                             <a href="{{ route('scores.index') }}" class="sidebar-link">
-                                <i class="mdi mdi-table-large"></i><span class="hide-menu">Tabel Skor</span>
+                                <i class="mdi mdi-table-large"></i><span class="hide-menu">Data Skor</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item {{ Request::is('penilaian') ? 'active' : '' }}">
+                            <a href="{{ route('quizzes.indexPenilaian') }}" class="sidebar-link">
+                                <i class="mdi mdi-table-large"></i><span class="hide-menu">Data Penilaian</span>
                             </a>
                         </li>
                     

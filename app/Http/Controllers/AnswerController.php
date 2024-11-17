@@ -12,6 +12,8 @@ use App\Models\Scores;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\DB;
 
 
 
@@ -21,10 +23,91 @@ class AnswerController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        try {
+            // Mendekripsi nilai quiz_id dan users_id yang diterima dari request
+            $quizId = Crypt::decryptString($request->input('quiz_id'));
+            $userId = Crypt::decryptString($request->input('users_id'));
+        } catch (\Exception $e) {
+            // Menangani jika dekripsi gagal
+            return redirect()->route('error.page')->with('error', 'Invalid IDs.');
+        }
+        
+        // Ambil data question dan answer berdasarkan quiz_id dan users_id yang sudah didekripsi
+        $answers = DB::table('answers')
+        ->join('questions', 'answers.question_id', '=', 'questions.questions_id')
+        ->where('answers.quizs_id', $quizId)
+        ->where('answers.users_id', $userId)
+        ->select('questions.questions as question', 'questions.answers as correct_answer', 'answers.answers', 'answers.score', 'answers.question_id', 'answers.answers_id')
+        ->get();
+        // dd($answers);
+    
+    
+      
+        
+        // Menampilkan data atau mengembalikan ke view
+        return view('admin.koreksi', compact('answers'));
     }
+    
+    public function toggleScore(Request $request)
+    {
+        try {
+            // Menerima input answers_id
+            $answerId = $request->input('answers_id');
+    
+            // Temukan jawaban yang sesuai
+            $answer = Answer::findOrFail($answerId);
+    
+            // Toggle score: jika score 0, set jadi 1, jika 1, set jadi 0
+            $answer->score = $answer->score == 0 ? 1 : 0;
+    
+            // Simpan perubahan
+            $answer->save();
+    
+            // Ambil users_id dan quizId
+            $usersId = $answer->users_id; // Sesuaikan dengan nama kolom di database
+            $quizId = $answer->quizs_id; // Sesuaikan dengan nama kolom di database
+    
+            // Redirect ke route /answer dengan query string
+            return redirect()->route('answer.index', [
+                'users_id' => $usersId,
+                'quizId' => $quizId,
+            ]);
+        } catch (\Exception $e) {
+            // Menangani error dan mengembalikan ke halaman sebelumnya dengan pesan error
+            return back()->with('error', 'Gagal mengubah skor: ' . $e->getMessage());
+        }
+    }
+
+
+    public function index2(Request $request)
+{
+    $usersId = $request->query('users_id');
+    $quizId = $request->query('quizId');
+    // dd($request->all());
+
+    // Lakukan sesuatu dengan $usersId dan $quizId
+    // Misalnya, menampilkan data terkait
+    $answers = DB::table('answers')
+        ->join('questions', 'answers.question_id', '=', 'questions.questions_id')
+        ->where('answers.quizs_id', $quizId)
+        ->where('answers.users_id', $usersId)
+        ->select('questions.questions as question', 'questions.answers as correct_answer', 'answers.answers', 'answers.score', 'answers.question_id', 'answers.answers_id')
+        ->get();
+        // dd($answers);
+    
+    
+      
+        
+        // Menampilkan data atau mengembalikan ke view
+        return view('admin.koreksi', compact('answers'));
+
+    return view('answer.index', compact('answers'));
+}
+
+    
+    
 
 
     public function authtoken(Request $request)
@@ -110,44 +193,39 @@ class AnswerController extends Controller
         
         $detailQuizs = DetailQuizs::where('quizs_id', $quizs_id)->get();
         if ($quiz->types_name === 'Kuis Kecermatan') {
-            $randomQuestion = Questions::inRandomOrder()->first();
-
-            // Jika tidak ada pertanyaan untuk kuis ini
-            if (!$randomQuestion) {
-                return redirect()->back()->with('error', 'Tidak ada pertanyaan untuk kuis ini.');
+            // Tambahkan logika untuk input 10 data ke tabel kecermatan
+            $kecermatanData = [];
+            for ($sesi = 1; $sesi <= 10; $sesi++) {
+                $kecermatanData[] = [
+                    'users_id'    => $users_id,
+                    'quizs_id'    => $quizs_id,
+                    'score'       => 0, // Default score
+                    'sesi'        => $sesi,
+                    'created_at'  => now(),
+                    'updated_at'  => now(),
+                ];
             }
-    
-            $question_id = $randomQuestion->questions_id;
-    
-            // Simpan jawaban pertama dengan question_id yang dipilih secara acak
-            $answer = Answer::firstOrCreate([
-                'users_id'    => $users_id,
-                'quizs_id'    => $quizs_id,
-                'question_id' => $question_id,
-            ], [
-                'answers' => null, 
-                'score'   => 0,
-                'status'  => 'on going',
-            ]);
-    
-            // Simpan jawaban pertama dengan question_id yang dipilih secara acak
-            $answer = Answer::firstOrCreate([
-                'users_id'    => $users_id,
-                'quizs_id'    => $quizs_id,
-                'question_id' => $question_id,
-            ], [
-                'answers' => null, 
-                'score'   => 0,
-                'status'  => 'on going',
-            ]);
-
-          
-            // Redirect ke halaman kuis kecermatan dan kirimkan answer_id
+        
+            // Masukkan data ke tabel kecermatan
+            Kecermatan::insert($kecermatanData);
+        
+            // Ambil kecermatan_id untuk sesi pertama
+            $kecermatan = Kecermatan::where('users_id', $users_id)
+                ->where('quizs_id', $quizs_id)
+                ->where('sesi', 1) // Sesi pertama
+                ->first();
+        
+            if (!$kecermatan) {
+                return redirect()->back()->with('error', 'Data kecermatan tidak ditemukan.');
+            }
+        
+            // Redirect ke halaman kuis kecermatan dan kirimkan kecermatan_id
             return view('user.kuis-kecermatan', [
-                'answer_id' => $answer->answers_id,
-                'answers'=>$answer->answers
+                'kecermatan_id' => $kecermatan->kecermatan_id,
+                'sesi' => $kecermatan->sesi,
             ]);
         }
+        
         foreach ($detailQuizs as $detail) {
             Answer::firstOrCreate([
                 'users_id'    => $users_id,
@@ -217,35 +295,32 @@ public function updateAnswers(Request $request)
 
 
 
-public function updateScorePlus(Request $request)
+public function updateScore(Request $request)
 {
     // Ambil data dari request
-    $answers_id = $request->input('answers_id');
+    $kecermatan_id = $request->input('kecermatan_id');
     $new_score = $request->input('score');
 
-    // Cari record Answer berdasarkan answers_id
-    $answer = Answer::find($answers_id);
+    // Cari record Kecermatan berdasarkan kecermatan_id
+    $kecermatan = Kecermatan::find($kecermatan_id);
 
-    if (!$answer) {
+    if (!$kecermatan) {
         // Jika tidak ditemukan, kembalikan error
-        return redirect()->back()->with('error', 'Jawaban tidak ditemukan.');
+        return redirect()->back()->with('error', 'Data kecermatan tidak ditemukan.');
     }
 
     // Update score
-    $answer->score = $new_score;
-    $answer->answers = '1';
-    $answer->save();  // Simpan perubahan
+    $kecermatan->score = $new_score;
+    $kecermatan->save();  // Simpan perubahan
 
     // Kembalikan respons sukses
-    return response()->json(['message' => 'Jawaban berhasil diperbarui', 'score' => $answer->score], 200);
-
-
-
+    return response()->json(['message' => 'Kecermatan berhasil diperbarui', 'score' => $kecermatan->score], 200);
 }
 
 
 
-public function updateScore(Request $request)
+
+public function updateScorePlus(Request $request)
 {
     // Ambil data dari request
     $answers_id = $request->input('answers_id');

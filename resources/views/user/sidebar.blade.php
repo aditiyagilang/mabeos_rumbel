@@ -46,6 +46,7 @@
                         </li>
                     </ul>
                 </li>
+               
                 <li class="sidebar-item">
                     <a class="sidebar-link waves-effect waves-dark sidebar-link {{ Request::is('riwayat-skor') ? 'active' : '' }}"
                         href="/riwayat-skor" aria-expanded="false">

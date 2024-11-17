@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Scores;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\DB;
 
 
 class UserController extends Controller
@@ -18,6 +21,27 @@ class UserController extends Controller
     {
         return view('auth.login'); // Pastikan ada form login di view ini
     }
+
+    public function index(Request $request)
+    {
+        try {
+            $quizId = Crypt::decryptString($request->input('qid'));
+        } catch (\Exception $e) {
+            return redirect()->route('error.page')->with('error', 'Invalid quiz ID.');
+        }
+    
+        $scores = DB::table('scores')
+            ->join('users', 'scores.users_id', '=', 'users.users_id')
+            ->where('scores.quizs_id', $quizId)
+            ->select('scores.*', 'users.*') // Semua kolom dari kedua tabel
+          
+            ->get();
+    
+        return view('admin.user-list', compact('scores', 'quizId'));
+    }
+    
+    
+    
 
     /**
      * Menangani proses login.

@@ -12,7 +12,7 @@ class Quizs extends Model
     protected $table = 'quizs';
     protected $primaryKey = 'quizs_id';
     public $timestamps = false;
-    protected $fillable = ['types_id', 'quizs_name', 'start_date', 'end_date', 'status','duration', 'token'];
+    protected $fillable = ['types_id', 'quizs_name', 'start_date', 'end_date', 'status','duration', 'token', 'show_score'];
 
    
 public function detailQuizs()

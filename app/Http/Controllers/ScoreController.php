@@ -21,22 +21,30 @@ class ScoreController extends Controller
         return view('admin.tabel-skor', compact('scores'));
     }
 
-        public function indexUser()
+    public function indexUser()
     {
         // Ambil users_id dari session
         $scores = Scores::where('users_id', session('users_id'))
             ->with(['quiz', 'user'])
-            ->get();
-
+            ->get()
+            ->filter(function ($score) {
+                // Pastikan hanya skor dari kuis yang show_score true yang ditampilkan
+                return $score->quiz && $score->quiz->show_score === 'true';
+            });
+    
         // Pastikan created_at tidak null
         foreach ($scores as $score) {
             if (!$score->created_at) {
                 $score->created_at = now(); // Atau nilai default lainnya
             }
         }
-        // dd($scores);
+    
+        // Kirim data skor ke view
         return view('user.riwayat-skor', compact('scores'));
     }
+    
+
+
     public function getScoresData()
 {
     // Ambil data skor dari database sesuai kuis untuk user yang sedang login
