@@ -15,6 +15,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link href="{{ 'assets/css/style.min.css' }}" rel="stylesheet">
 </head>
 
@@ -53,11 +54,10 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <h4 class="card-title">Tabel Kuis</h4>
                                 <div class="d-flex align-items-center">
-                                    <input type="text" class="form-control me-2" placeholder="Cari..." id="searchInput" onkeyup="searchFunction()">
+                                    <input type="text" class="form-control me-2" placeholder="Cari Pertanyaan, Jenis Soal, atau Jawaban..." id="searchInput" onkeyup="searchFunction()">
                                     <button class="btn btn-outline-secondary" onclick="searchFunction()">
                                         <i class="bi bi-search"></i> <!-- Bootstrap Icons -->
                                     </button>
-                                        
                                 </div>
                             </div>
                             <div class="table-responsive mt-3">
@@ -87,11 +87,11 @@
                                                 <td class="quiz-token">{{ $quiz->token }}</td>
                                                 <td class="quiz-status">{{ $quiz->status }}</td>
                                                 <td>
-                                                    @if($quiz->type->types_name !== 'Kuis Kecermatan') 
-                                                        
+                                                    @if($quiz->type->types_name !== 'Kuis Kecermatan')
+
                                                         <form action="{{ route('index.user-list') }}" method="GET" style="display:inline;">
                                                             <input type="hidden" name="qid" value="{{ Crypt::encryptString($quiz->quizs_id) }}">
-                                                            <button type="submit" class="btn btn-secondary">Lihat</button>
+                                                            <button type="submit" class="btn btn-warning">Lihat</button>
                                                         </form>
                                                     @else
                                                         <span>Tidak ada aksi untuk Kuis Kecermatan</span>
@@ -102,7 +102,7 @@
                                                         @method('PUT')
                                                         @csrf
                                                         <input type="hidden" name="quizs_id" value="{{ $quiz->quizs_id }}">
-                                                        
+
                                                         <!-- Tombol Aksi berdasarkan status show_score -->
                                                         @if($quiz->show_score === 'true')
                                                             <!-- Ikon jika show_score true -->
@@ -162,7 +162,7 @@
         let searchInput = document.getElementById('searchInput').value.toLowerCase();
         // Ambil semua baris tabel
         let tableRows = document.querySelectorAll('#quizzesTableBody tr');
-        
+
         tableRows.forEach(row => {
             // Ambil data dari elemen dengan class sesuai kolom yang akan dicari
             let quizId = row.querySelector('.quiz-id').textContent.toLowerCase();
@@ -174,8 +174,8 @@
             let quizStatus = row.querySelector('.quiz-status').textContent.toLowerCase();
 
             // Periksa apakah input pencarian ditemukan di salah satu kolom
-            if (quizId.includes(searchInput) || quizType.includes(searchInput) || quizName.includes(searchInput) || 
-                startDate.includes(searchInput) || endDate.includes(searchInput) || quizToken.includes(searchInput) || 
+            if (quizId.includes(searchInput) || quizType.includes(searchInput) || quizName.includes(searchInput) ||
+                startDate.includes(searchInput) || endDate.includes(searchInput) || quizToken.includes(searchInput) ||
                 quizStatus.includes(searchInput)) {
                 row.style.display = ''; // Tampilkan baris
             } else {

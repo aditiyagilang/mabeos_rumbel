@@ -51,14 +51,15 @@
                     <div class="col-sm-12">
                         <div class="card">
                             <div class="card-body">
-                                <!-- Input Pencarian -->
-                                <div class="d-flex align-items-center mb-3">
-                                    <input type="text" class="form-control me-2" placeholder="Cari Nama Siswa, Nama Quiz, Token, atau Skor..." id="searchInput" onkeyup="searchFunction()">
-                                    <button class="btn btn-outline-secondary" onclick="searchFunction()">
-                                        <i class="bi bi-search"></i> <!-- Bootstrap Icons -->
-                                    </button>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h4 class="card-title">Tabel Skor</h4>
+                                    <div class="d-flex align-items-center">
+                                        <input type="text" class="form-control me-2" placeholder="Cari Pertanyaan, Jenis Soal, atau Jawaban..." id="searchInput" onkeyup="searchFunction()">
+                                        <button class="btn btn-outline-secondary" onclick="searchFunction()">
+                                            <i class="bi bi-search"></i> <!-- Bootstrap Icons -->
+                                        </button>
+                                    </div>
                                 </div>
-
                                 <!-- Tabel Skor -->
                                 <div class="table-responsive mt-3">
                                     <table class="table table-bordered table-hover table-striped user-table">
@@ -81,7 +82,7 @@
                                                     <td class="quiz-token">{{ $score->quiz->token }}</td> <!-- Token -->
                                                     <td class="score-value">{{ $score->score }}</td> <!-- Skor -->
                                                     <td>
-                                                        <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editUserModal"
+                                                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editUserModal"
                                                             data-id="{{ $score->scores_id }}"
                                                             data-siswa="{{ $score->user->name }}"
                                                             data-kuis="{{ $score->quiz->quizs_name }}"
@@ -195,21 +196,21 @@
     <!--Custom JavaScript -->
     <script src="{{ 'assets/js/custom.js' }}"></script>
 
-    
+
 <script>
     function searchFunction() {
         // Ambil nilai dari input pencarian
         let searchInput = document.getElementById('searchInput').value.toLowerCase();
         // Ambil semua baris tabel
         let tableRows = document.querySelectorAll('#scoresTableBody tr');
-        
+
         tableRows.forEach(row => {
             // Ambil teks dari kolom Nama Siswa, Nama Quiz, Token, dan Skor
             let studentName = row.querySelector('.student-name').textContent.toLowerCase();
             let quizName = row.querySelector('.quiz-name').textContent.toLowerCase();
             let quizToken = row.querySelector('.quiz-token').textContent.toLowerCase();
             let scoreValue = row.querySelector('.score-value').textContent.toLowerCase();
-            
+
             // Periksa apakah input pencarian ditemukan di salah satu kolom
             if (studentName.includes(searchInput) || quizName.includes(searchInput) || quizToken.includes(searchInput) || scoreValue.includes(searchInput)) {
                 row.style.display = ''; // Tampilkan baris
