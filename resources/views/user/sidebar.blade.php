@@ -22,25 +22,25 @@
                     <ul aria-expanded="false" class="collapse first-level">
                         <li class="sidebar-item">
                             <a href="/kuis-kecerdasan" class="sidebar-link {{ Request::is('kuis-kecerdasan') ? 'active' : '' }}">
-                                <i class="mdi mdi-table-large"></i>
+                            <i class="mdi mdi-lightbulb-on"></i>
                                 <span class="hide-menu">Kuis Kecerdasan</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
                             <a href="/kuis-kecerdasan" class="sidebar-link {{ Request::is('kuis-kepribadian') ? 'active' : '' }}">
-                                <i class="mdi mdi-table-large"></i>
+                            <i class="mdi mdi-heart"></i>
                                 <span class="hide-menu">Kuis Kepribadian</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
                             <a href="/kuis-kecerdasan" class="sidebar-link {{ Request::is('kuis-kecermatan') ? 'active' : '' }}">
-                                <i class="mdi mdi-table-large"></i>
+                            <i class="mdi mdi-eye"></i>
                                 <span class="hide-menu">Kuis Kecermatan</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
                             <a href="/kuis-kecerdasan" class="sidebar-link {{ Request::is('kuis-cpns') ? 'active' : '' }}">
-                                <i class="mdi mdi-table-large"></i>
+                            <i class="mdi mdi-clipboard-check"></i>
                                 <span class="hide-menu">Kuis CPNS</span>
                             </a>
                         </li>

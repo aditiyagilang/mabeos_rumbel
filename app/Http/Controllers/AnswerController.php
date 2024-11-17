@@ -7,6 +7,7 @@ use App\Models\DetailQuizs;
 use App\Models\Quizs;
 use App\Models\Answer;
 use App\Models\Questions;
+use App\Models\Kecermatan;
 use App\Models\Choose;
 use App\Models\Scores;
 use Carbon\Carbon;

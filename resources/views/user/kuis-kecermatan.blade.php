@@ -32,7 +32,7 @@
   </div>
 
   <div class="header">
-    <h1>Trial Test <span id="answer-id-display"></span></h1>
+    <h1>Trial Test <span id="kecermatan-id-display"></span></h1>
     <div>Durasi: <span id="timer-display">01:00</span></div>
   </div>
 
@@ -122,7 +122,7 @@
 
       document.getElementById("score").textContent = score;
 
-      // Mengirimkan skor dan answers_id ke server
+      // Mengirimkan skor dan kecermatan_id ke server
       sendScoreToServer(correctAnswerId);
 
       // Lanjutkan ke sesi berikutnya setelah memilih jawaban
@@ -147,37 +147,36 @@
     }
 
     // Fungsi untuk memulai timer permainan
-    // Fungsi untuk memulai timer permainan
-function startTimer() {
-  const timerElement = document.getElementById("timer-display");
-  const interval = setInterval(() => {
-    timer--;
-    const minutes = String(Math.floor(timer / 60)).padStart(2, "0");
-    const seconds = String(timer % 60).padStart(2, "0");
-    timerElement.textContent = `${minutes}:${seconds}`;
+    function startTimer() {
+      const timerElement = document.getElementById("timer-display");
+      const interval = setInterval(() => {
+        timer--;
+        const minutes = String(Math.floor(timer / 60)).padStart(2, "0");
+        const seconds = String(timer % 60).padStart(2, "0");
+        timerElement.textContent = `${minutes}:${seconds}`;
 
-    if (timer <= 0) {
-      clearInterval(interval);
-      sendScoreToServer(); // Kirim skor ke server ketika waktu habis
-      sendincrementAnswersToServer();
+        if (timer <= 0) {
+          clearInterval(interval);
+          sendScoreToServer(); // Kirim skor ke server ketika waktu habis
+          incrementKecermatanId();
 
-      // Menyegarkan halaman tanpa konfirmasi
-      location.reload(); // Halaman akan di-refresh otomatis setelah waktu habis
+          // Menyegarkan halaman tanpa konfirmasi
+          location.reload(); // Halaman akan di-refresh otomatis setelah waktu habis
+        }
+      }, 1000);
     }
-  }, 1000);
-}
 
-    // Cek apakah ada `answer_id` yang tersimpan di localStorage
-    const storedAnswerId = localStorage.getItem('answer_id');
-    const answer_id = storedAnswerId || '{{ $answer_id }}'; // Gunakan localStorage atau fallback ke PHP value
-    localStorage.setItem('answer_id', answer_id); // Simpan answer_id di localStorage
+    // Cek apakah ada `kecermatan_id` yang tersimpan di localStorage
+    const storedKecermatanId = localStorage.getItem('kecermatan_id');
+    const kecermatan_id = storedKecermatanId || '{{ $kecermatan_id }}'; // Gunakan localStorage atau fallback ke PHP value
+    localStorage.setItem('kecermatan_id', kecermatan_id); // Simpan kecermatan_id di localStorage
 
-    // Menampilkan answer_id pada halaman
-    document.getElementById('answer-id-display').textContent = answer_id;
+    // Menampilkan kecermatan_id pada halaman
+    document.getElementById('kecermatan-id-display').textContent = kecermatan_id;
 
     // Fungsi untuk mengirimkan skor ke server
     function sendScoreToServer(correctAnswerId = null) {
-      console.log('Answer ID:', answer_id);
+      console.log('Kecermatan ID:', kecermatan_id);
       console.log('Score:', score);
 
       fetch('/update-score', {
@@ -188,51 +187,38 @@ function startTimer() {
         },
         body: JSON.stringify({
           score: score,
-          answers_id: answer_id  // Mengirimkan ID jawaban yang dipilih
+          kecermatan_id: kecermatan_id  // Mengirimkan ID kecermatan yang dipilih
         })
       })
       .then(response => response.json())
       .then(data => {
         console.log('Skor berhasil dikirim:', data);
         document.getElementById("score").style.display = 'none';
-
       })
-
       .catch(error => console.error('Error:', error));
     }
 
-    function sendincrementAnswersToServer(correctAnswerId = null) {
-      console.log('Answer ID:', answer_id);
+    function incrementKecermatanId() {
+  // Mengambil kecermatan_id dari localStorage
+  let kecermatanId = parseInt(localStorage.getItem('kecermatan_id')) || 1; // Default ke 1 jika tidak ada
+
+  // Menambah kecermatan_id
+  kecermatanId++;
+
+  // Memastikan kecermatan_id tidak melebihi 9
+  if (kecermatanId > 9) {
+    // Arahkan pengguna ke halaman pemberitahuan setelah penambahan ke-9
+    window.location.href = "/pemberitahuan"; // Ganti dengan URL yang sesuai
+  } else {
+    // Menyimpan kecermatan_id yang sudah ditambah ke localStorage
+    localStorage.setItem('kecermatan_id', kecermatanId);
+    console.log('Kecermatan ID:', kecermatanId);
+  }
+}
 
 
-      fetch('/incrementAnswers', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRF-TOKEN': '{{ csrf_token() }}' // Jangan lupa token CSRF
-        },
-        body: JSON.stringify({
-
-          answers_id: answer_id  // Mengirimkan ID jawaban yang dipilih
-        })
-      })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Skor berhasil dikirim:', data);
-        document.getElementById("score").style.display = 'none';
-
-        // Mengecek jika answers sudah >= 10 dan melakukan redirect
-        if (data.answers >= 10) {
-            window.location.href = "{{ route('user.pemberitahuan') }}";
-        }
-      })
-
-      .catch(error => console.error('Error:', error));
-    }
-
-    // Mulai permainan dengan hitungan mundur
-    countdownAndStart();
+    // Memulai permainan ketika halaman selesai dimuat
+    window.onload = countdownAndStart;
   </script>
-
 </body>
 </html>
