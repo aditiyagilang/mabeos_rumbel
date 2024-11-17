@@ -81,6 +81,8 @@
                                                     <td>{{ $quiz->token }}</td>
                                                     <td>{{ $quiz->status }}</td>
                                                     <td>
+                                                    @if($quiz->type->types_name !== 'Kuis Kecermatan')
+
                                                     <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editUserModal"
                                                         data-id="{{ $quiz->quizs_id }}"
                                                         data-name="{{ $quiz->quizs_name }}"
@@ -90,8 +92,7 @@
                                                         data-token="{{ $quiz->token }}"
                                                         data-status="{{ $quiz->status }}">Ubah</button>
 
-
-
+                                                      
                                                         <form action="{{ route('quizzes.destroy', Crypt::encryptString($quiz->quizs_id)) }}" method="POST" style="display:inline;">
                                                             @csrf
                                                             @method('DELETE')
