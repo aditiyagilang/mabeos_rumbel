@@ -51,10 +51,15 @@
                     <div class="col-sm-12">
                         <div class="card">
                             <div class="card-body">
-                                <!-- <div class="d-flex justify-content-between align-items-center">
-                                    <h4 class="card-title">Tabel Skor</h4>
-                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">Tambah</button>
-                                </div> -->
+                                <!-- Input Pencarian -->
+                                <div class="d-flex align-items-center mb-3">
+                                    <input type="text" class="form-control me-2" placeholder="Cari Nama Siswa, Nama Quiz, Token, atau Skor..." id="searchInput" onkeyup="searchFunction()">
+                                    <button class="btn btn-outline-secondary" onclick="searchFunction()">
+                                        <i class="bi bi-search"></i> <!-- Bootstrap Icons -->
+                                    </button>
+                                </div>
+
+                                <!-- Tabel Skor -->
                                 <div class="table-responsive mt-3">
                                     <table class="table table-bordered table-hover table-striped user-table">
                                         <thead class="table-dark">
@@ -67,23 +72,23 @@
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="scoresTableBody">
                                             @foreach ($scores as $index => $score)
                                                 <tr>
                                                     <td>{{ $index + 1 }}</td>
-                                                    <td>{{ $score->user->name }}</td> <!-- Nama pengguna -->
-                                                    <td>{{ $score->quiz->quizs_name }}</td> <!-- Nama quiz -->
-                                                    <td>{{ $score->quiz->token }}</td> <!-- Token pengguna -->
-                                                    <td>{{ $score->score }}</td> <!-- Skor -->
+                                                    <td class="student-name">{{ $score->user->name }}</td> <!-- Nama siswa -->
+                                                    <td class="quiz-name">{{ $score->quiz->quizs_name }}</td> <!-- Nama quiz -->
+                                                    <td class="quiz-token">{{ $score->quiz->token }}</td> <!-- Token -->
+                                                    <td class="score-value">{{ $score->score }}</td> <!-- Skor -->
                                                     <td>
-                                                    <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editUserModal"
-                                                        data-id="{{ $score->scores_id }}"
-                                                        data-siswa="{{ $score->user->name }}"
-                                                        data-kuis="{{ $score->quiz->quizs_name }}"
-                                                        data-token="{{ $score->quiz->token }}"
-                                                        data-skor="{{ $score->score }}">
-                                                        Ubah
-                                                    </button>
+                                                        <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editUserModal"
+                                                            data-id="{{ $score->scores_id }}"
+                                                            data-siswa="{{ $score->user->name }}"
+                                                            data-kuis="{{ $score->quiz->quizs_name }}"
+                                                            data-token="{{ $score->quiz->token }}"
+                                                            data-skor="{{ $score->score }}">
+                                                            Ubah
+                                                        </button>
                                                         <form action="{{ route('scores.destroy', $score->scores_id) }}" method="POST" style="display:inline;">
                                                             @csrf
                                                             @method('DELETE')
@@ -189,6 +194,31 @@
     <script src="{{ 'assets/js/sidebarmenu.js' }}"></script>
     <!--Custom JavaScript -->
     <script src="{{ 'assets/js/custom.js' }}"></script>
+
+    
+<script>
+    function searchFunction() {
+        // Ambil nilai dari input pencarian
+        let searchInput = document.getElementById('searchInput').value.toLowerCase();
+        // Ambil semua baris tabel
+        let tableRows = document.querySelectorAll('#scoresTableBody tr');
+        
+        tableRows.forEach(row => {
+            // Ambil teks dari kolom Nama Siswa, Nama Quiz, Token, dan Skor
+            let studentName = row.querySelector('.student-name').textContent.toLowerCase();
+            let quizName = row.querySelector('.quiz-name').textContent.toLowerCase();
+            let quizToken = row.querySelector('.quiz-token').textContent.toLowerCase();
+            let scoreValue = row.querySelector('.score-value').textContent.toLowerCase();
+            
+            // Periksa apakah input pencarian ditemukan di salah satu kolom
+            if (studentName.includes(searchInput) || quizName.includes(searchInput) || quizToken.includes(searchInput) || scoreValue.includes(searchInput)) {
+                row.style.display = ''; // Tampilkan baris
+            } else {
+                row.style.display = 'none'; // Sembunyikan baris
+            }
+        });
+    }
+</script>
     <script>
     // Menangani event ketika tombol "Ubah" di klik
     $('#editUserModal').on('show.bs.modal', function (event) {

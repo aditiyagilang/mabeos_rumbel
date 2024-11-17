@@ -33,6 +33,52 @@ class QuizController extends Controller
         return view('admin.tabel-kuis', compact('quizzes', 'types'));
     }
 
+    public function indexPenilaian()
+{
+    if (!session()->has('users_id')) {
+        return redirect()->route('login')->with('error', 'You need to login first!');
+    }
+
+    // Mengambil data quiz dengan status 'end' atau end_date yang melebihi waktu sekarang
+    $quizzes = Quizs::with('type')
+        ->where('status', 'end')
+        ->orWhere('end_date', '<', now())  // Mengambil kuis dengan end_date yang lebih dari waktu sekarang
+        ->get();
+
+    // Enkripsi hash untuk setiap quiz berdasarkan ID
+    foreach ($quizzes as $quiz) {
+        $quiz->hash = Crypt::encryptString($quiz->id); // Enkripsi ID untuk digunakan sebagai hash
+    }
+
+    $types = Types::all();
+
+    // dd($quizzes);
+
+    // Mengirim data quiz dan tipe ke view
+    return view('admin.penilaian', compact('quizzes', 'types'));
+}
+
+public function updateShow(Request $request)
+{
+    $quizs_id = $request->input('quizs_id');
+    // Validasi input jika perlu
+
+    // Temukan quiz berdasarkan ID yang didekripsi dan perbarui
+    $quiz = Quizs::findOrFail($quizs_id);
+
+    // Cek apakah show_score saat ini 'true' atau 'false', kemudian ubah
+    $newStatus = $quiz->show_score === 'true' ? 'false' : 'true';
+
+    // Perbarui nilai show_score
+    $quiz->update([
+        'show_score' => $newStatus,
+    ]);
+
+    // Redirect dengan pesan sukses
+    return redirect()->back()->with('success', 'Quiz berhasil diubah');
+}
+
+
     /**
      * Show the form for creating a new quiz.
      */
@@ -67,7 +113,8 @@ class QuizController extends Controller
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
             'token' => $token,
-            'status' => $request->status
+            'status' => $request->status,
+            'show_score' => 'false'
         ]);
     
         return redirect()->route('quizzes.index')->with('success', 'Quiz berhasil ditambahkan');

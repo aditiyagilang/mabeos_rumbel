@@ -12,14 +12,14 @@
         content="Material Pro Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
     <meta name="robots" content="noindex,nofollow">
     <title>Material Pro Lite Template by WrapPixel</title>
-
+    
     <link href="{{ 'assets/css/style.min.css' }}" rel="stylesheet">
     <link rel="canonical" href="https://www.wrappixel.com/templates/materialpro-lite/" />
-    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/logo_mobeos.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-
+  
     <!-- <link href="{{ asset('assets/css/style.min.css') }}" rel="stylesheet"> -->
 
     <!-- <link href="{{ 'assets/css/style.css' }}" rel="stylesheet"> -->
@@ -68,41 +68,50 @@
                                     </div>
 
                                 </div>
-
+                        
                                 <div class="table-responsive mt-3">
-                                    <table class="table table-bordered table-hover table-striped user-table">
-                                        <thead class="table-dark">
-                                            <tr>
-                                                <th><input type="checkbox" id="selectAll"> Pilih Semua</th>
-                                                <th>ID Pertanyaan</th>
-                                                <th>Pertanyaan</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tbody>
-                                        @foreach ($questions as $question)
+                                <table class="table table-bordered table-hover table-striped user-table">
+                                    <thead class="table-dark">
                                         <tr>
-                                        <td><input type="checkbox" class="checkbox-item" data-id="{{ $question->questions_id }}"></td>
-                                            <td>{{ $question->questions_id }}</td>
-
-                                            <td>{{ $question->questions }}</td> <!-- Gantilah sesuai nama kolom pertanyaan di database -->
+                                            <th>Nama</th>
+                                            <th>Username</th>
+                                            <th>Email</th>
+                                            <th>Telepon</th>
+                                     
+                                            <th>Tanggal Lahir</th>
+                                            <th>Nilai</th>
+                                            <th>Aksi</th>
                                         </tr>
+                                    </thead>
+                                    <tbody id="userTableBody">
+                                        @foreach ($scores as $scores)
+                                            <tr>
+                                                <td>{{ $scores->name }}</td>
+                                                <td>{{ $scores->username }}</td>
+                                                <td>{{ $scores->email }}</td>
+                                                <td>{{ $scores->telp }}</td>
+                                             
+                                                <td>{{ $scores->birthdate }}</td>
+                                                <td>{{ $scores->score }}</td>
+                                                <td>   
+                                                    <form action="{{ route('index.answer') }}" method="POST" style="display:inline;">
+                                                        @csrf
+                                                        <input type="hidden" name="quiz_id" value="{{ Crypt::encryptString($quizId) }}">
+                                                        <input type="hidden" name="users_id" value="{{ Crypt::encryptString($scores->users_id) }}">
+                                                        <button type="submit" class="btn btn-secondary">Lihat</button>
+                                                    </form>
+                                                </td>
+                                                
+                                            </tr>
                                         @endforeach
-                                        <tbody id="questionTableBody">
-                                            @foreach ($questions as $question)
-                                                <tr>
-                                                    <td><input type="checkbox" class="checkbox-item" data-id="{{ $question->questions_id }}"></td>
-                                                    <td class="question-id">{{ $question->questions_id }}</td>
-                                                    <td class="question-text">{{ $question->questions }}</td> <!-- Gantilah sesuai nama kolom pertanyaan di database -->
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
+                                    </tbody>
+                                </table>
 
+                                </div>
+                          
 
                                 <!-- Pagination -->
-
+                               
                             </div>
                         </div>
                     </div>
@@ -158,12 +167,12 @@
         let searchInput = document.getElementById('searchInput').value.toLowerCase();
         // Ambil semua baris tabel
         let tableRows = document.querySelectorAll('#questionTableBody tr');
-
+        
         tableRows.forEach(row => {
             // Ambil teks dari ID dan Pertanyaan
             let questionId = row.querySelector('.question-id').textContent.toLowerCase();
             let questionText = row.querySelector('.question-text').textContent.toLowerCase();
-
+            
             // Periksa apakah teks dalam kolom ID atau Pertanyaan mengandung input pencarian
             if (questionId.includes(searchInput) || questionText.includes(searchInput)) {
                 row.style.display = ''; // Tampilkan baris

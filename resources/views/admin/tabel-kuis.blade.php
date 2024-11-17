@@ -97,40 +97,22 @@
                                                             @method('DELETE')
                                                             <button type="submit" class="btn btn-danger me-2">Hapus</button>
                                                         </form>
-
                                                         <form action="{{ route('details.index') }}" method="GET" style="display:inline;">
                                                             <input type="hidden" name="qid" value="{{ Crypt::encryptString($quiz->quizs_id) }}">
                                                             <button type="submit" class="btn btn-secondary">Detail</button>
                                                         </form>
-
-
-
-
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-
-                                    </table>
-                                </div>
-
-                                <!-- Pagination -->
-                                <nav aria-label="...">
-                                    <ul class="pagination">
-                                      <li class="page-item disabled">
-                                        <a class="page-link">Previous</a>
-                                      </li>
-                                      <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                      <li class="page-item" aria-current="page">
-                                        <a class="page-link" href="#">2</a>
-                                      </li>
-                                      <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                      <li class="page-item">
-                                        <a class="page-link" href="#">Next</a>
-                                      </li>
-                                    </ul>
-                                </nav>
+                                                    @else
+                                                        <span>Tidak ada aksi untuk Kuis Kecermatan</span>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </div>
+                            <!-- Pagination -->
+                        </div>
+
                         </div>
                     </div>
                 </div>
@@ -275,6 +257,7 @@
     <script src="{{ 'assets/js/custom.js' }}"></script>
 
     <script>
+
     // Ketika tombol Edit diklik
     const editModal = document.getElementById('editUserModal');
     editModal.addEventListener('show.bs.modal', function(event) {

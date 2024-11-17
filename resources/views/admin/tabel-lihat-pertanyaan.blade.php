@@ -50,29 +50,52 @@
                     <div class="col-sm-12">
                         <div class="card">
                             <div class="card-body">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h4 class="card-title">Tabel Detail Pertanyaan</h4>
-                                    <div class="d-flex align-items-center">
-                                        <input type="text" class="form-control me-2" placeholder="Cari..." id="searchInput">
-                                            <button class="btn btn-outline-secondary" onclick="searchFunction()">
-                                                <i class="bi bi-search"></i> <!-- Bootstrap Icons -->
-                                            </button>
-                                            <form action="{{ route('details.questions') }}" method="GET" style="display:inline;">
-                                                <input type="hidden" name="qid" value="{{ Crypt::encryptString($quizId) }}">
-                                                <button type="submit" class="btn btn-primary">Tambah</button>
-                                            </form>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h4 class="card-title">Tabel Detail Pertanyaan</h4>
+                                <div class="d-flex align-items-center">
+                                    <input type="text" class="form-control me-2" placeholder="Cari..." id="searchInput" onkeyup="searchFunction()">
+                                    <button class="btn btn-outline-secondary" onclick="searchFunction()">
+                                        <i class="bi bi-search"></i> <!-- Bootstrap Icons -->
+                                    </button>
+                                    <form action="{{ route('details.questions') }}" method="GET" style="display:inline;">
+                                        <input type="hidden" name="qid" value="{{ Crypt::encryptString($quizId) }}">
+                                        <button type="submit" class="btn btn-primary">Tambah</button>
+                                    </form>
+                                </div>
+                            </div>
 
+<<<<<<< HEAD
 
                                     </div>
                                 </div>
                                 <div class="table-responsive mt-3">
                                     <table class="table table-bordered table-hover table-striped user-table">
                                         <thead class="table-dark">
+=======
+                            <div class="table-responsive mt-3">
+                                <table class="table table-bordered table-hover table-striped user-table">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th>ID Pertanyaan</th>
+                                            <th>Pertanyaan</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="questionsTableBody">
+                                        @foreach($detailQuizs as $detail)
+>>>>>>> 345b185e334801025a6636a75e4fefc9f0246407
                                             <tr>
-                                                <th>ID Pertanyaan</th>
-                                                <th>Pertanyaan</th>
-                                                <th>Aksi</th>
+                                                <td class="question-id">{{ $detail->question->questions_id }}</td>
+                                                <td class="question-text">{{ $detail->question->questions }}</td>
+                                                <td>
+                                                    <form action="{{ route('questions.destroy', ['id' => $detail->question->questions_id]) }}" method="POST" style="display:inline;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger me-2 mt-2" onclick="return confirm('Apakah Anda yakin ingin menghapus?')">Hapus</button>
+                                                    </form>
+                                                </td>
                                             </tr>
+<<<<<<< HEAD
                                         </thead>
                                         <tbody>
                                             @foreach($detailQuizs as $detail)
@@ -92,24 +115,17 @@
                                         </tbody>
                                     </table>
                                 </div>
+=======
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+
+>>>>>>> 345b185e334801025a6636a75e4fefc9f0246407
 
 
                                 <!-- Pagination -->
-                                <nav aria-label="...">
-                                    <ul class="pagination">
-                                        <li class="page-item disabled">
-                                            <a class="page-link">Previous</a>
-                                        </li>
-                                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item" aria-current="page">
-                                            <a class="page-link" href="#">2</a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">Next</a>
-                                        </li>
-                                    </ul>
-                                </nav>
+                               
                             </div>
                         </div>
                     </div>
@@ -148,6 +164,27 @@
             </footer>
         </div>
     </div>
+    <script>
+    function searchFunction() {
+        // Ambil nilai dari input pencarian
+        let searchInput = document.getElementById('searchInput').value.toLowerCase();
+        
+        // Ambil semua baris tabel
+        let tableRows = document.querySelectorAll('#questionsTableBody tr');
+        
+        tableRows.forEach(row => {
+            // Ambil data pertanyaan dari elemen dengan class "question-text"
+            let questionText = row.querySelector('.question-text').textContent.toLowerCase();
+            
+            // Periksa apakah pertanyaan mencocokkan input pencarian
+            if (questionText.includes(searchInput)) {
+                row.style.display = ''; // Tampilkan baris
+            } else {
+                row.style.display = 'none'; // Sembunyikan baris
+            }
+        });
+    }
+</script>
     <script src="{{ 'assets/js/jquery.min.js' }}"></script>
     <!-- Bootstrap tether Core JavaScript -->
     <script src="{{ 'assets/js/bootstrap.bundle.min.js' }}"></script>

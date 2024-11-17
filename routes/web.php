@@ -19,6 +19,7 @@ Route::get('/', function () {
 Route::get('/register', [UserController::class, 'create'])->name('register');
 Route::post('/register', [UserController::class, 'store'])->name('register.store');
 Route::get('/login', [UserController::class, 'showLoginForm'])->name('login');
+Route::get('/user-list', [UserController::class, 'index'])->name('index.user-list');
 Route::post('/login', [UserController::class, 'login']);
 Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 
@@ -42,11 +43,13 @@ Route::delete('types/{hash}', [TypeController::class, 'destroy'])->name('types.d
 
 
 Route::get('quizzes', [QuizController::class, 'index'])->name('quizzes.index');
+Route::get('quizzesPenilaian', [QuizController::class, 'indexPenilaian'])->name('quizzes.indexPenilaian');
 Route::get('quizzes/create', [QuizController::class, 'create'])->name('quizzes.create');
 Route::post('quizzes', [QuizController::class, 'store'])->name('quizzes.store');
 Route::get('quizzes/{hash}', [QuizController::class, 'show'])->name('quizzes.show');
 Route::get('quizzes/{hash}/edit', [QuizController::class, 'edit'])->name('quizzes.edit');
 Route::put('/quizzes/{hash}', [QuizController::class, 'update'])->name('quizzes.update');
+Route::put('/quizzesShow/{hash}', [QuizController::class, 'updateShow'])->name('quizzes.updateShow');
 Route::delete('/quizzes/{hash}', [QuizController::class, 'destroy'])->name('quizzes.destroy');
 
 
@@ -98,6 +101,7 @@ Route::post('/update-password', [UserController::class, 'updatePassword'])->name
 
 
 
+Route::post('/answer', [AnswerController::class, 'index'])->name('index.answer');
 Route::post('/authtoken', [AnswerController::class, 'authtoken'])->name('validate.token');
 // Route::post('/authtoken', [AnswerController::class, 'authtoken'])->name('validate.token');
 Route::post('/start-quiz', [AnswerController::class, 'startQuiz'])->name('answer.startQuiz');
@@ -105,13 +109,15 @@ Route::post('/start-quiz', [AnswerController::class, 'startQuiz'])->name('answer
 // Route::post('/update-answer', [AnswerController::class, 'updateAnswer'])->name('submit.quiz');
 // Route::post('/answers', [AnswerController::class, 'updateAnswers'])->name('quiz.updateAnswers');
 Route::post('/updateAnswers', [AnswerController::class, 'updateAnswers'])->name('quiz.updateAnswers');
-
+Route::post('/toggle-score', [AnswerController::class, 'toggleScore'])->name('answers.toggleScore');
 
 Route::post('/finish-quiz', [AnswerController::class, 'finishQuiz'])->name('quiz.finish');
 Route::post('/update-score', [AnswerController::class, 'updateScore'])->name('update.score');
 
 Route::post('/update-scorePlus', [AnswerController::class, 'updateScorePlus'])->name('update.scorePlus');
 Route::post('/incrementAnswers', [AnswerController::class, 'incrementAnswers'])->name('update.incrementAnswers');
+Route::get('/answer', [AnswerController::class, 'index2'])->name('answer.index');
+
 
 // routes/web.php
 Route::get('/get-scores', [ScoreController::class, 'getScoresData']);
