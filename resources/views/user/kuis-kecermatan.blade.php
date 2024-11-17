@@ -35,7 +35,7 @@
     <h1>Trial Test <span id="answer-id-display"></span></h1>
     <div>Durasi: <span id="timer-display">01:00</span></div>
   </div>
-  
+
   <div class="content" style="display: none;">
     <!-- Section for Cards with Labels -->
     <div class="card-grid">
@@ -55,7 +55,7 @@
       <div class="choice" id="E" onclick="selectChoice('E')">E</div>
     </div>
   </div>
-  
+
   <div class="footer">
     <h3>Skor: <span id="score">0</span></h3>
   </div>
@@ -187,7 +187,7 @@ function startTimer() {
           'X-CSRF-TOKEN': '{{ csrf_token() }}' // Jangan lupa token CSRF
         },
         body: JSON.stringify({
-          score: score,           
+          score: score,
           answers_id: answer_id  // Mengirimkan ID jawaban yang dipilih
         })
       })
@@ -195,15 +195,15 @@ function startTimer() {
       .then(data => {
         console.log('Skor berhasil dikirim:', data);
         document.getElementById("score").style.display = 'none';
-     
+
       })
-     
+
       .catch(error => console.error('Error:', error));
     }
 
     function sendincrementAnswersToServer(correctAnswerId = null) {
       console.log('Answer ID:', answer_id);
-   
+
 
       fetch('/incrementAnswers', {
         method: 'POST',
@@ -212,7 +212,7 @@ function startTimer() {
           'X-CSRF-TOKEN': '{{ csrf_token() }}' // Jangan lupa token CSRF
         },
         body: JSON.stringify({
-                
+
           answers_id: answer_id  // Mengirimkan ID jawaban yang dipilih
         })
       })
@@ -220,13 +220,13 @@ function startTimer() {
       .then(data => {
         console.log('Skor berhasil dikirim:', data);
         document.getElementById("score").style.display = 'none';
-        
+
         // Mengecek jika answers sudah >= 10 dan melakukan redirect
         if (data.answers >= 10) {
             window.location.href = "{{ route('user.pemberitahuan') }}";
         }
       })
-     
+
       .catch(error => console.error('Error:', error));
     }
 

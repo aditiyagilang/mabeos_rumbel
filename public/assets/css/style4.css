@@ -2,56 +2,56 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #0D1B3D;
+    background-color: #3d71f4;
     color: white;
     text-align: center;
   }
-  
+
   .header {
     padding: 20px;
     font-size: 24px;
     display: flex;
     justify-content: space-between;
-    background-color: #1B264F;
+    background-color: #1a40cb;
   }
-  
+
   .content {
     margin-top: 20px;
   }
-  
+
   .card-grid, .answer-grid, .choice-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 10px;
     margin: 20px auto;
-    width: 80%;
+    width: 37%;
   }
-  
+
   .card, .answer, .choice {
-    border: 2px solid white;
+    border: 2px solid rgb(3, 185, 245);
     padding: 20px;
     font-size: 24px;
     text-align: center;
     cursor: pointer;
   }
-  
+
   .card {
     background-color: #1B264F;
   }
-  
+
   .answer {
     background-color: #14233C;
   }
-  
+
   .choice {
     background-color: #0D1B3D;
     transition: background-color 0.3s ease;
   }
-  
+
   .choice:hover {
     background-color: #1E5EFF;
   }
-  
+
   .footer {
     margin-top: 20px;
     font-size: 20px;
@@ -63,12 +63,12 @@ body {
     align-items: center;
     margin-bottom: 20px;
   }
-  
+
   .card-labels, .cards {
     display: flex;
     gap: 10px;
   }
-  
+
   .card, .label, .choice, .answer {
     display: flex;
     justify-content: center;
@@ -77,14 +77,19 @@ body {
     height: 50px;
     border: 1px solid #ccc;
     margin: 5px;
+    border: 2px solid white;
+    padding: 20px;
+    font-size: 24px;
+    text-align: center;
+    cursor: pointer;
   }
-  
+
   .choice {
     cursor: pointer;
     background-color: #f0f0f0;
+    color: #000;
   }
-  
+
   .choice:hover {
-    background-color: #ddd;
+    background-color: #3fb6e2;
   }
-  

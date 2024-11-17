@@ -12,7 +12,7 @@
     <meta name="robots" content="noindex,nofollow">
     <title>Material Pro Lite Template by WrapPixel</title>
     <link rel="canonical" href="https://www.wrappixel.com/templates/materialpro-lite/" />
-    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/logo_mobeos.png">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartist/dist/chartist.min.js"></script>
@@ -244,7 +244,7 @@ $(function () {
         url: '/get-scores', // URL untuk mendapatkan data skor
         method: 'GET',
         success: function(data) {
-            
+
             // Data yang diterima dari server
             const nilaiData = data;
             console.log(data);
@@ -372,7 +372,7 @@ $(function () {
     <script src="{{ 'assets/js/chartist-plugin-tooltip.min.js' }}"></script>
     <script src="{{ 'assets/js/d3.min.js' }}"></script>
     <script src="{{ 'assets/js/c3.min.js' }}"></script>
- 
+
 </body>
 
 </html>

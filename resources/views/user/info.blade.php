@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $quiz->quizs_name }} - Bimbel</title>
+    <title>{{ $quiz->quizs_name }} - MOBEOS RUMBEL</title>
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 </head>
 <body>
     <div class="formbold-main-wrapper">
         <div class="formbold-form-wrapper">
             <div class="quiz-container">
-              
+
                     <!-- Info Kuis -->
-                 
+
                         <div class="exam-info">
                             <h2 class="exam-title">{{ $quiz->quizs_name }} </h2>
                             <p class="exam-detail">Tanggal Mulai: {{ $startDateFormatted }}</p>
@@ -23,7 +23,7 @@
 
                             <p class="exam-detail">Jumlah Soal: {{ $questionCount }}</p>
                         </div>
-                  
+
 
                     <!-- Button Mulai dan Kembali -->
                     <div class="formbold-btn-wrapper">
@@ -36,7 +36,7 @@
                         </form>
 
                     </div>
-               
+
             </div>
         </div>
     </div>

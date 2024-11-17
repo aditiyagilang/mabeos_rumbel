@@ -4,10 +4,10 @@
         <div class="navbar-header" data-logobg="skin6">
             <a class="navbar-brand ms-4" href="/dashboard">
                 <b class="logo-icon">
-                    <img src="../assets/images/logo-light-icon.png" alt="homepage" class="dark-logo" />
+                    <img src="../assets/images/logo_mobeos.png" alt="homepage" class="dark-logo" />
                 </b>
-                <span class="logo-text">
-                    <img src="../assets/images/logo-light-text.png" alt="homepage" class="dark-logo" />
+                <span class="logo-text" style="font-size: 1.2rem; font-weight: bold; color: #fff;">
+                    MOBEOS RUMBEL
                 </span>
             </a>
             <a class="nav-toggler waves-effect waves-light text-white d-block d-md-none"

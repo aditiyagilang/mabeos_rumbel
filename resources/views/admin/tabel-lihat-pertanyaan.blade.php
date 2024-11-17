@@ -12,7 +12,7 @@
     <meta name="robots" content="noindex,nofollow">
     <title>Material Pro Lite Template by WrapPixel</title>
     <link rel="canonical" href="https://www.wrappixel.com/templates/materialpro-lite/" />
-    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/logo_mobeos.png">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     <link href="{{ 'assets/css/style.min.css' }}" rel="stylesheet">
@@ -62,7 +62,7 @@
                                                 <button type="submit" class="btn btn-primary">Tambah</button>
                                             </form>
 
-                                      
+
                                     </div>
                                 </div>
                                 <div class="table-responsive mt-3">
@@ -80,7 +80,7 @@
                                                     <td>{{ $detail->question->questions_id }}</td>
                                                     <td>{{ $detail->question->questions }}</td>
                                                     <td>
-                                                     
+
                                                         <form action="{{ route('questions.destroy', ['id' => $detail->question->questions_id]) }}" method="POST" style="display:inline;">
                                                             @csrf
                                                             @method('DELETE')

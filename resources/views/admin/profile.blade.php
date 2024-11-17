@@ -58,7 +58,7 @@
                             @csrf
                             <!-- Input file untuk memilih foto -->
                             <input type="file" id="uploadPhoto" name="photo" accept="image/*" style="display: none;" onchange="previewPhoto(event)" />
-                            
+
                             <!-- Tampilan foto -->
                             <div class="photo-container" onclick="document.getElementById('uploadPhoto').click();">
                                 <img id="profilePhoto" src="{{ asset($user->img_url) }}" alt="Click to change photo" width="150" height="150"/>
@@ -67,9 +67,9 @@
                                     <p>Click to change photo</p>
                                 </div>
                             </div>
-                            
+
                             <!-- Tombol submit untuk mengirim foto -->
-                            <button type="submit">Upload Photo</button>
+                            <button type="submit" class="btn btn-success mx-auto mx-md-0 text-white" style="margin-top: 10px;">Unggah Foto</button>
                         </form>
                                     <h4 class="card-title mt-2">{{ $user->name }}</h4>
                                     <h6 class="card-subtitle">{{ $user->level }}</h6>
@@ -170,7 +170,7 @@
         function previewAndUploadPhoto(event) {
             const fileInput = event.target;
             const file = fileInput.files[0];
-            
+
             if (!file) return;
 
             // Pratinjau Foto

@@ -11,9 +11,9 @@
     <meta name="description"
         content="Material Pro Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
     <meta name="robots" content="noindex,nofollow">
-    <title>Material Pro Lite Template by WrapPixel</title>
+    <title>MABEOS RUMBEL</title>
     <link rel="canonical" href="https://www.wrappixel.com/templates/materialpro-lite/" />
-    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/logo_mobeos.png">
     <link href="{{ 'assets/css/chartist.min.css' }}" rel="stylesheet">
     <link href="{{ 'assets/css/chartist-init.css' }}" rel="stylesheet">
     <link href="{{ 'assets/css/chartist-plugin-tooltip.css' }}" rel="stylesheet">
@@ -34,7 +34,7 @@
     </div>
     <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
         data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
-       
+
         @include('admin.navbar')
         @include('user.sidebar')
         <div class="page-wrapper">

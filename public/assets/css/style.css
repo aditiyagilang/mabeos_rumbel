@@ -238,6 +238,43 @@ textarea.formbold-form-input {
     resize: vertical;
 }
 
+/* Mengatur gaya indikator */
+.question-indicator ul {
+    display: flex;
+    flex-wrap: wrap; /* Untuk menyesuaikan ke baris baru jika tidak muat */
+    gap: 10px; /* Jarak antar kotak */
+    padding: 0;
+    margin: 0;
+    list-style-type: none; /* Hilangkan bullet */
+}
+
+.indicator {
+    width: 30px; /* Lebar kotak */
+    height: 30px; /* Tinggi kotak */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #f0f0f0; /* Warna latar kotak */
+    border: 2px solid #ccc; /* Border */
+    border-radius: 5px; /* Membuat kotak sedikit melengkung */
+    cursor: pointer; /* Mengubah kursor menjadi pointer */
+    transition: background-color 0.3s, border-color 0.3s; /* Animasi transisi */
+}
+
+.indicator.active {
+    background-color: #007bff; /* Warna latar aktif */
+    border-color: #0056b3; /* Warna border aktif */
+    color: #fff; /* Warna teks aktif */
+}
+
+.indicator:hover {
+    background-color: #e0e0e0; /* Warna latar saat hover */
+    border-color: #999; /* Warna border saat hover */
+}
+
+
 @media (max-width: 768px) {
     .formbold-main-wrapper {
         flex-direction: column;
