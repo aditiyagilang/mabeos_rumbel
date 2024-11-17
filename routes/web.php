@@ -173,4 +173,9 @@ Route::get('/kuis-cpns', function () {
 Route::get('/kuis-kecerdasan', function () {
     return view('user.kuis-kecerdasan');
 });
-
+Route::get('/riwayat_kecermatan', function () {
+    return view('user.riwayat_kecermatan');
+});
+Route::get('/grafik', function () {
+    return view('user.grafik');
+});
