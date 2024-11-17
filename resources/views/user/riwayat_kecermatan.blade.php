@@ -69,32 +69,28 @@
                                                 <th>No</th>
                                                 <th>Nama Kuis</th>
                                                 <th>Waktu Pengerjaan</th>
-                                                <th>Token</th>
                                                 <th>Grafik</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @foreach($quizzes as $index => $quiz)
                                             <tr>
-                                                <td>1</td>
-                                                <td>kuis kecermatan</td>
-                                                <td>xxxx</td>
-                                                <td>08.00</td>
+                                                <td>{{ $index + 1 }}</td>  <!-- Nomor urut -->
+                                                <td>{{ $quiz->quizs_name }}</td>  <!-- Nama Kuis -->
+                                                <td>{{ \Carbon\Carbon::parse($quiz->updated_at)->format('d F Y h:i A') }}</td>  <!-- Waktu Pengerjaan -->
                                                 <td>
-                                                    <a href="/grafik" class="btn btn-primary">Lihat</a>
+                                                    <a href="{{ route('grafik.show', $quiz->hash) }}" class="btn btn-primary">Lihat</a>
                                                 </td>
+
+
                                             </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>Deshmukh</td>
-                                                <td>wwwww</td>
-                                                <td>10.00</td>
-                                                <td>
-                                                    <a href="/grafik" class="btn btn-primary">Lihat</a>
-                                                </td>
-                                            </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
+
+
+
 
                                 <!-- Pagination -->
                                 <nav aria-label="...">
