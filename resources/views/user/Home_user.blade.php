@@ -23,6 +23,43 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <style>
+        .card {
+            height: 350px; /* Tetapkan tinggi tetap untuk setiap card */
+        }
+
+        .card .card-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Atur isi card agar merata */
+            text-align: center;
+        }
+
+        .card-text {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 3; /* Batas 3 baris teks */
+            -webkit-box-orient: vertical;
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-align: center;
+            align-items: center; /* Menambahkan ini agar gambar berada di tengah vertikal */
+        }
+
+        .card-body img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 15px; /* Memberikan jarak antara gambar dan teks */
+        }
+    </style>
+
 </head>
 
 <body>
@@ -54,140 +91,98 @@
                 </div>
             </div>
             <div class="container-fluid">
-                <!-- Row untuk tiga card status kuis -->
-                <div class="row mb-4">
-                    <div class="col-lg-4">
-                        <div class="card text-white bg-danger">
-                            <div class="card-body d-flex align-items-center">
-                                <i class="fa fa-play-circle fa-2x me-3"></i> <!-- Ikon Play untuk Kuis Dimulai -->
-                                <div>
-                                    <h5 class="card-title">Kuis Dimulai</h5>
-                                    <p class="card-text fs-4">20</p> <!-- Ganti angka dengan data dinamis jika diperlukan -->
-                                </div>
+                <div class="row">
+                    <!-- Rata-rata Nilai -->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Rata-rata Nilai</h5>
+                                <h1 class="display-3 text-primary">85</h1>
+                                <p class="card-text">Rata-rata nilai dari semua kuis yang telah Anda kerjakan.</p>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4">
-                        <div class="card text-white bg-warning">
-                            <div class="card-body d-flex align-items-center">
-                                <i class="fa fa-hourglass-half fa-2x me-3"></i> <!-- Ikon Hourglass untuk Kuis Berlangsung -->
-                                <div>
-                                    <h5 class="card-title">Kuis Berlangsung</h5>
-                                    <p class="card-text fs-4">10</p> <!-- Ganti angka dengan data dinamis jika diperlukan -->
-                                </div>
+                    <!-- Jumlah Kuis yang Telah Dikerjakan -->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Jumlah Kuis yang Telah Dikerjakan</h5>
+                                <h1 class="display-3 text-success">12</h1>
+                                <p class="card-text">Jumlah total kuis yang telah Anda selesaikan.</p>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4">
-                        <div class="card text-white bg-success">
-                            <div class="card-body d-flex align-items-center">
-                                <i class="fa fa-check-circle fa-2x me-3"></i> <!-- Ikon Check untuk Kuis Selesai -->
-                                <div>
-                                    <h5 class="card-title">Kuis Selesai</h5>
-                                    <p class="card-text fs-4">15</p> <!-- Ganti angka dengan data dinamis jika diperlukan -->
-                                </div>
+                    <!-- Pintasan Profil -->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <img src="https://via.placeholder.com/100" class="rounded-circle mb-3" alt="Foto Profil">
+                                <h5 class="card-title">John Doe</h5>
+                                <p class="card-text">Email: john.doe@example.com</p>
+                                <p class="card-text">ID User: 12345</p>
+                                <a href="/profile" class="btn btn-info mt-3">Lihat Profil</a>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Row untuk grafik dan informasi lainnya -->
+                <!-- Row untuk Kuis -->
                 <div class="row">
-                    <div class="col-lg-8">
+                    <!-- Card untuk Kuis Kecerdasan -->
+                    <div class="col-lg-3 col-md-6 mb-4">
                         <div class="card">
                             <div class="card-body">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="d-flex flex-wrap align-items-center">
-                                            <div>
-                                                <h3 class="card-title">Grafik Nilai</h3>
-                                                <h6 class="card-subtitle">Perbandingan Nilai Siswa Berdasarkan Kuis</h6>
-                                            </div>
-                                            <div class="ms-lg-auto mx-sm-auto mx-lg-0">
-                                                <!-- Filter untuk memilih kuis -->
-                                                <label for="quiz-filter" class="form-label me-2">Pilih Kuis:</label>
-                                                <select id="quiz-filter" class="form-select form-select-sm d-inline-block" style="width: auto;">
-                                                    <option value="Kuis 1">Kuis 1</option>
-                                                    <option value="Kuis 2">Kuis 2</option>
-                                                    <option value="Kuis 3">Kuis 3</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <!-- Area untuk grafik -->
-                                        <div class="amp-pxl-bar" style="height: 400px;">
-                                            <div class="chartist-tooltip"></div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <i class="mdi mdi-lightbulb-on fa-3x text-primary mb-3"></i>
+                                <h5 class="card-title">Kuis Kecerdasan</h5>
+                                <p class="card-text">
+                                    Kuis ini dirancang untuk mengukur kemampuan logika, pemecahan masalah, dan berpikir analitis.
+                                </p>
+                                <a href="/kuis-kecerdasan" class="btn btn-primary mt-3">Mulai</a>
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-lg-4">
-                        <!-- Card untuk jumlah pengguna -->
-                        <div class="card mb-4">
-                            <div class="card-body d-flex align-items-center">
-                                <i class="fa fa-users fa-2x text-primary me-3"></i> <!-- Ikon pengguna -->
-                                <div>
-                                    <h5 class="card-title">Total Pengguna</h5>
-                                    <p class="card-text fs-4">150</p> <!-- Ganti angka dengan data dinamis jika diperlukan -->
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card untuk ongoing quizzes -->
+                    <!-- Card untuk Kuis Kecermatan -->
+                    <div class="col-lg-3 col-md-6 mb-4">
                         <div class="card">
                             <div class="card-body">
-                                <h3 class="card-title">Kuis Berlangsung</h3>
-                                <h6 class="card-subtitle">Berikut terdapat list kuis yang sedang berlangsung. klik button untuk melihat token kuis.</h6>
-
-                                <ul class="list-group list-group-flush borderless-list">
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        Kuis 1
-                                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#tokenModal">Token</button>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        Kuis 2
-                                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#tokenModal">Token</button>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        Kuis 3
-                                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#tokenModal">Token</button>
-                                    </li>
-                                </ul>
+                                <i class="mdi mdi-eye fa-3x text-warning mb-3"></i>
+                                <h5 class="card-title">Kuis Kecermatan</h5>
+                                <p class="card-text">
+                                    Kuis ini fokus pada kemampuan memperhatikan detail, kecepatan berpikir, dan ketelitian.
+                                </p>
+                                <a href="/kuis-kecermatan" class="btn btn-warning mt-3">Mulai</a>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Modal untuk token -->
-                    <div class="modal fade" id="tokenModal" tabindex="-1" aria-labelledby="tokenModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="tokenModalLabel">Token Kuis</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <!-- Pencarian token -->
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control" placeholder="Cari token..." id="searchInput">
-                                        <button class="btn btn-outline-secondary" onclick="searchFunction()">
-                                            <i class="bi bi-search"></i> <!-- Bootstrap Icons -->
-                                        </button>
-                                    </div>
-                                    <p>Token: <span id="tokenValue">ABCD1234</span></p> <!-- Ganti token dengan data dinamis jika diperlukan -->
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                                </div>
+                    <!-- Card untuk Kuis Kepribadian -->
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <i class="mdi mdi-heart fa-3x text-success mb-3"></i>
+                                <h5 class="card-title">Kuis Kepribadian</h5>
+                                <p class="card-text">
+                                    Kuis ini mengungkap karakteristik, sikap, dan gaya berperilaku seseorang dalam berbagai situasi.
+                                </p>
+                                <a href="/kuis-kepribadian" class="btn btn-success mt-3">Mulai</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card untuk Kuis CPNS -->
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <i class="mdi mdi-clipboard-check fa-3x text-danger mb-3"></i>
+                                <h5 class="card-title">Kuis CPNS</h5>
+                                <p class="card-text">
+                                    Kuis ini dirancang khusus untuk persiapan tes seleksi CPNS, meliputi TWK, TIU, dan TKP.
+                                </p>
+                                <a href="/kuis-cpns" class="btn btn-danger mt-3">Mulai</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <footer class="footer"> © 2021 Material Pro Admin by <a href="https://www.wrappixel.com/">wrappixel.com </a>
+            <footer class="footer"> © 2021 Mobeos Rumbel by <a href="https://www.wrappixel.com/">wrappixel.com </a>
             </footer>
         </div>
     </div>
