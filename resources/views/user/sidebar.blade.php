@@ -54,6 +54,14 @@
                         <span class="hide-menu">Riwayat Kuis</span>
                     </a>
                 </li>
+               
+                <li class="sidebar-item">
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link {{ Request::is('quizzesKecermatan') ? 'active' : '' }}"
+                        href="/quizzesKecermatan" aria-expanded="false">
+                        <i class="mdi mdi-history"></i>
+                        <span class="hide-menu">Riwayat Kecermatan</span>
+                    </a>
+                </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link waves-effect waves-dark sidebar-link {{ Request::is('login') ? 'active' : '' }}"
                         href="/login" aria-expanded="false">

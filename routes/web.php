@@ -44,6 +44,7 @@ Route::delete('types/{hash}', [TypeController::class, 'destroy'])->name('types.d
 
 Route::get('quizzes', [QuizController::class, 'index'])->name('quizzes.index');
 Route::get('quizzesPenilaian', [QuizController::class, 'indexPenilaian'])->name('quizzes.indexPenilaian');
+Route::get('/quizzesKecermatan', [QuizController::class, 'indexKuisKecermatan'])->name('quizzes.indexKecermatan');
 Route::get('quizzes/create', [QuizController::class, 'create'])->name('quizzes.create');
 Route::post('quizzes', [QuizController::class, 'store'])->name('quizzes.store');
 Route::get('quizzes/{hash}', [QuizController::class, 'show'])->name('quizzes.show');
@@ -51,6 +52,9 @@ Route::get('quizzes/{hash}/edit', [QuizController::class, 'edit'])->name('quizze
 Route::put('/quizzes/{hash}', [QuizController::class, 'update'])->name('quizzes.update');
 Route::put('/quizzesShow/{hash}', [QuizController::class, 'updateShow'])->name('quizzes.updateShow');
 Route::delete('/quizzes/{hash}', [QuizController::class, 'destroy'])->name('quizzes.destroy');
+// Di file routes/web.php
+Route::get('/{quiz_hash}', [QuizController::class, 'getKecermatanData'])->name('grafik.show');
+
 
 
 Route::get('questions', [QuestionController::class, 'index'])->name('questions.index');
@@ -119,6 +123,9 @@ Route::post('/incrementAnswers', [AnswerController::class, 'incrementAnswers'])-
 Route::get('/answer', [AnswerController::class, 'index2'])->name('answer.index');
 
 
+// Route::get('/riwayat_kecermatan', function () {
+//     return view('user.riwayat_kecermatan');
+// });
 // routes/web.php
 Route::get('/get-scores', [ScoreController::class, 'getScoresData']);
 
@@ -172,9 +179,6 @@ Route::get('/kuis-cpns', function () {
 });
 Route::get('/kuis-kecerdasan', function () {
     return view('user.kuis-kecerdasan');
-});
-Route::get('/riwayat_kecermatan', function () {
-    return view('user.riwayat_kecermatan');
 });
 Route::get('/grafik', function () {
     return view('user.grafik');

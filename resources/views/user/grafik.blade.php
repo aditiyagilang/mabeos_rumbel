@@ -14,15 +14,10 @@
     <title>MABEOS RUMBEL</title>
     <link rel="canonical" href="https://www.wrappixel.com/templates/materialpro-lite/" />
     <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/logo_mobeos.png">
-    <link href="{{ 'assets/css/chartist.min.css' }}" rel="stylesheet">
-    <link href="{{ 'assets/css/chartist-init.css' }}" rel="stylesheet">
-    <link href="{{ 'assets/css/chartist-plugin-tooltip.css' }}" rel="stylesheet">
-    <link href="{{ 'assets/css/c3.min.css' }}" rel="stylesheet">
-    <link href="{{ 'assets/css/style.min.css' }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+
+    <link href="{{ asset('assets/css/style.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.js"></script>
 </head>
 
 <body>
@@ -59,22 +54,14 @@
                     <div class="col-sm-12">
                         <div class="card">
                             <div class="card-body">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="d-flex flex-wrap align-items-center">
-                                            <div>
-                                                <h3 class="card-title">Grafik Nilai</h3>
-                                                <h6 class="card-subtitle">Perbandingan Nilai tiap sesi</h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <!-- Area untuk grafik -->
-                                        <div class="amp-pxl-bar-new" style="height: 400px;">
-                                            <div class="chartist-tooltip"></div>
-                                        </div>
+                                <div class="d-flex flex-wrap align-items-center">
+                                    <div>
+                                        <h3 class="card-title">Grafik Nilai Kecermatan</h3>
+                                        <h6 class="card-subtitle">Perbandingan Nilai tiap sesi</h6>
                                     </div>
                                 </div>
+                                <div id="grafikLine" class="ct-chart ct-perfect-fourth"></div>
+
                             </div>
                         </div>
                     </div>
@@ -85,17 +72,44 @@
         </div>
     </div>
 
-    <script src="{{ 'assets/js/jquery.min.js' }}"></script>
-    <script src="{{ 'assets/js/bootstrap.bundle.min.js' }}"></script>
-    <script src="{{ 'assets/js/app-style-switcher.js' }}"></script>
-    <script src="{{ 'assets/js/waves.js' }}"></script>
-    <script src="{{ 'assets/js/sidebarmenu.js' }}"></script>
-    <script src="{{ 'assets/js/custom.js' }}"></script>
-    <script src="{{ 'assets/js/chartist.min.js' }}"></script>
-    <script src="{{ 'assets/js/chartist-plugin-tooltip.min.js' }}"></script>
-    <script src="{{ 'assets/js/d3.min.js' }}"></script>
-    <script src="{{ 'assets/js/c3.min.js' }}"></script>
-    <script src="{{ 'assets/js/dashboard1.js' }}"></script>
+    <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/js/app-style-switcher.js') }}"></script>
+    <script src="{{ asset('assets/js/waves.js') }}"></script>
+    <script src="{{ asset('assets/js/sidebarmenu.js') }}"></script>
+    <script src="{{ asset('assets/js/custom.js') }}"></script>
+   
+    <script src="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.js"></script>
+
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Data untuk grafik garis
+            const dataLineChart = {
+                labels: @json($labels),  // Pastikan Anda mengirimkan data labels dari Laravel
+                series: [
+                    @json($scores)  // Data yang ingin ditampilkan dalam bentuk grafik (nilai kecermatan)
+                ]
+            };
+
+            // Membuat grafik garis (Line Chart)
+            new Chartist.Line('#grafikLine', dataLineChart, {
+                fullWidth: true,
+                chartPadding: {
+                    right: 40
+                },
+                lineSmooth: Chartist.Interpolation.simple({
+                    divisor: 2
+                }),
+                axisY: {
+                    onlyInteger: true,
+                    offset: 20
+                }
+            });
+
+        });
+    </script>
+
 </body>
 
 </html>
